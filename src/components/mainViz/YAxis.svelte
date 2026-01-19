@@ -7,7 +7,7 @@
     return ticks.map((t) => ({
       value: t,
       yOffset: yScale(t) + yScale.bandwidth() / 2,
-      label: t === 0 ? 'Low' : t === 1 ? 'Medium' : t === 2 ? 'High' : String(t),
+      label: t === 0 ? 'Lower' : t === 1 ? 'Middle' : t === 2 ? 'Upper' : String(t),
     }));
   });
 </script>
