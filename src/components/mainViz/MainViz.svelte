@@ -9,6 +9,7 @@
 
   import TimeAxis from './TimeAxis.svelte';
   import YAxis from './YAxis.svelte';
+  import Articles from './Articles.svelte';
 
   let data = $state([]);
   let error = $state(null);
@@ -28,7 +29,9 @@
       case i === '1, 3':
       case i === '2, 1':
       case i === '3, 1':
-        return 3;
+        return 2;
+      default:
+        return 0;
     }
   };
 
@@ -51,7 +54,7 @@
 
   const width = 1600;
   const height = 800;
-  const margin = { top: 20, right: 40, bottom: 30, left: 60 };
+  const margin = { top: 50, right: 100, bottom: 50, left: 100 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -65,7 +68,7 @@
   });
   const xScale = $derived.by(() => {
     if (!minDate || !maxDate) return null;
-    return scaleTime().domain([minDate, maxDate]).range([0, 1600]);
+    return scaleTime().domain([minDate, maxDate]).range([0, innerWidth]);
   });
 
   const yScale = $derived.by(() => {
@@ -84,6 +87,9 @@
     </g>
     <g transform="translate({margin.left}, {margin.top})">
       <YAxis {yScale} {innerHeight} />
+    </g>
+    <g transform="translate({margin.left}, {margin.top})">
+      <Articles {data} {xScale} {yScale} />
     </g>
   </svg>
 {/if}
