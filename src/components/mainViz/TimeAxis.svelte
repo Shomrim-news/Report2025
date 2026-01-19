@@ -10,11 +10,10 @@
       label: xScale.tickFormat(12, '%b')(t),
     }));
   });
-  $inspect('labels', labels);
 </script>
 
 <line x1="0" y1="0" x2={innerWidth} y2="0" stroke="black" />
 {#each labels as label}
   <line x1={label.xOffset} y1="0" x2={label.xOffset} y2="6" stroke="black" />
-  <text x={label.xOffset} y="20" text-anchor="middle">{label.label}</text>
+  <text x={label.xOffset} y="20" text-anchor="middle" style="font-size: 12px;">{label.label}</text>
 {/each}
