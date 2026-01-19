@@ -2,8 +2,14 @@
 
 @import 'tailwindcss';
 
-:root {
-  --font-family-base: 'STIX Two Text', serif;
+@theme {
+  --font-body: 'STIX Two Text', ui-serif, system-ui, serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+  }
 }
 
 .container {

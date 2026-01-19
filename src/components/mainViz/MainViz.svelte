@@ -82,7 +82,7 @@
   <p class="error">Failed to load CSV: {error}</p>
 {:else}
   <svg viewBox="0 0 {width} {height}">
-    <g transform="translate({margin.left}, {margin.top + innerHeight / 2})">
+    <g transform="translate({margin.left}, {margin.top + innerHeight})">
       <TimeAxis {xScale} {innerWidth} />
     </g>
     <g transform="translate({margin.left}, {margin.top})">
