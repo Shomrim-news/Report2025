@@ -19,6 +19,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "d3-array": "^3.2.4",
+    "d3-axis": "^3.0.0",
+    "d3-dsv": "^3.0.1",
+    "d3-fetch": "^3.0.1",
+    "d3-scale": "^4.0.2",
+    "d3-time-format": "^4.1.0",
     "eslint": "^9.39.2",
     "tailwindcss": "^4.1.18"
   }
