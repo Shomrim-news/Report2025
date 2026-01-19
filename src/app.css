@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap');
+
+@import 'tailwindcss';
+
+:root {
+  --font-family-base: 'STIX Two Text', serif;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 0 16px;
+}
