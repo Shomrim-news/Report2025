@@ -1,7 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import { csv } from 'd3-fetch';
-  import { autoType } from 'd3-dsv';
   import { scaleTime, scaleBand } from 'd3-scale';
   import { min, max } from 'd3-array';
 
@@ -37,7 +36,6 @@
 
   onMount(async () => {
     try {
-      // autoType converts numeric/date-ish strings into numbers/dates where possible.
       data = await csv(dataUrl, (d) => ({
         ...d,
         Date: new Date(d.Date),
