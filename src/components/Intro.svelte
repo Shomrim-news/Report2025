@@ -3,19 +3,19 @@
   import signature from '$lib/assets/alona_sign.png';
 </script>
 
-<div class="mt-8">
+<div class="inner-container mt-8">
   <div class="flex flex-col items-center">
     <img src={logo} alt="Shomrim Logo" class="w-65 h-auto" />
     <h1>Annual Report 2025</h1>
   </div>
   <div class="mt-15">
     <p>
-      Shomrim continued to redefine what investigative journalism can look like in the digital age.
-      This year, we present our annual report in a format that reflects our work itself:
-      data-driven, transparent and accessible. For the first time, we have transformed our year of
-      reporting into an interactive online data experience - mapping investigations, visualizing
-      impact, and revealing the methods behind our journalism. By treating our own work as a
-      dataset, we aim not only to report on what we achieved, but to make our process and influence
+      <span class="text-lg font-medium">In 2025,</span> Shomrim continued to redefine what investigative
+      journalism can look like in the digital age. This year, we present our annual report in a format
+      that reflects our work itself: data-driven, transparent and accessible. For the first time, we
+      have transformed our year of reporting into an interactive online data experience - mapping investigations,
+      visualizing impact, and revealing the methods behind our journalism. By treating our own work as
+      a dataset, we aim not only to report on what we achieved, but to make our process and influence
       measurable, traceable, and open to the public we serve.
     </p>
     <p>
@@ -29,7 +29,7 @@
       Without them, democratic life cannot endure. This is the mission we continue to fight for -
       and we are determined to prevail.
     </p>
-    <img src={signature} alt="Signature of Alona Vinograd" class="w-28 h-auto" />
+    <img src={signature} alt="Signature of Alona Vinograd" class="w-24 h-auto" />
     <div class="text-sm -mt-2">Alona Vinograd</div>
   </div>
 </div>
