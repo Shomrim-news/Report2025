@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div class="text-xs leading-xs mt-14.5">
+      <div class="text-xs leading-xs md:mt-14.5">
         <div>USD Conversion Rate: 3.6</div>
         <div>* All figures as of January 2026, before financial audit</div>
         <div>** In 2025, reserves grew to include legal and operational reserves</div>
