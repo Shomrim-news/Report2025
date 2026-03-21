@@ -1,4 +1,4 @@
-<h3>Philanthropic Partners</h3>
+<h3 id="partners">Philanthropic Partners</h3>
 <div>We wish to thank all our partners; their invaluable support makes our mission possible!</div>
 
 <div>

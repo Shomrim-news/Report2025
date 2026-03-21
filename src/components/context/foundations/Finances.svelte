@@ -1,4 +1,4 @@
-<h3>Financial overview</h3>
+<h3 id="finances">Financial overview</h3>
 <p>
   In 2025, Shomrim operated with a total budget of <span class="font-bold">$2,694,500</span>,
   supporting its investigative reporting operations and editorial work.

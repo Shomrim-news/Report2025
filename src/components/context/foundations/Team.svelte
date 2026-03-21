@@ -1,4 +1,4 @@
-<h3>Team</h3>
+<h3 id="team">Team</h3>
 <div>
   <h4>Shomrim’s Newsroom and Staff</h4>
   <div class="flex flex-col sm:flex-row sm:gap-x-20">
@@ -52,18 +52,32 @@
   <ul class="w-fit">
     <li>Richard (Rick) Altabef, Broadcast news lawyer</li>
     <li>Ilana Dayan, Journalist, host of Channel 12 investigative TV show Uvda</li>
-    <li>Raviv Drucker, Journalist, Political Commentator and Host for the investigative television program HaMakor</li>
+    <li>
+      Raviv Drucker, Journalist, Political Commentator and Host for the investigative television
+      program HaMakor
+    </li>
     <li>Amos Harel, Journalist, Military Commentator for Haaretz</li>
-    <li>David Horovitz, Journalist, Founding Editor of Jerusalem-based news website The Times of Israel</li>
+    <li>
+      David Horovitz, Journalist, Founding Editor of Jerusalem-based news website The Times of
+      Israel
+    </li>
     <li>Isaac Lee, Journalist, Entrepreneur, and Film & Television Producer</li>
     <li>Bret Stephens, Columnist at the New York Times</li>
     <li>Robert J. Rosenthal, Former Executive Director, the Center for Investigative Reporting</li>
-    <li>Vivian Schiller, Executive Director, Communication, Technology and Innovation Program at Aspen Institute</li>
+    <li>
+      Vivian Schiller, Executive Director, Communication, Technology and Innovation Program at Aspen
+      Institute
+    </li>
     <li>Dina Temple-Raston, Senior Correspondent for The Record</li>
     <li>Richard Tofel, Principal, Gallatin Advisory LLC</li>
-    <li>Ellen Weiss, Chief of the Washington Bureau and Vice President of The E. W. Scripps Company</li>
+    <li>
+      Ellen Weiss, Chief of the Washington Bureau and Vice President of The E. W. Scripps Company
+    </li>
     <li>Ghada Zoabi, Founder and CEO of Bokra.net</li>
-    <li>Guy Zohar, Journalist and News Presenter, Host of current affairs show Me’hatsad Hasheni on KAN 11 channel</li>
+    <li>
+      Guy Zohar, Journalist and News Presenter, Host of current affairs show Me’hatsad Hasheni on
+      KAN 11 channel
+    </li>
   </ul>
 </div>
 

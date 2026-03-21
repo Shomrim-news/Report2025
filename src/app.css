@@ -43,6 +43,10 @@
     line-height: var(--leading-md);
   }
 
+  [id] {
+    scroll-margin-top: 80px;
+  }
+
   p {
     margin: 13px 0;
   }

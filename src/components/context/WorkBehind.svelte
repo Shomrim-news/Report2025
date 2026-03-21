@@ -1,4 +1,4 @@
-<section class="inner-container">
+<section id="our-work" class="inner-container">
   <h2>The work behind our investigations</h2>
   <p>
     In 2025, Shomrim published 175 investigative stories - each the product of sustained,
