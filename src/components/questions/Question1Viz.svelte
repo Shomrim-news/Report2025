@@ -4,12 +4,9 @@
   import { fly } from 'svelte/transition';
 
   import Atom from '$lib/assets/atom.png';
-  import { csvParse } from 'd3-dsv';
-  import rawData from '$lib/data/database_2025.csv?raw';
+  import { stories as data } from '$lib/data/stories.js';
 
   let { width = 0, height = 0 } = $props();
-
-  const data = csvParse(rawData).sort((a, b) => Number(a['#']) - Number(b['#']));
 
   const offsets = data.map(() => 2 + Math.random() * 6);
 
@@ -149,7 +146,7 @@
   function breathe() {
     // Subtle global wave radiating from center
     gsap.to(imgEls, {
-      y: '+=6',
+      y: '+=10',
       opacity: 0.45,
       duration: 3.5,
       ease: 'sine.inOut',
@@ -182,7 +179,10 @@
         gsap.to(imgEls[i], { opacity: 0.6, duration: 0.4, overwrite: 'auto' });
         hideTooltip(i);
       }}
-      onclick={(e) => { e.stopPropagation(); clickTooltip(item, col, row, i); }}
+      onclick={(e) => {
+        e.stopPropagation();
+        clickTooltip(item, col, row, i);
+      }}
     >
       <img
         bind:this={imgEls[i]}
