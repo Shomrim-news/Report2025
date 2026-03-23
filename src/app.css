@@ -19,8 +19,8 @@
   --leading-xs: 1.375rem; /* 22px */
   --leading-sm: 2rem; /* 32px */
   --leading-md: 1.75rem; /* 28px */
-  --leading-lg: 2.125rem; /* 34px */
-  --leading-xl: 4.125rem; /* 66px */
+  --leading-lg: 1.9rem; /* 30px */
+  --leading-xl: 2.9rem; /* 66px */
   --leading-2xl: 4.125rem; /* 66px */
 
   /* Colors */
@@ -104,6 +104,8 @@
   }
 
   .inner-container {
+    max-width: 900px;
+    margin: 0 auto;
     padding: 0;
   }
 
