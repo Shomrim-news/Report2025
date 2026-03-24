@@ -104,7 +104,7 @@
   }
 
   .inner-container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0;
   }
@@ -122,7 +122,7 @@
     }
 
     h3 {
-      margin: 26px 0;
+      margin: 36px 0 26px;
       font-size: var(--text-lg);
       line-height: var(--leading-lg);
     }
@@ -135,7 +135,7 @@
 
     .quote {
       font-size: var(--text-lg);
-      line-height: var(--leading-lg);
+      line-height: 36px;
     }
   }
 
