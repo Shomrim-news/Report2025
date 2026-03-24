@@ -302,7 +302,7 @@
     <button
       bind:this={imgEls[idx]}
       type="button"
-      class="absolute border-none bg-transparent p-0"
+      class="absolute border-none bg-transparent p-0 cursor-pointer"
       style:left="{positions[idx].x - btnW / 2}px"
       style:top="{positions[idx].y + atomH / 2 - btnH}px"
       style:width="{btnW}px"
