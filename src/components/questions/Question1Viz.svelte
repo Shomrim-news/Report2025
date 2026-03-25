@@ -40,6 +40,15 @@
   });
   let clickedIndex = $state(-1);
   let animationReady = $state(false);
+  let intersected = $state(false);
+  let animationStarted = false;
+
+  $effect(() => {
+    if (intersected && width > 0 && height > 0 && !animationStarted) {
+      animationStarted = true;
+      runAnimation();
+    }
+  });
 
   function showTooltip(e, item, col, row, i) {
     tooltip = {
@@ -94,7 +103,7 @@
       ([entry]) => {
         if (entry.isIntersecting) {
           observer.disconnect();
-          runAnimation();
+          intersected = true;
         }
       },
       { threshold: 0.2 },
