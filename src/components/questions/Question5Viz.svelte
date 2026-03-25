@@ -376,6 +376,7 @@
   let deactivateTl = null;
 
   let themesActivated = $state(false);
+  let animationReady = $state(false);
 
   // ── Tooltip ──────────────────────────────────────────────────────────
   let tooltip = $state({
@@ -390,6 +391,7 @@
     themeIds: [],
   });
   let clickedIndex = $state(-1);
+  let selectedThemeId = $state(null);
 
   function getTooltipPos(idx) {
     if (!container || !imgEls[idx]) return { x: 0, y: 0 };
@@ -487,6 +489,7 @@
   }
 
   function afterMigration() {
+    animationReady = true;
     breathe();
     startOutletCycling();
   }
@@ -621,6 +624,7 @@
       onComplete: () => {
         deactivateTl = null;
         themesActivated = false;
+        selectedThemeId = null;
         gsap.set(imgEls, { x: 0, y: 0 });
         breathe();
         startOutletCycling();
@@ -642,6 +646,30 @@
         if (el) tl.to(el, { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' }, 0.2);
       });
     });
+  }
+
+  function selectTheme(themeId) {
+    if (selectedThemeId === themeId) {
+      selectedThemeId = null;
+      gsap.to(imgEls, { opacity: 0.6, duration: 0.4, overwrite: 'auto' });
+      gsap.to(legendItemRefs, { opacity: 1, duration: 0.4, overwrite: 'auto' });
+    } else {
+      selectedThemeId = themeId;
+      atoms.forEach((_, idx) => {
+        gsap.to(imgEls[idx], {
+          opacity: atomThemeIds[idx].includes(themeId) ? 0.8 : 0.15,
+          duration: 0.4,
+          overwrite: 'auto',
+        });
+      });
+      themes.forEach((theme, themeIdx) => {
+        gsap.to(legendItemRefs[themeIdx], {
+          opacity: theme.id === themeId ? 1 : 0.15,
+          duration: 0.4,
+          overwrite: 'auto',
+        });
+      });
+    }
   }
 </script>
 
@@ -821,7 +849,8 @@
       out:fly={{ y: -4, duration: 300 }}
       onclick={activateThemes}
       type="button"
-      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300"
+      disabled={!animationReady}
+      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
     >
       Activate themes
     </button>
@@ -848,14 +877,20 @@
     </div>
     <div class="flex flex-col gap-0.5">
       {#each themes as theme, themeIdx}
-        <div bind:this={legendItemRefs[themeIdx]} class="flex items-end gap-2" style="opacity: 0;">
+        <button
+          bind:this={legendItemRefs[themeIdx]}
+          onclick={() => selectTheme(theme.id)}
+          type="button"
+          class="flex items-end gap-2 cursor-pointer bg-transparent border-none p-0 text-left"
+          style="opacity: 0;"
+        >
           <div style:width="8px" style:height="60px" style:background-color={theme.color}></div>
           <div
             class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1"
           >
             {theme.label}
           </div>
-        </div>
+        </button>
       {/each}
     </div>
   </div>
