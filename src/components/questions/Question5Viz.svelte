@@ -235,7 +235,7 @@
           lx: 4 * LABEL_MARGIN,
           ly: 4 * LABEL_MARGIN + frac * iH,
           cx: LABEL_MARGIN + CLUSTER_DEPTH,
-          cy: LABEL_MARGIN + frac * iH,
+          cy: 4 * LABEL_MARGIN + frac * iH,
         };
       }
       // right
@@ -243,7 +243,7 @@
         lx: w - 2 * LABEL_MARGIN,
         ly: 4 * LABEL_MARGIN + frac * iH,
         cx: w - LABEL_MARGIN - CLUSTER_DEPTH,
-        cy: LABEL_MARGIN + frac * iH,
+        cy: 4 * LABEL_MARGIN + frac * iH,
       };
     }
 
@@ -257,16 +257,29 @@
       side: 'bottom',
       ...slotPos('bottom', i, BOTTOM_SLOTS.length),
     }));
-    const leftDefs = LEFT_SLOTS.map((s, i) => ({
-      ...s,
-      side: 'left',
-      ...slotPos('left', i, LEFT_SLOTS.length),
-    }));
-    const rightDefs = RIGHT_SLOTS.map((s, i) => ({
-      ...s,
-      side: 'right',
-      ...slotPos('right', i, RIGHT_SLOTS.length),
-    }));
+    const FIRST_SIDE_OFFSET = 100;
+    const sideTopCy = 4 * LABEL_MARGIN + FIRST_SIDE_OFFSET;        // Ynet / OtherLocal
+    const calcalistCy = LABEL_MARGIN + CLUSTER_DEPTH;              // top-left anchor
+    const gapTop = sideTopCy - calcalistCy;                        // Calcalist → Ynet gap
+    const corriereCy = sideTopCy + gapTop;                         // same gap below Ynet
+    const laRepubblicaLy = h - LABEL_MARGIN;                       // bottom label position
+    const smallGap = (laRepubblicaLy - corriereCy) / 2;
+    const japanTimesCy = corriereCy + smallGap;                     // midpoint Corriere → LaRepubblica
+
+    const sideCys = [sideTopCy, corriereCy, japanTimesCy];
+
+    const leftDefs = LEFT_SLOTS.map((s, i) => {
+      const pos = slotPos('left', i, LEFT_SLOTS.length);
+      pos.cy = sideCys[i];
+      pos.ly = sideCys[i];
+      return { ...s, side: 'left', ...pos };
+    });
+    const rightDefs = RIGHT_SLOTS.map((s, i) => {
+      const pos = slotPos('right', i, RIGHT_SLOTS.length);
+      pos.cy = sideCys[i];
+      pos.ly = sideCys[i];
+      return { ...s, side: 'right', ...pos };
+    });
 
     topSlotPos = topDefs.map(({ lx, ly }) => ({ lx, ly }));
     bottomSlotPos = botDefs.map(({ lx, ly }) => ({ lx, ly }));
