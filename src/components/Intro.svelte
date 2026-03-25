@@ -11,7 +11,7 @@
     </div>
     <div class="mt-15">
       <p>
-        <span class="text-lg font-medium">In 2025,</span> Shomrim continued to redefine what investigative
+        <span class="text-[26px] font-medium">In 2025,</span> Shomrim continued to redefine what investigative
         journalism can look like in the digital age. This year, we present our annual report in a format
         that reflects our work itself: data-driven, transparent and accessible. For the first time, we
         have transformed our year of reporting into an interactive online data experience - mapping investigations,
