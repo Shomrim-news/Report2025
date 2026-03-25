@@ -213,20 +213,18 @@
   let monthLabelEls = [];
   let bandLabelEls = [];
   let ctx;
-
   let defaultLayerRefs = [];
   let themeLayerRefs = atoms.map(() => []);
   let legendItemRefs = [];
+  let themesHeaderEl;
+  let deactivateBtnEl;
+  let cyclingTls = [];
+  let activateTl = null;
+  let deactivateTl = null;
 
-  // Reactive active theme state
-  let activeThemeId = $state(null);
-  let activeThemeStories = $derived(byTheme.get(activeThemeId)?.length ?? 0);
-  let activeThemePct = $derived(Math.round((activeThemeStories / atoms.length) * 100));
-  let activeThemeName = $derived(
-    themes.find((t) => t.id === activeThemeId)?.label.replace('\n', ' / ') ?? '',
-  );
+  let themesActivated = $state(false);
+  let animationReady = $state(false);
 
-  // Tooltip (same structure as Question1Viz)
   let tooltip = $state({
     visible: false,
     text: '',
@@ -236,10 +234,10 @@
     journalist: '',
     date: '',
     url: '',
+    themeIds: [],
   });
   let clickedIndex = $state(-1);
   let selectedThemeId = $state(null);
-  let animationReady = $state(false);
 
   function tooltipPos(idx) {
     return { x: positions[idx].x, y: positions[idx].y };
@@ -313,14 +311,12 @@
   });
 
   function runAnimation() {
-    const THEME_INTERVAL = 1.5;
-    const FADE_DUR = 0.6;
+    const byMonth = Array.from({ length: 12 }, () => []);
+    atoms.forEach((atom, idx) => byMonth[atom.monthIdx].push(imgEls[idx]));
 
     ctx = gsap.context(() => {
-      const tl = gsap.timeline({ onComplete: startCycling });
-      const currentLayer = atoms.map(() => -1); // -1 = default layer
+      const tl = gsap.timeline({ onComplete: breathe });
 
-      // Month labels fade in
       tl.fromTo(
         monthLabelEls,
         { opacity: 0 },
@@ -328,7 +324,6 @@
         0,
       );
 
-      // Band labels appear
       tl.fromTo(
         [...bandLabelEls].reverse(),
         { opacity: 0, y: 8 },
@@ -336,60 +331,84 @@
         0.7,
       );
 
-      themes.forEach((theme, themeIdx) => {
-        const t = themeIdx * THEME_INTERVAL;
-
-        // Legend item fades in
+      byMonth.forEach((els, m) => {
+        if (els.length === 0) return;
         tl.fromTo(
-          legendItemRefs[themeIdx],
-          { opacity: 0, y: 6 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-          t,
+          els,
+          { opacity: 0, y: 10 },
+          { opacity: 0.6, y: 0, duration: 1, ease: 'power2.out' },
+          1.8 + m * 0.18,
         );
+      });
+    });
+  }
 
-        // Update active theme label
-        tl.call(
-          () => {
-            activeThemeId = theme.id;
-          },
-          [],
-          t,
-        );
+  function breathe() {
+    animationReady = true;
+    gsap.killTweensOf(imgEls);
+    gsap.to(imgEls, {
+      y: 10,
+      opacity: 0.45,
+      duration: 3.5,
+      ease: 'sine.inOut',
+      stagger: { amount: 2, from: 'center' },
+      repeat: -1,
+      yoyo: true,
+    });
+  }
 
-        // Crossfade stories to this theme
-        for (const { atomIdx, layerIdx } of byTheme.get(theme.id) ?? []) {
-          if (currentLayer[atomIdx] === -1) {
-            tl.to(
-              defaultLayerRefs[atomIdx],
-              { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' },
-              t,
-            );
-          } else {
-            tl.to(
-              themeLayerRefs[atomIdx][currentLayer[atomIdx]],
-              { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' },
-              t,
-            );
-          }
-          tl.to(
-            themeLayerRefs[atomIdx][layerIdx],
-            { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' },
+  function activateThemes() {
+    deactivateTl?.kill();
+    deactivateTl = null;
+    themesActivated = true;
+    gsap.killTweensOf(imgEls);
+    gsap.set(imgEls, { y: 0, opacity: 0.6 });
+
+    const THEME_INTERVAL = 0.7;
+    const FADE_DUR = 0.6;
+
+    const currentLayer = atoms.map(() => -1);
+    activateTl = gsap.timeline({ onComplete: startCycling });
+
+    activateTl.fromTo(
+      [themesHeaderEl, deactivateBtnEl],
+      { opacity: 0 },
+      { opacity: 1, duration: 0.4, ease: 'power2.out' },
+      0,
+    );
+
+    themes.forEach((theme, themeIdx) => {
+      const t = themeIdx * THEME_INTERVAL;
+
+      activateTl.fromTo(
+        legendItemRefs[themeIdx],
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        t,
+      );
+
+      for (const { atomIdx, layerIdx } of byTheme.get(theme.id) ?? []) {
+        if (currentLayer[atomIdx] === -1) {
+          activateTl.to(
+            defaultLayerRefs[atomIdx],
+            { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' },
             t,
           );
-          currentLayer[atomIdx] = layerIdx;
+        } else {
+          activateTl.to(
+            themeLayerRefs[atomIdx][currentLayer[atomIdx]],
+            { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' },
+            t,
+          );
         }
-      });
-
-      // Clear active theme label
-      tl.call(
-        () => {
-          activeThemeId = null;
-        },
-        [],
-        themes.length * THEME_INTERVAL + 1.0,
-      );
+        activateTl.to(
+          themeLayerRefs[atomIdx][layerIdx],
+          { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' },
+          t,
+        );
+        currentLayer[atomIdx] = layerIdx;
+      }
     });
-    animationReady = true;
   }
 
   function startCycling() {
@@ -406,6 +425,7 @@
 
       const n = orderedLayers.length;
       const cycleTl = gsap.timeline({ repeat: -1, delay: Math.random() * holdDur });
+      cyclingTls.push(cycleTl);
 
       for (let i = 0; i < n; i++) {
         const fromLayer = orderedLayers[(n - 1 + i) % n];
@@ -422,6 +442,43 @@
           stepStart + holdDur,
         );
       }
+    });
+  }
+
+  function deactivateThemes() {
+    deactivateTl?.kill();
+    activateTl?.kill();
+    activateTl = null;
+    cyclingTls.forEach((tl) => tl.kill());
+    cyclingTls = [];
+
+    const FADE_DUR = 0.5;
+    deactivateTl = gsap.timeline({
+      onComplete: () => {
+        deactivateTl = null;
+        themesActivated = false;
+        selectedThemeId = null;
+        gsap.set(imgEls, { y: 0 });
+        breathe();
+      },
+    });
+    const tl = deactivateTl;
+
+    tl.to(
+      [themesHeaderEl, deactivateBtnEl, ...legendItemRefs],
+      { opacity: 0, duration: 0.3, ease: 'power2.inOut', stagger: 0.03 },
+      0,
+    );
+
+    atoms.forEach((_, atomIdx) => {
+      tl.to(
+        defaultLayerRefs[atomIdx],
+        { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' },
+        0.2,
+      );
+      themeLayerRefs[atomIdx].forEach((layerEl) => {
+        if (layerEl) tl.to(layerEl, { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' }, 0.2);
+      });
     });
   }
 
@@ -492,7 +549,11 @@
   function handleContainerMouseLeave() {
     if (!spreading) return;
     spreading = false;
-    gsap.to(imgEls, { x: 0, y: 0, opacity: 0.6, duration: 0.5, ease: 'power2.out', overwrite: true });
+    gsap.to(imgEls, {
+      x: 0, y: 0, opacity: 0.6,
+      duration: 0.5, ease: 'power2.out', overwrite: true,
+      onComplete: () => { if (!spreading && !themesActivated) breathe(); },
+    });
   }
 </script>
 
@@ -507,29 +568,6 @@
   onmousemove={handleContainerMouseMove}
   onmouseleave={handleContainerMouseLeave}
 >
-  {#if activeThemeId}
-    {#key activeThemeId}
-      <div
-        in:fly={{ y: -4, duration: 200 }}
-        class="absolute top-10 left-10 z-10 flex gap-2 items-end"
-      >
-        <div
-          style:width="8px"
-          style:height="60px"
-          style:background-color={themes.find((theme) => theme.id === activeThemeId).color}
-        ></div>
-        <div class="flex flex-col -mb-1 text-md">
-          <div class="font-semibold leading-8.5 whitespace-pre-line">
-            {activeThemeName}
-          </div>
-          <div class="text-grey-800 leading-5">
-            {activeThemeStories} stories · {activeThemePct}% of total stories
-          </div>
-        </div>
-      </div>
-    {/key}
-  {/if}
-
   {#each atoms as atom, idx}
     {@const has1 = hasImpact(atom.story, 1)}
     {@const has2 = hasImpact(atom.story, 2)}
@@ -544,7 +582,7 @@
       style:top="{positions[idx].y + atomH / 2 - btnH}px"
       style:width="{btnW}px"
       style:height="{btnH}px"
-      style="opacity: 0.6;"
+      style="opacity: 0;"
       onmouseenter={() => {
         if (!animationReady) return;
         if (clickedIndex !== -1 && clickedIndex !== idx) return;
@@ -672,9 +710,39 @@
     </div>
   {/each}
 
-  <!-- Theme color legend: bottom-left -->
+  <!-- "Activate themes" button — hidden once themes are activated -->
+  {#if !themesActivated}
+    <button
+      in:fly={{ y: 4, duration: 300 }}
+      out:fly={{ y: -4, duration: 300 }}
+      onclick={activateThemes}
+      type="button"
+      disabled={!animationReady}
+      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+    >
+      Activate themes
+    </button>
+  {/if}
+
+  <!-- Theme legend — always in DOM so GSAP can animate it; starts invisible -->
   <div class="absolute bottom-5.25 -left-40">
-    <div class="mb-3.5 ml-4 text-[11px] font-semibold tracking-widest text-grey-800">THEMES</div>
+    <div class="mb-3.5 flex items-center gap-2">
+      <button
+        bind:this={deactivateBtnEl}
+        onclick={deactivateThemes}
+        type="button"
+        class="text-grey-800 text-[11px] leading-none cursor-pointer bg-transparent border-none p-0"
+        style="opacity: 0;"
+        aria-label="Deactivate themes">✕</button
+      >
+      <div
+        bind:this={themesHeaderEl}
+        class="text-[11px] font-semibold tracking-widest text-grey-800"
+        style="opacity: 0;"
+      >
+        THEMES
+      </div>
+    </div>
     <div class="flex flex-col gap-0.5">
       {#each themes as theme, themeIdx}
         <button
