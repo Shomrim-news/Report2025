@@ -7,7 +7,7 @@
     combines rigorous reporting, professional development, and technological advancement.
   </p>
   <div class="flex gap-6.25 my-3.25">
-    <div class="font-semibold w-15.75">Training</div>
+    <div class="font-semibold w-17.5">Training</div>
     <div class="max-w-225">
       Israel lacks a sustainable training pathway for the next generation of investigative
       journalists, particularly from communities underrepresented in mainstream media. Shomrim
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="flex gap-6.25 my-3.25">
-    <div class="font-semibold w-15.75 shrink-0">AI Lab</div>
+    <div class="font-semibold w-17.5 shrink-0">AI Lab</div>
     <div class="max-w-225">
       Complementing this work, Shomrim’s AI Impact Lab serves as a hub for experimentation and
       implementation of AI tools in journalism. The Lab develops and co-creates tailored

@@ -6,7 +6,7 @@
 <div class="flex flex-col sm:flex-row sm:gap-x-12.5">
   <div>
     <h4>Income</h4>
-    <div class="max-w-95">
+    <div class="w-full sm:w-100">
       <div class="pr-0.5 flex justify-between items-end border-b border-grey-400/68">
         <div>
           <div>Laura and Gary Lauder</div>
@@ -43,7 +43,7 @@
 
   <div>
     <h4>Expenses</h4>
-    <div class="max-w-95">
+    <div class="w-full sm:w-100">
       <div class="pr-0.5 flex justify-between items-end border-b border-grey-400/68">
         <div>
           <div></div>
