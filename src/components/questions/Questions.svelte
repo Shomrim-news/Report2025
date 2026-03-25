@@ -6,6 +6,8 @@
   import Question5 from './Question5.svelte';
   import Question6 from './Question6.svelte';
   import Question7 from './Question7.svelte';
+  import Question8 from './Question8.svelte';
+  import Question9 from './Question9.svelte';
 </script>
 
 <section id="questions">
@@ -16,4 +18,6 @@
   <Question5 />
   <Question6 />
   <Question7 />
+  <Question8 />
+  <Question9 />
 </section>
