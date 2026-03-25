@@ -4,3 +4,21 @@
 [functions]
   node_bundler = "esbuild"
 
+# Cache immutable Vite assets forever (content-hashed filenames)
+[[headers]]
+  for = "/_app/immutable/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache other static assets for 1 week
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Don't cache HTML (always fetch fresh)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
