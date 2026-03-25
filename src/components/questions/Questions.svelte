@@ -4,6 +4,7 @@
   import Question3 from './Question3.svelte';
   import Question4 from './Question4.svelte';
   import Question5 from './Question5.svelte';
+  import Question6 from './Question6.svelte';
 </script>
 
 <section id="questions">
@@ -12,4 +13,5 @@
   <Question3 />
   <Question4 />
   <Question5 />
+  <Question6 />
 </section>
