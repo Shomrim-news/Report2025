@@ -39,6 +39,7 @@
     date: '',
   });
   let clickedIndex = $state(-1);
+  let animationReady = $state(false);
 
   function showTooltip(e, item, col, row, i) {
     tooltip = {
@@ -144,6 +145,7 @@
   }
 
   function breathe() {
+    animationReady = true;
     // Subtle global wave radiating from center
     gsap.to(imgEls, {
       y: '+=10',
@@ -169,6 +171,7 @@
       style:width="{atomW}px"
       style:height="{atomH}px"
       onmouseenter={(e) => {
+        if (!animationReady) return;
         if (clickedIndex !== -1 && clickedIndex !== i) return;
         gsap.to(imgEls[i], { opacity: 1, duration: 0.3, overwrite: 'auto' });
         showTooltip(e, item, col, row, i);

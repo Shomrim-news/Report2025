@@ -171,6 +171,7 @@
     url: '',
   });
   let clickedIndex = $state(-1);
+  let animationReady = $state(false);
 
   function tooltipPos(idx) {
     return { x: positions[idx].x, y: positions[idx].y };
@@ -280,6 +281,7 @@
   }
 
   function breathe() {
+    animationReady = true;
     gsap.to(imgEls, {
       y: '+=10',
       opacity: 0.45,
@@ -309,6 +311,7 @@
       style:height="{btnH}px"
       style="opacity: 0;"
       onmouseenter={() => {
+        if (!animationReady) return;
         if (clickedIndex !== -1 && clickedIndex !== idx) return;
         gsap.to(imgEls[idx], { opacity: 1, duration: 0.3, overwrite: 'auto' });
         showTooltip(atom, idx);

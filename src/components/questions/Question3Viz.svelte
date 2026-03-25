@@ -389,6 +389,7 @@
   }
 
   function startCycling() {
+    animationReady = true;
     const holdDur = 2;
     const transitionDur = 0.8;
 
@@ -486,6 +487,7 @@
       style:height="{btnH}px"
       style="opacity: 0.6;"
       onmouseenter={() => {
+        if (!animationReady) return;
         if (clickedIndex !== -1 && clickedIndex !== idx) return;
         gsap.to(imgEls[idx], { opacity: 1, duration: 0.3, overwrite: 'auto' });
         showTooltip(atom, idx);
