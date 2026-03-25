@@ -237,6 +237,7 @@
   });
   let clickedIndex = $state(-1);
   let selectedThemeId = $state(null);
+  let animationReady = $state(false);
 
   function tooltipPos(idx) {
     return { x: positions[idx].x, y: positions[idx].y };
@@ -386,10 +387,10 @@
         themes.length * THEME_INTERVAL + 1.0,
       );
     });
+    animationReady = true;
   }
 
   function startCycling() {
-    animationReady = true;
     const holdDur = 2;
     const transitionDur = 0.8;
 
@@ -445,9 +446,65 @@
       });
     }
   }
+
+  // ── Spread-on-hover ───────────────────────────────────────────────────
+  const SPREAD_RADIUS = 80;
+  const SPREAD_MAX = 38;
+  const HOVER_ZONE = 40;
+
+  let spreading = false;
+
+  function handleContainerMouseEnter() {
+    if (!animationReady) return;
+    spreading = true;
+    gsap.killTweensOf(imgEls);
+    gsap.to(imgEls, { x: 0, y: 0, opacity: 0.6, duration: 0.25, overwrite: true });
+  }
+
+  function handleContainerMouseMove(e) {
+    if (!spreading) return;
+    const rect = container.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    atoms.forEach((_, idx) => {
+      const el = imgEls[idx];
+      const curX = Number(gsap.getProperty(el, 'x')) || 0;
+      const curY = Number(gsap.getProperty(el, 'y')) || 0;
+      const distCur = Math.sqrt((positions[idx].x + curX - mx) ** 2 + (positions[idx].y + curY - my) ** 2);
+      if (distCur < HOVER_ZONE) return;
+
+      const dx = positions[idx].x - mx;
+      const dy = positions[idx].y - my;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < SPREAD_RADIUS && dist > 0) {
+        const t = 1 - dist / SPREAD_RADIUS;
+        gsap.to(el, { x: (dx / dist) * SPREAD_MAX * t, y: (dy / dist) * SPREAD_MAX * t, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+      } else {
+        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+      }
+    });
+  }
+
+  function handleContainerMouseLeave() {
+    if (!spreading) return;
+    spreading = false;
+    gsap.to(imgEls, { x: 0, y: 0, opacity: 0.6, duration: 0.5, ease: 'power2.out', overwrite: true });
+  }
 </script>
 
-<div bind:this={container} class="relative" style:width="{width}px" style:height="{height}px">
+<div
+  bind:this={container}
+  class="relative"
+  style:width="{width}px"
+  style:height="{height}px"
+  role="region"
+  aria-label="Stories visualization"
+  onmouseenter={handleContainerMouseEnter}
+  onmousemove={handleContainerMouseMove}
+  onmouseleave={handleContainerMouseLeave}
+>
   {#if activeThemeId}
     {#key activeThemeId}
       <div
