@@ -226,7 +226,7 @@
           lx: LABEL_MARGIN + frac * iW,
           ly: h - LABEL_MARGIN,
           cx: LABEL_MARGIN + frac * iW,
-          cy: h - LABEL_MARGIN - CLUSTER_DEPTH,
+          cy: h - LABEL_MARGIN - CLUSTER_DEPTH + 30,
         };
       }
       if (side === 'left') {
@@ -286,10 +286,17 @@
         x: slot.cx + (Math.random() - 0.5) * 30,
         y: slot.cy + (Math.random() - 0.5) * 30,
       }));
+      const PAD = 30;
       forceSimulation(nodes)
         .force('x', forceX(slot.cx).strength(0.8))
         .force('y', forceY(slot.cy).strength(0.8))
         .force('collide', forceCollide(26))
+        .force('bound', () => {
+          for (const node of nodes) {
+            node.x = Math.max(PAD, Math.min(w - PAD, node.x));
+            node.y = Math.max(PAD, Math.min(h - PAD, node.y));
+          }
+        })
         .stop()
         .tick(200);
       const m = new Map();
@@ -696,7 +703,9 @@
       const el = imgEls[idx];
       const curX = Number(gsap.getProperty(el, 'x')) || 0;
       const curY = Number(gsap.getProperty(el, 'y')) || 0;
-      const distCur = Math.sqrt((positions[idx].x + curX - mx) ** 2 + (positions[idx].y + curY - my) ** 2);
+      const distCur = Math.sqrt(
+        (positions[idx].x + curX - mx) ** 2 + (positions[idx].y + curY - my) ** 2,
+      );
       if (distCur < HOVER_ZONE) return;
 
       const dx = positions[idx].x - mx;
@@ -705,7 +714,13 @@
 
       if (dist < SPREAD_RADIUS && dist > 0) {
         const t = 1 - dist / SPREAD_RADIUS;
-        gsap.to(el, { x: (dx / dist) * SPREAD_MAX * t, y: (dy / dist) * SPREAD_MAX * t, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to(el, {
+          x: (dx / dist) * SPREAD_MAX * t,
+          y: (dy / dist) * SPREAD_MAX * t,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
       } else {
         gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
       }
@@ -716,8 +731,12 @@
     if (!spreading) return;
     spreading = false;
     gsap.to(imgEls, {
-      x: 0, y: 0, opacity: 0.6,
-      duration: 0.5, ease: 'power2.out', overwrite: true,
+      x: 0,
+      y: 0,
+      opacity: 0.6,
+      duration: 0.5,
+      ease: 'power2.out',
+      overwrite: true,
       onComplete: () => {
         if (!spreading && !themesActivated) {
           outletCycleTls.forEach((tl) => tl.kill());
@@ -859,12 +878,18 @@
 
   <!-- Top outlet labels -->
   {#each TOP_SLOTS as slot, i}
+    {@const isFirst = i === 0}
+    {@const isLast = i === TOP_SLOTS.length - 1}
     <div
       bind:this={topLabelEls[i]}
-      class="absolute text-md leading-5 font-medium text-center text-grey-800 whitespace-pre-line pointer-events-none"
-      style:left="{topSlotPos[i].lx}px"
+      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line pointer-events-none"
+      class:text-left={isFirst}
+      class:text-right={isLast}
+      class:text-center={!isFirst && !isLast}
+      style:left={isLast ? null : `${isFirst ? LABEL_MARGIN : topSlotPos[i].lx}px`}
+      style:right={isLast ? `${LABEL_MARGIN}px` : null}
       style:top="{topSlotPos[i].ly}px"
-      style="transform: translate(-50%, -50%); opacity: 0;"
+      style="transform: {isFirst || isLast ? 'translateY(-50%)' : 'translate(-50%, -50%)'}; opacity: 0;"
     >
       {slotLabel(slot)}
     </div>
@@ -872,12 +897,18 @@
 
   <!-- Bottom outlet labels -->
   {#each BOTTOM_SLOTS as slot, i}
+    {@const isFirst = i === 0}
+    {@const isLast = i === BOTTOM_SLOTS.length - 1}
     <div
       bind:this={bottomLabelEls[i]}
-      class="absolute text-md leading-5 font-medium text-center text-grey-800 whitespace-pre-line pointer-events-none"
-      style:left="{bottomSlotPos[i].lx}px"
+      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line pointer-events-none"
+      class:text-left={isFirst}
+      class:text-right={isLast}
+      class:text-center={!isFirst && !isLast}
+      style:left={isLast ? null : `${isFirst ? LABEL_MARGIN : bottomSlotPos[i].lx}px`}
+      style:right={isLast ? `${LABEL_MARGIN}px` : null}
       style:top="{bottomSlotPos[i].ly}px"
-      style="transform: translate(-50%, -50%); opacity: 0;"
+      style="transform: {isFirst || isLast ? 'translateY(-50%)' : 'translate(-50%, -50%)'}; opacity: 0;"
     >
       {slotLabel(slot)}
     </div>
@@ -887,9 +918,8 @@
   {#each LEFT_SLOTS as slot, i}
     <div
       bind:this={leftLabelEls[i]}
-      class="absolute text-md leading-5 font-medium text-right text-grey-800 whitespace-pre-line pointer-events-none"
-      style:left="0"
-      style:width="{LABEL_MARGIN - 8}px"
+      class="absolute text-[16px] leading-5 font-medium text-left text-grey-800 whitespace-pre-line pointer-events-none"
+      style:left="{LABEL_MARGIN}px"
       style:top="{leftSlotPos[i].ly}px"
       style="transform: translateY(-50%); opacity: 0;"
     >
@@ -901,8 +931,8 @@
   {#each RIGHT_SLOTS as slot, i}
     <div
       bind:this={rightLabelEls[i]}
-      class="absolute text-md leading-5 font-medium text-left text-grey-800 whitespace-pre-line pointer-events-none"
-      style:left="{width - LABEL_MARGIN + 8}px"
+      class="absolute text-[16px] leading-5 font-medium text-right text-grey-800 whitespace-pre-line pointer-events-none"
+      style:right="{LABEL_MARGIN}px"
       style:top="{rightSlotPos[i].ly}px"
       style="transform: translateY(-50%); opacity: 0;"
     >

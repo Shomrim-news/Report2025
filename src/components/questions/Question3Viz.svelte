@@ -471,7 +471,9 @@
       const el = imgEls[idx];
       const curX = Number(gsap.getProperty(el, 'x')) || 0;
       const curY = Number(gsap.getProperty(el, 'y')) || 0;
-      const distCur = Math.sqrt((positions[idx].x + curX - mx) ** 2 + (positions[idx].y + curY - my) ** 2);
+      const distCur = Math.sqrt(
+        (positions[idx].x + curX - mx) ** 2 + (positions[idx].y + curY - my) ** 2,
+      );
       if (distCur < HOVER_ZONE) return;
 
       const dx = positions[idx].x - mx;
@@ -480,7 +482,13 @@
 
       if (dist < SPREAD_RADIUS && dist > 0) {
         const t = 1 - dist / SPREAD_RADIUS;
-        gsap.to(el, { x: (dx / dist) * SPREAD_MAX * t, y: (dy / dist) * SPREAD_MAX * t, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to(el, {
+          x: (dx / dist) * SPREAD_MAX * t,
+          y: (dy / dist) * SPREAD_MAX * t,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
       } else {
         gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
       }
@@ -490,7 +498,14 @@
   function handleContainerMouseLeave() {
     if (!spreading) return;
     spreading = false;
-    gsap.to(imgEls, { x: 0, y: 0, opacity: 0.6, duration: 0.5, ease: 'power2.out', overwrite: true });
+    gsap.to(imgEls, {
+      x: 0,
+      y: 0,
+      opacity: 0.6,
+      duration: 0.5,
+      ease: 'power2.out',
+      overwrite: true,
+    });
   }
 </script>
 
@@ -516,7 +531,7 @@
           style:height="60px"
           style:background-color={themes.find((theme) => theme.id === activeThemeId).color}
         ></div>
-        <div class="flex flex-col -mb-1 text-md">
+        <div class="flex flex-col -mb-1 text-[16px]">
           <div class="font-semibold leading-8.5 whitespace-pre-line">
             {activeThemeName}
           </div>
@@ -647,7 +662,7 @@
   {#each bandDefs as band, bandIdx}
     <div
       bind:this={bandLabelEls[bandIdx]}
-      class="absolute text-md font-medium text-center text-grey-800"
+      class="absolute text-[16px] font-medium text-center text-grey-800"
       style:top="{bandIdx * (bandH + BAND_LABEL_H + BAND_GAP) + bandH}px"
       style:left="0"
       style:width="{width}px"
