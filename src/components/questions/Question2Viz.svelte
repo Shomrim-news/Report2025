@@ -473,7 +473,7 @@
     <svelte:element
       this={tooltip.expanded ? 'a' : 'div'}
       transition:fly={{ y: 6, duration: 180 }}
-      class="absolute z-10 max-w-60 px-3 py-2 text-sm leading-5"
+      class="tooltip absolute z-10 max-w-60 px-3 py-2 text-sm leading-5"
       class:pointer-events-none={!tooltip.expanded}
       class:cursor-pointer={tooltip.expanded}
       href={tooltip.expanded ? tooltip.url : undefined}

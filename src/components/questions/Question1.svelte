@@ -32,20 +32,37 @@
       >
     </div>
     <p>
-      In 2025, Shomrim published 175 investigative stories - each the product of sustained,
-      resource-intensive work rather than rapid-cycle reporting. Producing this volume required
-      months of rigorous research, careful verification and continued follow-up after publication to
-      ensure accuracy, relevance, and accountability. Every investigation is supported by a
-      disciplined editorial process, bringing together reporters, editors, data specialists, legal
-      counsel and fact-checkers who work collaboratively at every stage.
+      In 2025, Israel's institutions were tested — by war, by political crisis, by the slow erosion
+      of norms that usually go unnoticed until they're gone. Someone had to keep watching.
     </p>
     <p>
-      Meaningful impact is rarely immediate. In a political environment marked by fragmented public
-      attention, resistance to scrutiny and slow-moving institutional change, investigative
-      journalism aimed at long-term democratic impact is inherently costly and time-consuming.
-      Shomrim’s work in 2025 reflects this reality - prioritizing credibility, persistence and depth
-      over speed in order to produce journalism that endures and ultimately drives change.
+      Each mark on this canvas is a story Shomrim published this year. Not a data point — a story.
+      One that required a journalist, a source, a document that someone didn't want found, and the
+      decision to publish anyway. There are 175 of them. 97 generated measurable impact.
     </p>
-    <p class="text-amber-600">Another paragraph</p>
+    <p>
+      Some moved quietly. Others moved mountains. <a
+        href="https://www.shomrim.news/hebrew/hind-rajab"
+        target="_blank"
+        >An investigation into an organization systematically tracking Israeli soldiers abroad for
+        potential arrest</a
+      >
+      saw it removed from a European conference within nine days — the foundation's own statement
+      attributing the decision to reporting in the Israeli press.
+      <a href="https://www.shomrim.news/hebrew/stray-dogs-western-negev" target="_blank"
+        >A story about packs of stray dogs threatening communities along Israel's border</a
+      >
+      — families already living under the shadow of war — moved the Ministry of Agriculture to
+      launch a dedicated 15 million shekel program.
+      <a href="https://www.shomrim.news/hebrew/pfas-in-the-water" target="_blank"
+        >A nationwide investigation into dangerous levels of toxic chemicals in Israel's drinking
+        water</a
+      > pushed the Ministry of Environmental Protection to open regulatory proceedings on PFAS chemicals
+      — within two weeks of publication, and as a first step toward ratifying the Stockholm Convention.
+    </p>
+    <p>
+      Three stories. Three different systems of power. All held to account. This is not a record of
+      a year. It's proof of a system that worked. But not every story lands the same way.
+    </p>
   </div>
 </div>

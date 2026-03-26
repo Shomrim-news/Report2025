@@ -992,8 +992,11 @@
         <button
           bind:this={legendItemRefs[themeIdx]}
           onclick={() => selectTheme(theme.id)}
+          disabled={!themesActivated}
           type="button"
-          class="flex items-end gap-2 cursor-pointer bg-transparent border-none p-0 text-left"
+          class="flex items-end gap-2 bg-transparent border-none p-0 text-left"
+          class:cursor-pointer={themesActivated}
+          class:cursor-default={!themesActivated}
           style="opacity: 0;"
         >
           <div style:width="8px" style:height="60px" style:background-color={theme.color}></div>
@@ -1012,7 +1015,7 @@
     <svelte:element
       this={tooltip.expanded ? 'a' : 'div'}
       transition:fly={{ y: 6, duration: 180 }}
-      class="absolute z-10 max-w-60 px-3 py-2 text-sm leading-5"
+      class="tooltip absolute z-10 max-w-60 px-3 py-2 text-sm leading-5"
       class:pointer-events-none={!tooltip.expanded}
       class:cursor-pointer={tooltip.expanded}
       href={tooltip.expanded ? tooltip.url : undefined}
