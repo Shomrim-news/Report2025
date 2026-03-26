@@ -88,7 +88,12 @@
   const bandDefs = [
     { label: 'Explanatory', test: (s) => s['Story type']?.trim() === 'Explanatory' },
     { label: 'Follow-up', test: (s) => s['Story type']?.trim() === 'Follow up' },
-    { label: 'Feature', test: (s) => s['Story type']?.trim() === 'Feature' },
+    {
+      label: 'Feature',
+      test: (s) =>
+        s['Story type']?.trim() === 'Feature' ||
+        s['_2025'] === '105', // Feature w. Investigative Elements, counted as Feature
+    },
     { label: 'Investigative', test: (s) => s['Story type']?.trim() === 'Investigative' },
     {
       label: 'Short-Term Investigative',
@@ -214,8 +219,13 @@
   let themesHeaderEl;
   let deactivateBtnEl;
   let cyclingTls = [];
+  let driftTls = [];
   let activateTl = null;
   let deactivateTl = null;
+
+  const exceptionAtomIndices = [
+    atoms.findIndex((a) => a.story['_2025'] === '105'), // Feature w. Investigative Elements → drifts toward Investigative
+  ].filter((i) => i !== -1);
 
   let themesActivated = $state(false);
   let animationReady = $state(false);
@@ -341,7 +351,8 @@
   function breathe() {
     animationReady = true;
     gsap.killTweensOf(imgEls);
-    gsap.to(imgEls, {
+    const breatheEls = imgEls.filter((_, i) => !exceptionAtomIndices.includes(i));
+    gsap.to(breatheEls, {
       y: 10,
       opacity: 0.45,
       duration: 3.5,
@@ -350,6 +361,28 @@
       repeat: -1,
       yoyo: true,
     });
+    startDriftAnimation();
+  }
+
+  function startDriftAnimation() {
+    driftTls.forEach((tl) => tl.kill());
+    driftTls = [];
+    const HOLD = 4;
+    const TRANSITION = 2;
+    const driftY = bandH + BAND_LABEL_H + BAND_GAP;
+    exceptionAtomIndices.forEach((idx) => {
+      gsap.set(imgEls[idx], { y: 0, opacity: 0.6 });
+      const tl = gsap.timeline({ repeat: -1, delay: Math.random() * HOLD });
+      driftTls.push(tl);
+      const pts = [
+        { y: 0, opacity: 0.6 },
+        { y: driftY, opacity: 0.45 },
+      ];
+      for (let i = 0; i < 2; i++) {
+        const next = pts[(i + 1) % 2];
+        tl.to(imgEls[idx], { ...next, duration: TRANSITION, ease: 'sine.inOut' }, i * (HOLD + TRANSITION) + HOLD);
+      }
+    });
   }
 
   function activateThemes() {
@@ -357,6 +390,8 @@
     deactivateTl = null;
     themesActivated = true;
     gsap.killTweensOf(imgEls);
+    driftTls.forEach((tl) => tl.kill());
+    driftTls = [];
     gsap.set(imgEls, { y: 0, opacity: 0.6 });
 
     const THEME_INTERVAL = 0.7;
