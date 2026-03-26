@@ -36,29 +36,22 @@
       of norms that usually go unnoticed until they're gone. Someone had to keep watching.
     </p>
     <p>
-      Each mark on this canvas is a story Shomrim published this year. Not a data point — a story.
-      One that required a journalist, a source, a document that someone didn't want found, and the
-      decision to publish anyway. There are 175 of them. 97 generated measurable impact.
+      Each mark on this canvas is a story Shomrim published this year. Not a data point, but a
+      story. One that required a journalist, a source, a document that someone didn't want found,
+      and the decision to publish anyway. There are 175 of them. 97 generated measurable impact.
     </p>
     <p>
-      Some moved quietly. Others moved mountains. <a
-        href="https://www.shomrim.news/hebrew/hind-rajab"
-        target="_blank"
-        >An investigation into an organization systematically tracking Israeli soldiers abroad for
-        potential arrest</a
-      >
-      saw it removed from a European conference within nine days — the foundation's own statement
-      attributing the decision to reporting in the Israeli press.
-      <a href="https://www.shomrim.news/hebrew/stray-dogs-western-negev" target="_blank"
-        >A story about packs of stray dogs threatening communities along Israel's border</a
-      >
-      — families already living under the shadow of war — moved the Ministry of Agriculture to
-      launch a dedicated 15 million shekel program.
-      <a href="https://www.shomrim.news/hebrew/pfas-in-the-water" target="_blank"
-        >A nationwide investigation into dangerous levels of toxic chemicals in Israel's drinking
-        water</a
-      > pushed the Ministry of Environmental Protection to open regulatory proceedings on PFAS chemicals
-      — within two weeks of publication, and as a first step toward ratifying the Stockholm Convention.
+      Some moved quietly. Others moved mountains. <a href="https://www.shomrim.news/hebrew/hind-rajab" target="_blank" rel="noopener noreferrer">An investigation into an organization
+      systematically tracking Israeli soldiers abroad for potential
+      arrest</a> saw it removed from a European conference
+      within nine days — the foundation's own statement attributing the decision to reporting in the
+      Israeli press. <a href="https://www.shomrim.news/hebrew/stray-dogs-western-negev" target="_blank" rel="noopener noreferrer">A story about packs of stray dogs threatening communities along Israel's
+      border</a>, families already living
+      under the shadow of war, moved the Ministry of Agriculture to launch a dedicated 15 million
+      shekel program. <a href="https://www.shomrim.news/hebrew/pfas-in-the-water" target="_blank" rel="noopener noreferrer">A nationwide investigation into dangerous levels of toxic chemicals in
+      Israel's drinking water</a> pushed the
+      Ministry of Environmental Protection to open regulatory proceedings on PFAS chemicals, within
+      two weeks of publication and as a first step toward ratifying the Stockholm Convention.
     </p>
     <p>
       Three stories. Three different systems of power. All held to account. This is not a record of
