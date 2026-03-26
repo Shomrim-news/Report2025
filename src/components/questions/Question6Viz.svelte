@@ -43,7 +43,10 @@
 
   let { width = 0, height = 0 } = $props();
 
-  const storiesToUse = stories.filter((story) => story['Story type'].includes('Follow up'));
+  const storiesToUse = stories.filter((story) =>
+    story['Story type'].toLowerCase().includes('follow up') ||
+    story['Story type'].toLowerCase().includes('follow-up'),
+  );
 
   const MONTHS = [
     'Jan',

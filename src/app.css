@@ -53,6 +53,10 @@
 
   a {
     text-decoration: underline;
+    transition: color 250ms ease;
+  }
+  a:hover {
+    color: #475569;
   }
   a.tooltip {
     text-decoration: none;
