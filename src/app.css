@@ -58,9 +58,12 @@
   a:hover {
     color: #64748b;
   }
-  a.tooltip {
+  .tooltip {
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color-grey-800) !important;
+  }
+  .tooltip:hover {
+    color: var(--color-text) !important;
   }
 
   h1,
