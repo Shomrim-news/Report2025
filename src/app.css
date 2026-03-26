@@ -56,10 +56,11 @@
     transition: color 250ms ease;
   }
   a:hover {
-    color: #475569;
+    color: #64748b;
   }
   a.tooltip {
     text-decoration: none;
+    color: var(--color-text);
   }
 
   h1,
