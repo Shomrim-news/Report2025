@@ -32,8 +32,26 @@
         class="quote-author">Fadi Amun, Investigative Reporter and Photographer</span
       >
     </div>
-    <p class="text-amber-600">Another paragraph</p>
-    <p class="text-amber-600">Another paragraph</p>
-    <p class="text-amber-600">Another paragraph</p>
+    <p>Not every community gets a reporter. Shomrim chose to be one.</p>
+
+    <p>
+      38 of Shomrim's 2025 investigations — one in five — focus on marginalized and underrepresented
+      communities. These are the stories that require the most deliberate choice to go looking.
+      <a href="https://www.shomrim.news/hebrew/this-is-how-women-are-smuggled-for-prostitution" target="_blank">Women smuggled into Israel for
+      prostitution</a>,
+      their trafficking invisible until someone followed the trail. <a href="https://www.shomrim.news/hebrew/belarus-kgb" target="_blank">Belarusian exiles targeted by
+      Lukashenko's KGB from thousands of miles away</a>.
+      <a href="https://www.shomrim.news/hebrew/elderly-shelters" target="_blank">The elderly left behind in wartime</a>.
+      Communities that no other newsroom had an eye on.
+    </p>
+
+    <p>
+      Three patterns emerge. Arab and Palestinian communities appear repeatedly — land registration
+      blocked, funding diverted, Bedouin villages left without bomb shelters. Haredi communities
+      appear as both subject and concern — abuse covered up, school networks investigated, health
+      infrastructure undermined from within. And a third cluster follows people the state created a
+      crisis for and then abandoned. Most of these stories are still waiting. Presence is not the
+      same as impact. But without presence, impact is impossible.
+    </p>
   </div>
 </div>
