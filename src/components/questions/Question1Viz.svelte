@@ -208,14 +208,14 @@
 
   <span
     bind:this={janEl}
-    class="absolute text-xs tracking-widest text-grey-800"
+    class="absolute text-xs text-grey-800 tracking-[3%]"
     style:top="{atomH / 2 + 6}px"
     style="opacity: 0; left: -10px; transform: translate(-100%, -50%);">JAN</span
   >
 
   <span
     bind:this={decEl}
-    class="absolute text-xs tracking-widest text-grey-800"
+    class="absolute text-xs tracking-[3%] text-grey-800"
     style:left="{decLeft}px"
     style:top="{(ROWS - 1) * stepY + atomH / 2 + 6}px"
     style="opacity: 0; transform: translateY(-50%);">DEC</span

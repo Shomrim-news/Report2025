@@ -656,11 +656,15 @@
       style:bottom="{LABEL_MARGIN}px"
       style="transform: {orient.align === 'center' ? 'translateX(-50%)' : 'none'}; opacity: 0;"
     >
-      <div class="text-[16px] leading-5 font-semibold text-grey-800">{orient.title}</div>
+      <div class="text-[16px] leading-5 font-semibold text-grey-800 tracking-[3%]">
+        {orient.title}
+      </div>
       <div class="text-[14px] text-grey-600 mt-0.5">
         ({counts[i]}{counts[i] === 1 ? ' Story' : ' Stories'})
       </div>
-      <div class="text-[11px] text-grey-500 mt-1.5 italic leading-4 max-w-37.5 mx-auto">
+      <div
+        class="text-[11px] text-grey-500 mt-1.5 italic leading-4 max-w-37.5 mx-auto tracking-[3%]"
+      >
         {orient.desc}
       </div>
     </div>
@@ -674,7 +678,7 @@
       onclick={activateThemes}
       type="button"
       disabled={!animationReady}
-      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-[3%] text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
     >
       Activate themes
     </button>

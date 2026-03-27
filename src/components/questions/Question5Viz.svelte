@@ -75,7 +75,7 @@
     ICIJ: 'ICIJ',
     Bokra: 'OtherGlobal',
     "B'Hadrei Haredim": 'OtherLocal',
-    "B\u2019Hadrei Haredim": 'OtherLocal',
+    'B\u2019Hadrei Haredim': 'OtherLocal',
     'Channel Knesset': 'OtherLocal',
     'Galatz (Army Radio)': 'OtherLocal',
     'KAN 11': 'OtherLocal',
@@ -258,13 +258,13 @@
       ...slotPos('bottom', i, BOTTOM_SLOTS.length),
     }));
     const FIRST_SIDE_OFFSET = 100;
-    const sideTopCy = 4 * LABEL_MARGIN + FIRST_SIDE_OFFSET;        // Ynet / OtherLocal
-    const calcalistCy = LABEL_MARGIN + CLUSTER_DEPTH;              // top-left anchor
-    const gapTop = sideTopCy - calcalistCy;                        // Calcalist → Ynet gap
-    const corriereCy = sideTopCy + gapTop;                         // same gap below Ynet
-    const laRepubblicaLy = h - LABEL_MARGIN;                       // bottom label position
+    const sideTopCy = 4 * LABEL_MARGIN + FIRST_SIDE_OFFSET; // Ynet / OtherLocal
+    const calcalistCy = LABEL_MARGIN + CLUSTER_DEPTH; // top-left anchor
+    const gapTop = sideTopCy - calcalistCy; // Calcalist → Ynet gap
+    const corriereCy = sideTopCy + gapTop; // same gap below Ynet
+    const laRepubblicaLy = h - LABEL_MARGIN; // bottom label position
     const smallGap = (laRepubblicaLy - corriereCy) / 2;
-    const japanTimesCy = corriereCy + smallGap;                     // midpoint Corriere → LaRepubblica
+    const japanTimesCy = corriereCy + smallGap; // midpoint Corriere → LaRepubblica
 
     const sideCys = [sideTopCy, corriereCy, japanTimesCy];
 
@@ -896,14 +896,16 @@
     {@const isLast = i === TOP_SLOTS.length - 1}
     <div
       bind:this={topLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line pointer-events-none"
+      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
       class:text-left={isFirst}
       class:text-right={isLast}
       class:text-center={!isFirst && !isLast}
       style:left={isLast ? null : `${isFirst ? LABEL_MARGIN : topSlotPos[i].lx}px`}
       style:right={isLast ? `${LABEL_MARGIN}px` : null}
       style:top="{topSlotPos[i].ly}px"
-      style="transform: {isFirst || isLast ? 'translateY(-50%)' : 'translate(-50%, -50%)'}; opacity: 0;"
+      style="transform: {isFirst || isLast
+        ? 'translateY(-50%)'
+        : 'translate(-50%, -50%)'}; opacity: 0;"
     >
       {slotLabel(slot)}
     </div>
@@ -915,14 +917,16 @@
     {@const isLast = i === BOTTOM_SLOTS.length - 1}
     <div
       bind:this={bottomLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line pointer-events-none"
+      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
       class:text-left={isFirst}
       class:text-right={isLast}
       class:text-center={!isFirst && !isLast}
       style:left={isLast ? null : `${isFirst ? LABEL_MARGIN : bottomSlotPos[i].lx}px`}
       style:right={isLast ? `${LABEL_MARGIN}px` : null}
       style:top="{bottomSlotPos[i].ly}px"
-      style="transform: {isFirst || isLast ? 'translateY(-50%)' : 'translate(-50%, -50%)'}; opacity: 0;"
+      style="transform: {isFirst || isLast
+        ? 'translateY(-50%)'
+        : 'translate(-50%, -50%)'}; opacity: 0;"
     >
       {slotLabel(slot)}
     </div>
@@ -932,7 +936,7 @@
   {#each LEFT_SLOTS as slot, i}
     <div
       bind:this={leftLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-left text-grey-800 whitespace-pre-line pointer-events-none"
+      class="absolute text-[16px] leading-5 font-medium text-left text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
       style:left="{LABEL_MARGIN}px"
       style:top="{leftSlotPos[i].ly}px"
       style="transform: translateY(-50%); opacity: 0;"
@@ -945,7 +949,7 @@
   {#each RIGHT_SLOTS as slot, i}
     <div
       bind:this={rightLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-right text-grey-800 whitespace-pre-line pointer-events-none"
+      class="absolute text-[16px] leading-5 font-medium text-right text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
       style:right="{LABEL_MARGIN}px"
       style:top="{rightSlotPos[i].ly}px"
       style="transform: translateY(-50%); opacity: 0;"
@@ -962,7 +966,7 @@
       onclick={activateThemes}
       type="button"
       disabled={!animationReady}
-      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold text-grey-800 tracking-[3%] uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
     >
       Activate themes
     </button>

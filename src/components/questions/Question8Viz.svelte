@@ -44,8 +44,34 @@
 
   let { width = 0, height = 0 } = $props();
 
-  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const MONTH_LABELS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  const MONTHS = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  const MONTH_LABELS = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
   const ASPECT = 88 / 56;
   const BAND_LABEL_H = 10;
   const BAND_GAP = 20;
@@ -81,7 +107,10 @@
   const bandDefs = [
     {
       label: 'Accountability in Action',
-      test: (s) => { const m = maxLevel(s); return m === 2 || m === 3; },
+      test: (s) => {
+        const m = maxLevel(s);
+        return m === 2 || m === 3;
+      },
     },
     { label: 'Public Exposure', test: (s) => maxLevel(s) === null },
     { label: 'Media Reach', test: (s) => maxLevel(s) === 1 },
@@ -146,7 +175,9 @@
 
   let innerWidth = $derived(width - 2 * PADDING_X);
   let colW = $derived(innerWidth / 12);
-  let bandH = $derived((height - 58 - bandDefs.length * (BAND_LABEL_H + BAND_GAP)) / bandDefs.length);
+  let bandH = $derived(
+    (height - 58 - bandDefs.length * (BAND_LABEL_H + BAND_GAP)) / bandDefs.length,
+  );
   let atomW = $derived(((width + OVERLAP * (COLS - 1)) / COLS) * 0.8);
   let atomH = $derived(atomW * ASPECT);
   let scale = $derived(atomW / 56);
@@ -395,8 +426,16 @@
         const fromLayer = orderedLayers[(n - 1 + i) % n];
         const toLayer = orderedLayers[i % n];
         const stepStart = i * (holdDur + transitionDur);
-        cycleTl.to(fromLayer, { opacity: 0, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
-        cycleTl.to(toLayer, { opacity: 1, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
+        cycleTl.to(
+          fromLayer,
+          { opacity: 0, duration: transitionDur, ease: 'sine.inOut' },
+          stepStart + holdDur,
+        );
+        cycleTl.to(
+          toLayer,
+          { opacity: 1, duration: transitionDur, ease: 'sine.inOut' },
+          stepStart + holdDur,
+        );
       }
     });
   }
@@ -419,9 +458,17 @@
       },
     });
     const tl = deactivateTl;
-    tl.to([themesHeaderEl, deactivateBtnEl, ...legendItemRefs], { opacity: 0, duration: 0.3, stagger: 0.03 }, 0);
+    tl.to(
+      [themesHeaderEl, deactivateBtnEl, ...legendItemRefs],
+      { opacity: 0, duration: 0.3, stagger: 0.03 },
+      0,
+    );
     atoms.forEach((_, atomIdx) => {
-      tl.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' }, 0.2);
+      tl.to(
+        defaultLayerRefs[atomIdx],
+        { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' },
+        0.2,
+      );
       themeLayerRefs[atomIdx].forEach((el) => {
         if (el) tl.to(el, { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' }, 0.2);
       });
@@ -490,7 +537,13 @@
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (dist < SPREAD_RADIUS && dist > 0) {
         const t = 1 - dist / SPREAD_RADIUS;
-        gsap.to(el, { x: (dx / dist) * SPREAD_MAX * t, y: (dy / dist) * SPREAD_MAX * t, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to(el, {
+          x: (dx / dist) * SPREAD_MAX * t,
+          y: (dy / dist) * SPREAD_MAX * t,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
       } else {
         gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
       }
@@ -561,15 +614,39 @@
       <!-- Default layer -->
       <div bind:this={defaultLayerRefs[idx]} class="absolute inset-0 pointer-events-none">
         {#if has3}
-          <img src={HaloImpact3} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2" style:width="{halo3W}px" style:height="{halo3H}px" />
+          <img
+            src={HaloImpact3}
+            alt=""
+            class="absolute bottom-0 left-1/2 -translate-x-1/2"
+            style:width="{halo3W}px"
+            style:height="{halo3H}px"
+          />
         {/if}
         {#if has2}
-          <img src={HaloImpact2} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2" style:width="{halo2W}px" style:height="{halo2H}px" />
+          <img
+            src={HaloImpact2}
+            alt=""
+            class="absolute bottom-0 left-1/2 -translate-x-1/2"
+            style:width="{halo2W}px"
+            style:height="{halo2H}px"
+          />
         {/if}
         {#if has1}
-          <img src={HaloImpact1} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2" style:width="{halo1W}px" style:height="{halo1H}px" />
+          <img
+            src={HaloImpact1}
+            alt=""
+            class="absolute bottom-0 left-1/2 -translate-x-1/2"
+            style:width="{halo1W}px"
+            style:height="{halo1H}px"
+          />
         {/if}
-        <img src={Atom} alt={atom.story['Title']} class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4" style:width="{atomW}px" style:height="{atomH}px" />
+        <img
+          src={Atom}
+          alt={atom.story['Title']}
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4"
+          style:width="{atomW}px"
+          style:height="{atomH}px"
+        />
       </div>
       <!-- Theme layers -->
       {#each atom.story.themeIds as tid, t}
@@ -579,15 +656,39 @@
           style="opacity: 0;"
         >
           {#if has3 && HALO_IMGS[tid]?.[3]}
-            <img src={HALO_IMGS[tid][3]} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2" style:width="{halo3W}px" style:height="{halo3H}px" />
+            <img
+              src={HALO_IMGS[tid][3]}
+              alt=""
+              class="absolute bottom-0 left-1/2 -translate-x-1/2"
+              style:width="{halo3W}px"
+              style:height="{halo3H}px"
+            />
           {/if}
           {#if has2 && HALO_IMGS[tid]?.[2]}
-            <img src={HALO_IMGS[tid][2]} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2" style:width="{halo2W}px" style:height="{halo2H}px" />
+            <img
+              src={HALO_IMGS[tid][2]}
+              alt=""
+              class="absolute bottom-0 left-1/2 -translate-x-1/2"
+              style:width="{halo2W}px"
+              style:height="{halo2H}px"
+            />
           {/if}
           {#if has1 && HALO_IMGS[tid]?.[1]}
-            <img src={HALO_IMGS[tid][1]} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2" style:width="{halo1W}px" style:height="{halo1H}px" />
+            <img
+              src={HALO_IMGS[tid][1]}
+              alt=""
+              class="absolute bottom-0 left-1/2 -translate-x-1/2"
+              style:width="{halo1W}px"
+              style:height="{halo1H}px"
+            />
           {/if}
-          <img src={ATOM_IMGS[tid]} alt="" class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4" style:width="{atomW}px" style:height="{atomH}px" />
+          <img
+            src={ATOM_IMGS[tid]}
+            alt=""
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4"
+            style:width="{atomW}px"
+            style:height="{atomH}px"
+          />
         </div>
       {/each}
     </button>
@@ -597,13 +698,14 @@
   {#each bandDefs as band, bandIdx}
     <div
       bind:this={bandLabelEls[bandIdx]}
-      class="absolute text-[16px] font-medium text-center text-grey-800"
+      class="absolute text-[16px] font-medium text-center text-grey-800 tracking-[3%]"
       style:top="{bandIdx * (bandH + BAND_LABEL_H + BAND_GAP) + bandH}px"
       style:left="0"
       style:width="{width}px"
       style="opacity: 0;"
     >
-      {band.label} <span class="text-sm font-normal">({bandCounts[bandIdx]} Stories)</span>
+      {band.label}
+      <span class="text-sm font-normal">({bandCounts[bandIdx]} Stories)</span>
     </div>
   {/each}
 
@@ -611,7 +713,7 @@
   {#each MONTH_LABELS as label, m}
     <div
       bind:this={monthLabelEls[m]}
-      class="absolute text-[11px] text-center text-grey-800"
+      class="absolute text-[11px] text-center text-grey-800 tracking-[3%]"
       style:left="{PADDING_X + m * colW}px"
       style:width="{colW}px"
       style:top="{height - 48}px"
@@ -629,7 +731,7 @@
       onclick={activateThemes}
       type="button"
       disabled={!animationReady}
-      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold text-grey-800 tracking-[3%] uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
     >
       Activate themes
     </button>
@@ -667,7 +769,9 @@
           style="opacity: 0;"
         >
           <div style:width="8px" style:height="60px" style:background-color={theme.color}></div>
-          <div class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1">
+          <div
+            class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1"
+          >
             {theme.label}
           </div>
         </button>
@@ -694,7 +798,8 @@
       {#if tooltip.expanded}
         <div style="width: 68px; height: 1px;" class="my-2 bg-grey-400"></div>
         <div class="mt-1.5">
-          {#if tooltip.journalist}By <span class="font-semibold">{tooltip.journalist}</span>,{' '}{/if}{tooltip.date}
+          {#if tooltip.journalist}By <span class="font-semibold">{tooltip.journalist}</span
+            >,{' '}{/if}{tooltip.date}
         </div>
       {/if}
     </svelte:element>

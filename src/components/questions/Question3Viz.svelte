@@ -662,20 +662,21 @@
   {#each bandDefs as band, bandIdx}
     <div
       bind:this={bandLabelEls[bandIdx]}
-      class="absolute text-[16px] font-medium text-center text-grey-800"
+      class="absolute text-[16px] font-medium text-center text-grey-800 tracking-[3%]"
       style:top="{bandIdx * (bandH + BAND_LABEL_H + BAND_GAP) + bandH}px"
       style:left="0"
       style:width="{width}px"
       style="opacity: 0;"
     >
-      {band.label} <span class="text-sm font-normal">({bandCounts[bandIdx]} Stories)</span>
+      {band.label}
+      <span class="text-sm font-normal">({bandCounts[bandIdx]} Stories)</span>
     </div>
   {/each}
 
   {#each MONTH_LABELS as label, m}
     <div
       bind:this={monthLabelEls[m]}
-      class="absolute text-[11px] text-center text-grey-800"
+      class="absolute text-[11px] text-center text-grey-800 tracking-[3%]"
       style:left="{PADDING_X + m * colW}px"
       style:width="{colW}px"
       style:top="{height - 48}px"

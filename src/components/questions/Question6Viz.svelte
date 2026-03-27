@@ -43,9 +43,10 @@
 
   let { width = 0, height = 0 } = $props();
 
-  const storiesToUse = stories.filter((story) =>
-    story['Story type'].toLowerCase().includes('follow up') ||
-    story['Story type'].toLowerCase().includes('follow-up'),
+  const storiesToUse = stories.filter(
+    (story) =>
+      story['Story type'].toLowerCase().includes('follow up') ||
+      story['Story type'].toLowerCase().includes('follow-up'),
   );
 
   const MONTHS = [
@@ -704,20 +705,21 @@
   {#each bandDefs as band, bandIdx}
     <div
       bind:this={bandLabelEls[bandIdx]}
-      class="absolute text-[16px] font-medium text-center text-grey-800"
+      class="absolute text-[16px] font-medium text-center text-grey-800 tracking-[3%]"
       style:top="{bandIdx * (bandH + BAND_LABEL_H + BAND_GAP) + bandH}px"
       style:left="0"
       style:width="{width}px"
       style="opacity: 0;"
     >
-      {band.label} <span class="text-sm font-normal">({bandCounts[bandIdx]} Stories)</span>
+      {band.label}
+      <span class="text-sm font-normal">({bandCounts[bandIdx]} Stories)</span>
     </div>
   {/each}
 
   {#each MONTH_LABELS as label, m}
     <div
       bind:this={monthLabelEls[m]}
-      class="absolute text-[11px] text-center text-grey-800"
+      class="absolute text-[11px] text-center text-grey-800 tracking-[3%]"
       style:left="{PADDING_X + m * colW}px"
       style:width="{colW}px"
       style:top="{height - 48}px"
@@ -735,7 +737,7 @@
       onclick={activateThemes}
       type="button"
       disabled={!animationReady}
-      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-widest text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-[3%] text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
     >
       Activate themes
     </button>
