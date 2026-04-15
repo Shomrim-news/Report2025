@@ -31,6 +31,10 @@
   --color-beige: #acaa94;
 }
 
+@utility theme-label-trim {
+  text-box: trim-both cap alphabetic;
+}
+
 @layer base {
   html {
     font-family: var(--font-body);

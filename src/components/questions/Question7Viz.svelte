@@ -717,7 +717,7 @@
         >
           <div style:width="8px" style:height="60px" style:background-color={theme.color}></div>
           <div
-            class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1 max-w-25"
+            class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1 max-w-25 tracking-[0.03em] theme-label-trim"
           >
             {theme.label}
           </div>
