@@ -67,8 +67,8 @@
         return m === 2 || m === 3;
       },
     },
-    { label: 'Public Exposure', test: (s) => maxLevel(s) === null },
     { label: 'Media Reach', test: (s) => maxLevel(s) === 1 },
+    { label: 'Public Exposure', test: (s) => maxLevel(s) === null },
   ];
 
   function monthIndex(s) {
