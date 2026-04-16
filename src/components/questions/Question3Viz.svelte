@@ -1,7 +1,7 @@
 <script>
   import { gsap } from 'gsap';
   import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
+
   import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
   import Atom from '$lib/assets/atom.png';
@@ -207,6 +207,8 @@
 
   // GSAP
   let container;
+  let labelEl;
+  let themesLabelEl;
   let imgEls = [];
   let monthLabelEls = [];
   let bandLabelEls = [];
@@ -312,6 +314,7 @@
 
   function runAnimation() {
     const THEME_INTERVAL = 3;
+    const THEME_DELAY = 3;
     const FADE_DUR = 0.6;
 
     ctx = gsap.context(() => {
@@ -334,8 +337,16 @@
         0.7,
       );
 
+      // "THEMES" label fades in just before the first theme
+      tl.fromTo(
+        themesLabelEl,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: 'power2.out' },
+        THEME_DELAY - 0.3,
+      );
+
       themes.forEach((theme, themeIdx) => {
-        const t = themeIdx * THEME_INTERVAL;
+        const t = THEME_DELAY + themeIdx * THEME_INTERVAL;
 
         // Legend item fades in
         tl.fromTo(
@@ -345,6 +356,11 @@
           t,
         );
 
+        // Fade out label before switching (skip for first theme)
+        if (themeIdx > 0) {
+          tl.to(labelEl, { opacity: 0, y: -4, duration: 0.4, ease: 'power2.in' }, t - 0.5);
+        }
+
         // Update active theme label
         tl.call(
           () => {
@@ -352,6 +368,14 @@
           },
           [],
           t,
+        );
+
+        // Fade in label with slide
+        tl.fromTo(
+          labelEl,
+          { opacity: 0, y: 6 },
+          { opacity: 1, y: 0, duration: 1.4, ease: 'power2.out' },
+          t + 0.05,
         );
 
         // Crossfade stories to this theme
@@ -378,14 +402,9 @@
         }
       });
 
-      // Clear active theme label
-      tl.call(
-        () => {
-          activeThemeId = null;
-        },
-        [],
-        themes.length * THEME_INTERVAL + 1.0,
-      );
+      // Fade out and clear active theme label
+      tl.to(labelEl, { opacity: 0, y: -4, duration: 0.6, ease: 'power2.in' }, THEME_DELAY + themes.length * THEME_INTERVAL + 0.6);
+      tl.call(() => { activeThemeId = null; }, [], THEME_DELAY + themes.length * THEME_INTERVAL + 1.2);
     });
     animationReady = true;
   }
@@ -520,28 +539,27 @@
   onmousemove={handleContainerMouseMove}
   onmouseleave={handleContainerMouseLeave}
 >
-  {#if activeThemeId}
-    {#key activeThemeId}
+  <div
+    bind:this={labelEl}
+    class="absolute top-10 left-10 z-10 flex gap-2 items-end"
+    style="opacity: 0;"
+  >
+    {#if activeThemeId}
       <div
-        in:fly={{ y: -4, duration: 200 }}
-        class="absolute top-10 left-10 z-10 flex gap-2 items-end"
-      >
-        <div
-          style:width="8px"
-          style:height="60px"
-          style:background-color={themes.find((theme) => theme.id === activeThemeId).color}
-        ></div>
-        <div class="flex flex-col -mb-1 text-[16px]">
-          <div class="font-semibold leading-8.5 whitespace-pre-line">
-            {activeThemeName}
-          </div>
-          <div class="text-grey-800 leading-5">
-            {activeThemeStories} stories · {activeThemePct}% of total stories
-          </div>
+        style:width="8px"
+        style:height="60px"
+        style:background-color={themes.find((theme) => theme.id === activeThemeId)?.color}
+      ></div>
+      <div class="flex flex-col -mb-1 text-[16px]">
+        <div class="font-semibold leading-8.5 whitespace-pre-line">
+          {activeThemeName}
+        </div>
+        <div class="text-grey-800 leading-5">
+          {activeThemeStories} stories · {activeThemePct}% of total stories
         </div>
       </div>
-    {/key}
-  {/if}
+    {/if}
+  </div>
 
   {#each atoms as atom, idx}
     {@const has1 = hasImpact(atom.story, 1)}
@@ -688,7 +706,7 @@
 
   <!-- Theme color legend: bottom-left -->
   <div class="absolute bottom-5.25 -left-40">
-    <div class="mb-3.5 ml-4 text-[11px] font-semibold tracking-widest text-grey-800">THEMES</div>
+    <div bind:this={themesLabelEl} class="mb-3.5 ml-4 text-[11px] font-semibold tracking-widest text-grey-800" style="opacity: 0;">THEMES</div>
     <div class="flex flex-col gap-0.5">
       {#each themes as theme, themeIdx}
         <button
