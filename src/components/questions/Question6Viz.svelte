@@ -368,7 +368,7 @@
     gsap.killTweensOf(imgEls);
     gsap.set(imgEls, { y: 0, opacity: 0.6 });
 
-    const THEME_INTERVAL = 0.7;
+    const THEME_INTERVAL = 1;
     const FADE_DUR = 0.6;
 
     const currentLayer = atoms.map(() => -1);
@@ -416,7 +416,7 @@
   }
 
   function startCycling() {
-    const holdDur = 2;
+    const holdDur = 4;
     const transitionDur = 0.8;
 
     atoms.forEach((atom, atomIdx) => {

@@ -311,7 +311,7 @@
   });
 
   function runAnimation() {
-    const THEME_INTERVAL = 1.5;
+    const THEME_INTERVAL = 3;
     const FADE_DUR = 0.6;
 
     ctx = gsap.context(() => {
@@ -391,7 +391,7 @@
   }
 
   function startCycling() {
-    const holdDur = 2;
+    const holdDur = 4;
     const transitionDur = 0.8;
 
     atoms.forEach((atom, atomIdx) => {
