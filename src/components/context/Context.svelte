@@ -1,17 +1,15 @@
 <script>
-  import WorkBehind from './WorkBehind.svelte';
-  import BeyondPublication from './BeyondPublication.svelte';
+  import KeyEvents from './KeyEvents.svelte';
   import LookingAhead from './LookingAhead.svelte';
-  import Foundations from './foundations/Foundations.svelte';
-  import Model from './Model.svelte';
-  import OtherProjects from './OtherProjects.svelte';
-  import Events from './Events.svelte';
+  import Team from './Team.svelte';
+  import PhilantropicPartners from './PhilantropicPartners.svelte';
+  import Finances from './Finances.svelte';
 </script>
 
-<WorkBehind />
-<BeyondPublication />
-<LookingAhead />
-<Foundations />
-<Model />
-<OtherProjects />
-<Events />
+<div class="inner-container">
+  <KeyEvents />
+  <LookingAhead />
+  <Team />
+  <PhilantropicPartners />
+  <Finances />
+</div>
