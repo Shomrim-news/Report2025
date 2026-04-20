@@ -223,7 +223,7 @@
   let activeThemeStories = $derived(byTheme.get(activeThemeId)?.length ?? 0);
   let activeThemePct = $derived(Math.round((activeThemeStories / atoms.length) * 100));
   let activeThemeName = $derived(
-    themes.find((t) => t.id === activeThemeId)?.label.replace('\n', ' / ') ?? '',
+    themes.find((t) => t.id === activeThemeId)?.label.replace(/\n/g, ' ') ?? '',
   );
 
   // Tooltip (same structure as Question1Viz)
@@ -551,7 +551,7 @@
         style:background-color={themes.find((theme) => theme.id === activeThemeId)?.color}
       ></div>
       <div class="flex flex-col -mb-1 text-[16px]">
-        <div class="font-semibold leading-8.5 whitespace-pre-line">
+        <div class="font-semibold leading-8.5">
           {activeThemeName}
         </div>
         <div class="text-grey-800 leading-5">
@@ -703,29 +703,6 @@
       {label}
     </div>
   {/each}
-
-  <!-- Theme color legend: bottom-left -->
-  <div class="absolute bottom-5.25 -left-40">
-    <div bind:this={themesLabelEl} class="mb-3.5 ml-4 text-[11px] font-semibold tracking-widest text-grey-800" style="opacity: 0;">THEMES</div>
-    <div class="flex flex-col gap-0.5">
-      {#each themes as theme, themeIdx}
-        <button
-          bind:this={legendItemRefs[themeIdx]}
-          onclick={() => selectTheme(theme.id)}
-          type="button"
-          class="flex items-end gap-2 cursor-pointer bg-transparent border-none p-0 text-left"
-          style="opacity: 0;"
-        >
-          <div style:width="8px" style:height="60px" style:background-color={theme.color}></div>
-          <div
-            class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1 max-w-25 tracking-[0.03em] theme-label-trim"
-          >
-            {theme.label}
-          </div>
-        </button>
-      {/each}
-    </div>
-  </div>
 
   {#if tooltip.visible}
     <svelte:element

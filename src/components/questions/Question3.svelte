@@ -1,6 +1,7 @@
 <script>
   import Canvas from '$lib/assets/canvas.jpg';
   import Question3Viz from './Question3Viz.svelte';
+  import QuestionLegend from './QuestionLegend.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
@@ -24,6 +25,11 @@
       <Question3Viz width={vizWidth} height={vizHeight} />
     </div>
   </div>
+  <div class="mt-3 mb-13">
+    <QuestionLegend
+      text="Watch each theme emerge and find its stories — eight themes, each in its own color. Stories shared between themes shift and cycle, reflecting the reality that no investigation lives in just one world. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+    />
+  </div>
   <div class="inner-container">
     <div class="quote">
       "Investigative journalism exists to uncover what those in power want to hide. At a time when
@@ -31,34 +37,5 @@
       role is to preserve the last embers of democratic values, ensuring they will one day
       reignite." <span class="quote-author">Shuki Sade, Investigative Reporter</span>
     </div>
-    <p>
-      The same 175 marks. This time, ask what system each one was really about — there are eight of
-      them, from gatekeepers and democratic norms to water, land, the military, the courts, Arab
-      society, and a civilian world absorbing the weight of a war that never stayed on the
-      battlefield. Each theme arrives in sequence, lighting up its stories across the canvas, and
-      with every new color, the picture grows. Stories tagged with more than one theme cycle between
-      their colors, because these systems rarely fail in isolation.
-    </p>
-
-    <p>
-      Two themes dominate the field: Democratic Values and Institutional Norms appear in 119
-      stories, Gatekeepers and Watchdog Institutions in 112. Together they exceed 100% of the
-      corpus, because they are, in practice, inseparable. <a href="https://www.shomrim.news/hebrew/the-ministry-of-education-will-finance-the-channel-14-conference" target="_blank">When the Education Ministry allocated
-      $70,000 of public funds to a conference promoting a partisan political
-      identity</a>,
-      the story touched three systems at once: a gatekeeper that failed, a democratic norm violated,
-      a court ultimately petitioned for an injunction.
-    </p>
-
-    <p>
-      138 out of 175 stories carry more than one theme — an accurate reflection of how power
-      actually operates. <a href="https://www.shomrim.news/hebrew/soldier-suicide" target="_blank">An investigation into a surge in soldier suicides, mostly
-      reservists</a>, sits at the intersection of the
-      military system, extreme social phenomena, and a state's democratic obligation to those it
-      sends to fight. <a href="https://www.shomrim.news/hebrew/battles-of-the-estates" target="_blank">A May exposé on nepotism and corruption in rural land
-      allocations</a> crossed three systems and
-      moved the Registrar of Cooperative Societies to open a formal investigation. Not one thing.
-      Never just one thing.
-    </p>
   </div>
 </div>

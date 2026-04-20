@@ -757,62 +757,6 @@
     </div>
   {/each}
 
-  <!-- "Activate themes" button — hidden once themes are activated -->
-  {#if !themesActivated}
-    <button
-      in:fly={{ y: 4, duration: 300 }}
-      out:fly={{ y: -4, duration: 300 }}
-      onclick={activateThemes}
-      type="button"
-      disabled={!animationReady}
-      class="absolute z-50 bottom-5.25 -left-40 text-[11px] font-semibold tracking-[3%] text-grey-800 uppercase border border-grey-800 px-3 py-1.5 cursor-pointer bg-transparent hover:-translate-y-1 transition-transform duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-    >
-      Activate themes
-    </button>
-  {/if}
-
-  <!-- Theme legend — always in DOM so GSAP can animate it; starts invisible -->
-  <div class="absolute bottom-5.25 -left-40">
-    <div class="mb-3.5 flex items-center gap-2">
-      <button
-        bind:this={deactivateBtnEl}
-        onclick={deactivateThemes}
-        type="button"
-        class="text-grey-800 text-[11px] leading-none cursor-pointer bg-transparent border-none p-0"
-        style="opacity: 0;"
-        aria-label="Deactivate themes">✕</button
-      >
-      <div
-        bind:this={themesHeaderEl}
-        class="text-[11px] font-semibold tracking-widest text-grey-800"
-        style="opacity: 0;"
-      >
-        THEMES
-      </div>
-    </div>
-    <div class="flex flex-col gap-0.5">
-      {#each themes as theme, themeIdx}
-        <button
-          bind:this={legendItemRefs[themeIdx]}
-          onclick={() => selectTheme(theme.id)}
-          disabled={!themesActivated}
-          type="button"
-          class="flex items-end gap-2 bg-transparent border-none p-0 text-left"
-          class:cursor-pointer={themesActivated}
-          class:cursor-default={!themesActivated}
-          style="opacity: 0;"
-        >
-          <div style:width="8px" style:height="60px" style:background-color={theme.color}></div>
-          <div
-            class="whitespace-pre-line text-left text-[11px] leading-4.5 text-grey-800 uppercase pb-1 max-w-25 tracking-[0.03em] theme-label-trim"
-          >
-            {theme.label}
-          </div>
-        </button>
-      {/each}
-    </div>
-  </div>
-
   {#if tooltip.visible}
     <svelte:element
       this={tooltip.expanded ? 'a' : 'div'}
