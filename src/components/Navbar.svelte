@@ -16,10 +16,8 @@
     'Which themes shaped Shomrim’s investigations in 2025?',
     'What kinds of journalism did this year require?',
     "How did Shomrim's reporting travel beyond its newsroom?",
-    'Which investigations demanded persistence over time, and why?',
-    'Does empathy empower accountability, and how?',
-    'How Shomrim gave voice to those not heard in mainstream media?',
-    'How did accountability stay public all along?',
+    'How do you turn reporting into accountability?',
+    'Can empathy be another means of impact?',
   ];
 
   let scrolled = $state(false);

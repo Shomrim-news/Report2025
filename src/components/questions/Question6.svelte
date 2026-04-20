@@ -1,12 +1,14 @@
 <script>
   import { onMount } from 'svelte';
   import Canvas from '$lib/assets/canvas.jpg';
+  import QuestionLegend from './QuestionLegend.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
   let VizComponent = $state(null);
   let sectionEl;
 
+  let activeThemes = $state(new Set());
   let vizWidth = $derived(containerWidth);
   let vizHeight = $derived(containerHeight);
 
@@ -27,7 +29,7 @@
 
 <div bind:this={sectionEl} class="mb-35">
   <div class="inner-container">
-    <h2>Which investigations demanded persistence over time, and why?</h2>
+    <h2>How do you turn reporting into accountability?</h2>
   </div>
   <div
     class="mt-10.5 relative"
@@ -38,9 +40,15 @@
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       {#if VizComponent}
-        <VizComponent width={vizWidth} height={vizHeight} />
+        <VizComponent width={vizWidth} height={vizHeight} {activeThemes} />
       {/if}
     </div>
+  </div>
+  <div class="mt-3 mb-13">
+    <QuestionLegend
+      bind:activeThemes
+      text="Watch the canvas fill band by band, bottom to top — this time, only the 25 stories Shomrim returned to after first publication. Within each band, stories appear month by month, January through December. The lower band holds follow-ups that kept an issue in the public space, the middle those that reached other media, and the top those that triggered real response. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+    />
   </div>
   <div class="inner-container">
     <div class="quote">
@@ -50,34 +58,5 @@
         >Haim Rivlin, Investigative Reporter</span
       >
     </div>
-    <p>Some stories close. Others open.</p>
-
-    <p>
-      Of the 25 follow-up investigations in this canvas, 15 are still moving, carried in Public
-      Exposure not because they failed to land but because the systems they described haven't
-      finished responding. Accountability is not always an event. Sometimes it's a vigil. <a href="https://www.shomrim.news/hebrew/lod-follow" target="_blank">An
-      investigation into negligence, discrimination, and an unlivable reality in
-      Lod</a> appeared in the appendices of the
-      municipality's formal petition against the Israel Police. <a href="https://www.shomrim.news/hebrew/ishr-program-continues" target="_blank">A follow-up into drug addiction
-      funding</a> forced the release of
-      withheld funds entirely. The follow-up is where the door opens further.
-    </p>
-
-    <p>
-      Water & Infrastructure accounts for 7 follow-ups from just 26 total stories in that theme, one
-      in four, because these are systems that corrode slowly and resist single moments of exposure.
-      <a href="https://www.shomrim.news/hebrew/pollution-continues" target="_blank">A return to the ongoing pollution of the Shikma
-      Stream</a> came back to a story the system
-      had moved on from, because the pollution hadn't. Five follow-ups moved into stakeholder
-      reaction, systemic change, or both. <a href="https://www.shomrim.news/hebrew/dankner-ichilov-donation" target="_blank">An investigation into the Dankner family court
-      case</a> carries a double
-      classification in this canvas, a short-term investigation with enough follow-up weight that
-      the database couldn't hold it in a single category. It sits between bands, as it should.
-    </p>
-
-    <p>
-      This is what persistence looks like in practice. The system may not respond today. But the
-      story is there, verified and timestamped, waiting.
-    </p>
   </div>
 </div>

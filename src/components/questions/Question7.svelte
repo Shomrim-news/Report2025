@@ -1,12 +1,14 @@
 <script>
   import { onMount } from 'svelte';
   import Canvas from '$lib/assets/canvas.jpg';
+  import QuestionLegend from './QuestionLegend.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
   let VizComponent = $state(null);
   let sectionEl;
 
+  let activeThemes = $state(new Set());
   let vizWidth = $derived(containerWidth);
   let vizHeight = $derived(containerHeight);
 
@@ -27,7 +29,7 @@
 
 <div bind:this={sectionEl} class="mb-35">
   <div class="inner-container">
-    <h2>Does empathy empower accountability, and how?</h2>
+    <h2>Can empathy be another means of impact?</h2>
   </div>
   <div
     class="mt-10.5 relative"
@@ -38,9 +40,15 @@
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       {#if VizComponent}
-        <VizComponent width={vizWidth} height={vizHeight} />
+        <VizComponent width={vizWidth} height={vizHeight} {activeThemes} />
       {/if}
     </div>
+  </div>
+  <div class="mt-3 mb-13">
+    <QuestionLegend
+      bind:activeThemes
+      text="Three groups, one spectrum — from policy and power on the left, to lived human experience on the right, with the stories where systems and lives collide in between. Watch each group emerge and fill with its stories. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+    />
   </div>
   <div class="inner-container">
     <div class="quote">
@@ -49,34 +57,5 @@
       making the unseen seen." <span class="quote-author">Chen Shalita, Investigative Reporter</span
       >
     </div>
-    <p>Not every story that matters moves an institution. Some move people.</p>
-
-    <p>
-      For this report, we added a layer the numbers don't capture: how close each story gets to a
-      human being. 76 selected stories — 63 translated investigations and 12 Hebrew-only stories
-      added as a deliberate stress test — placed along a single axis from policy and power on one
-      end, to lived human experience on the other, with the stories where institutional decisions
-      land on real people sitting in between. Each story read not just for what it exposed, but for
-      how it carried the people inside it.
-    </p>
-
-    <p>
-      <a href="https://www.shomrim.news/hebrew/majdal-shams-disaster" target="_blank">The families of Majdal Shams disaster victims saying Israel has forgotten
-      them</a> — intimate, unmediated, a grief
-      no institution acknowledged. <a href="https://www.shomrim.news/hebrew/teacher-violence" target="_blank">Children in Haredi schools carrying silent scars from violence
-      never named</a>. In the middle, where systems
-      and lives meet: <a href="https://www.shomrim.news/hebrew/there-will-be-a-catastrophe" target="_blank">a ministry's decision to withhold funding from a drug harm reduction
-      program</a> became a community
-      without support, a story that ended with the Knesset forcing the funds' release. <a href="https://www.shomrim.news/hebrew/soldiers-and-opioids" target="_blank">Wounded Gaza
-      soldiers fighting a second battle with
-      opioids</a>. The human cost made visible
-      only by staying close enough to see it.
-    </p>
-
-    <p>
-      Empathy doesn't guarantee impact. But it guarantees presence. And some of the most powerful
-      journalism in this canvas never triggered a policy change — it did something harder. It made
-      people impossible to ignore.
-    </p>
   </div>
 </div>

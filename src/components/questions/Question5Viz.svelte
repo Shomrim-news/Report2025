@@ -41,7 +41,7 @@
   import { stories } from '$lib/data/stories.js';
   import { themes, getThemeIds } from '$lib/data/themes.js';
 
-  let { width = 0, height = 0 } = $props();
+  let { width = 0, height = 0, activeThemes = new Set() } = $props();
 
   const storiesToUse = stories.filter(
     (story) =>
@@ -380,24 +380,19 @@
 
   // ── GSAP refs ────────────────────────────────────────────────────────
   let container;
-  let imgEls = [];
+  let imgEls = $state([]);
   let topLabelEls = [];
   let bottomLabelEls = [];
   let leftLabelEls = [];
   let rightLabelEls = [];
   let defaultLayerRefs = [];
   let themeLayerRefs = atoms.map(() => []);
-  let legendItemRefs = [];
-  let themesHeaderEl;
-  let deactivateBtnEl;
   let ctx;
   let outletCycleTls = [];
   let themeCycleTls = [];
-  let activateTl = null;
-  let deactivateTl = null;
 
-  let themesActivated = $state(false);
   let animationReady = $state(false);
+  let wasThemesActive = false;
 
   // ── Tooltip ──────────────────────────────────────────────────────────
   let tooltip = $state({
@@ -412,7 +407,6 @@
     themeIds: [],
   });
   let clickedIndex = $state(-1);
-  let selectedThemeId = $state(null);
 
   function getTooltipPos(idx) {
     if (!container || !imgEls[idx]) return { x: 0, y: 0 };
@@ -486,6 +480,8 @@
       observer.disconnect();
       document.removeEventListener('click', closeIfFocused);
       ctx?.revert();
+      outletCycleTls.forEach((tl) => tl.kill());
+      themeCycleTls.forEach((tl) => tl.kill());
     };
   });
 
@@ -550,67 +546,16 @@
     });
   }
 
-  // ── Theme activation ─────────────────────────────────────────────────
-  function activateThemes() {
-    deactivateTl?.kill();
-    deactivateTl = null;
-    themesActivated = true;
-    gsap.killTweensOf(imgEls);
-    outletCycleTls.forEach((tl) => tl.kill());
-    outletCycleTls = [];
-    gsap.set(imgEls, { x: 0, y: 0, opacity: 0.6 });
-
-    const THEME_INTERVAL = 1;
-    const FADE_DUR = 0.6;
-    const currentLayer = atoms.map(() => -1);
-    activateTl = gsap.timeline({ onComplete: startThemeCycling });
-
-    activateTl.fromTo(
-      [themesHeaderEl, deactivateBtnEl],
-      { opacity: 0 },
-      { opacity: 1, duration: 0.4, ease: 'power2.out' },
-      0,
-    );
-    themes.forEach((theme, themeIdx) => {
-      const t = themeIdx * THEME_INTERVAL;
-      activateTl.fromTo(
-        legendItemRefs[themeIdx],
-        { opacity: 0, y: 6 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-        t,
-      );
-      for (const { atomIdx, layerIdx } of byTheme.get(theme.id) ?? []) {
-        if (currentLayer[atomIdx] === -1) {
-          activateTl.to(
-            defaultLayerRefs[atomIdx],
-            { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' },
-            t,
-          );
-        } else {
-          activateTl.to(
-            themeLayerRefs[atomIdx][currentLayer[atomIdx]],
-            { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' },
-            t,
-          );
-        }
-        activateTl.to(
-          themeLayerRefs[atomIdx][layerIdx],
-          { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' },
-          t,
-        );
-        currentLayer[atomIdx] = layerIdx;
-      }
-    });
-  }
-
-  function startThemeCycling() {
+  // ── Theme layer control ───────────────────────────────────────────────
+  function startCyclingForActive(active) {
     const holdDur = 4;
     const transitionDur = 0.8;
     atoms.forEach((_, atomIdx) => {
       const tids = atomThemeIds[atomIdx];
-      if (tids.length < 2) return;
+      const activeTids = tids.filter((tid) => active.has(tid));
+      if (activeTids.length < 2) return;
       const orderedLayers = themes
-        .filter((t) => tids.includes(t.id))
+        .filter((t) => activeTids.includes(t.id))
         .map((t) => themeLayerRefs[atomIdx][tids.indexOf(t.id)]);
       const n = orderedLayers.length;
       const cycleTl = gsap.timeline({ repeat: -1, delay: Math.random() * holdDur });
@@ -619,79 +564,57 @@
         const fromLayer = orderedLayers[(n - 1 + i) % n];
         const toLayer = orderedLayers[i % n];
         const stepStart = i * (holdDur + transitionDur);
-        cycleTl.to(
-          fromLayer,
-          { opacity: 0, duration: transitionDur, ease: 'sine.inOut' },
-          stepStart + holdDur,
-        );
-        cycleTl.to(
-          toLayer,
-          { opacity: 1, duration: transitionDur, ease: 'sine.inOut' },
-          stepStart + holdDur,
-        );
+        cycleTl.to(fromLayer, { opacity: 0, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
+        cycleTl.to(toLayer, { opacity: 1, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
       }
     });
   }
 
-  function deactivateThemes() {
-    deactivateTl?.kill();
-    activateTl?.kill();
-    activateTl = null;
+  $effect(() => {
+    const active = activeThemes;
+    if (!animationReady) return;
+
+    const isActive = active.size > 0;
+    const FADE_DUR = 0.45;
+
     themeCycleTls.forEach((tl) => tl.kill());
     themeCycleTls = [];
 
-    const FADE_DUR = 0.5;
-    deactivateTl = gsap.timeline({
-      onComplete: () => {
-        deactivateTl = null;
-        themesActivated = false;
-        selectedThemeId = null;
-        gsap.set(imgEls, { x: 0, y: 0 });
-        breathe();
-        startOutletCycling();
-      },
-    });
-    const tl = deactivateTl;
-    tl.to(
-      [themesHeaderEl, deactivateBtnEl, ...legendItemRefs],
-      { opacity: 0, duration: 0.3, stagger: 0.03 },
-      0,
-    );
-    atoms.forEach((_, atomIdx) => {
-      tl.to(
-        defaultLayerRefs[atomIdx],
-        { opacity: 1, duration: FADE_DUR, ease: 'power2.inOut' },
-        0.2,
-      );
-      themeLayerRefs[atomIdx].forEach((el) => {
-        if (el) tl.to(el, { opacity: 0, duration: FADE_DUR, ease: 'power2.inOut' }, 0.2);
-      });
-    });
-  }
-
-  function selectTheme(themeId) {
-    if (selectedThemeId === themeId) {
-      selectedThemeId = null;
-      gsap.to(imgEls, { opacity: 0.6, duration: 0.4, overwrite: 'auto' });
-      gsap.to(legendItemRefs, { opacity: 1, duration: 0.4, overwrite: 'auto' });
+    if (!isActive) {
+      if (wasThemesActive) {
+        atoms.forEach((_, atomIdx) => {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
+          themeLayerRefs[atomIdx].forEach((el) => {
+            if (el) gsap.to(el, { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          });
+        });
+      }
+      wasThemesActive = false;
     } else {
-      selectedThemeId = themeId;
-      atoms.forEach((_, idx) => {
-        gsap.to(imgEls[idx], {
-          opacity: atomThemeIds[idx].includes(themeId) ? 0.8 : 0.15,
-          duration: 0.4,
-          overwrite: 'auto',
-        });
+      wasThemesActive = true;
+      atoms.forEach((_, atomIdx) => {
+        const tids = atomThemeIds[atomIdx];
+        const activeTids = tids.filter((tid) => active.has(tid));
+        if (activeTids.length === 0) {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
+          tids.forEach((_, t) => {
+            gsap.to(themeLayerRefs[atomIdx][t], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          });
+        } else {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          const firstActiveTid = themes.find((t) => activeTids.includes(t.id))?.id;
+          tids.forEach((tid, t) => {
+            gsap.to(themeLayerRefs[atomIdx][t], {
+              opacity: tid === firstActiveTid ? 1 : 0,
+              duration: FADE_DUR,
+              overwrite: 'auto',
+            });
+          });
+        }
       });
-      themes.forEach((theme, themeIdx) => {
-        gsap.to(legendItemRefs[themeIdx], {
-          opacity: theme.id === themeId ? 1 : 0.15,
-          duration: 0.4,
-          overwrite: 'auto',
-        });
-      });
+      startCyclingForActive(active);
     }
-  }
+  });
 
   // ── Spread-on-hover ───────────────────────────────────────────────────
   const SPREAD_RADIUS = 80;
@@ -752,7 +675,7 @@
       ease: 'power2.out',
       overwrite: true,
       onComplete: () => {
-        if (!spreading && !themesActivated) {
+        if (!spreading) {
           outletCycleTls.forEach((tl) => tl.kill());
           outletCycleTls = [];
           breathe();

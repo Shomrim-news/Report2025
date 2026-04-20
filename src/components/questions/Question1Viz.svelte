@@ -24,7 +24,7 @@
   let decLeft = $derived(lastCol * stepX + atomW + 10);
 
   let container;
-  let imgEls = [];
+  let imgEls = $state([]);
   let janEl;
   let decEl;
   let ctx;

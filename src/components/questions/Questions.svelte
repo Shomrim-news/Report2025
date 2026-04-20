@@ -53,6 +53,6 @@
   <div id="question-5"><Question5 /></div>
   <div id="question-6"><Question6 /></div>
   <div id="question-7"><Question7 /></div>
-  <div id="question-8"><Question8 /></div>
-  <div id="question-9"><Question9 /></div>
+  <!-- <div id="question-8"><Question8 /></div>
+  <div id="question-9"><Question9 /></div> -->
 </section>

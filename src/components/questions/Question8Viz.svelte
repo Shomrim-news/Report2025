@@ -218,7 +218,7 @@
 
   // ── GSAP refs ─────────────────────────────────────────────────────────
   let container;
-  let imgEls = [];
+  let imgEls = $state([]);
   let monthLabelEls = [];
   let bandLabelEls = [];
   let defaultLayerRefs = [];

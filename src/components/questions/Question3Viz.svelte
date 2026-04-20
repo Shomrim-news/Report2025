@@ -210,7 +210,7 @@
   let container;
   let labelEl;
   let themesLabelEl;
-  let imgEls = [];
+  let imgEls = $state([]);
   let monthLabelEls = [];
   let bandLabelEls = [];
   let ctx;
