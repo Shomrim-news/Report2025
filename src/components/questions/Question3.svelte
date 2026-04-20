@@ -2,14 +2,20 @@
   import { onMount } from 'svelte';
   import Canvas from '$lib/assets/canvas.jpg';
   import QuestionLegend from './QuestionLegend.svelte';
+  import { themes } from '$lib/data/themes.js';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
   let VizComponent = $state(null);
   let sectionEl;
 
+  let activeThemes = $state(new Set());
   let vizWidth = $derived(containerWidth);
   let vizHeight = $derived(containerHeight);
+
+  function handleAnimationComplete() {
+    activeThemes = new Set(themes.map((t) => t.id));
+  }
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -39,13 +45,14 @@
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       {#if VizComponent}
-        <VizComponent width={vizWidth} height={vizHeight} />
+        <VizComponent width={vizWidth} height={vizHeight} {activeThemes} onAnimationComplete={handleAnimationComplete} />
       {/if}
     </div>
   </div>
   <div class="mt-3 mb-13">
     <QuestionLegend
-      text="Watch each theme emerge and find its stories — eight themes, each in its own color. Stories shared between themes shift and cycle, reflecting the reality that no investigation lives in just one world. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+      bind:activeThemes
+      text="Watch each theme emerge and find its stories — eight themes, each in its own color. Stories shared between themes shift and cycle, reflecting the reality that no investigation lives in just one world. Click any theme to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
     />
   </div>
   <div class="inner-container">

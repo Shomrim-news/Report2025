@@ -5,9 +5,21 @@
   import { fade } from 'svelte/transition';
   import { themes } from '$lib/data/themes.js';
 
-  let { text } = $props();
+  let { text, activeThemes = $bindable(new Set()) } = $props();
 
   let isOpen = $state(true);
+
+  function toggleTheme(themeId) {
+    const next = new Set(activeThemes);
+    if (next.has(themeId)) {
+      next.delete(themeId);
+    } else {
+      next.add(themeId);
+    }
+    activeThemes = next;
+  }
+
+  let anyActive = $derived(activeThemes.size > 0);
 </script>
 
 <div
@@ -93,18 +105,26 @@
           <!-- Themes -->
           <div class="flex items-end gap-4">
             {#each themes as theme}
-              <div class="flex items-end gap-2 shrink-0">
+              <button
+                type="button"
+                class="flex items-end gap-2 shrink-0 cursor-pointer border-none bg-transparent p-0"
+                style="transition: opacity 0.35s ease; opacity: {!anyActive ||
+                activeThemes.has(theme.id)
+                  ? 1
+                  : 0.6};"
+                onclick={() => toggleTheme(theme.id)}
+              >
                 <div
                   style:width="8px"
                   style:height="60px"
                   style:background-color={theme.color}
                 ></div>
                 <div
-                  class="min-w-26 shrink-0 text-xs uppercase tracking-[3%] text-grey-800 max-w-14 whitespace-pre-line leading-lg pb-1.5"
+                  class="min-w-26 shrink-0 text-xs uppercase tracking-[3%] text-grey-800 max-w-14 whitespace-pre-line leading-lg pb-1.5 text-left"
                 >
                   {theme.label}
                 </div>
-              </div>
+              </button>
             {/each}
           </div>
         </div>

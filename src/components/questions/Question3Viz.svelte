@@ -1,6 +1,7 @@
 <script>
   import { gsap } from 'gsap';
   import { onMount } from 'svelte';
+  import { fly } from 'svelte/transition';
 
   import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
@@ -25,15 +26,15 @@
   import Halo2Impact2 from '$lib/assets/halo_theme_2_impact_2.png';
   import Halo2Impact3 from '$lib/assets/halo_theme_2_impact_3.png';
   import Halo3Impact1 from '$lib/assets/halo_theme_3_impact_1.png';
-  import Halo3Impact2 from '$lib/assets/halo_theme_3_impact_2.png';
+  import Halo3Impact2 from '$lib/assets/halo_theme_3_impact_2_temp.png';
   import Halo4Impact1 from '$lib/assets/halo_theme_4_impact_1.png';
   import Halo4Impact2 from '$lib/assets/halo_theme_4_impact_2.png';
-  import Halo4Impact3 from '$lib/assets/halo_theme_4_impact_3.png';
+  import Halo4Impact3 from '$lib/assets/halo_theme_4_impact_3_temp.png';
   import Halo5Impact1 from '$lib/assets/halo_theme_5_impact_1.png';
   import Halo5Impact2 from '$lib/assets/halo_theme_5_impact_2.png';
   import Halo6Impact1 from '$lib/assets/halo_theme_6_impact_1.png';
-  import Halo6Impact2 from '$lib/assets/halo_theme_6_impact_2.png';
-  import Halo6Impact3 from '$lib/assets/halo_theme_6_impact_3.png';
+  import Halo6Impact2 from '$lib/assets/halo_theme_6_impact_2_temp.png';
+  import Halo6Impact3 from '$lib/assets/halo_theme_6_impact_3_temp.png';
   import Halo7Impact1 from '$lib/assets/halo_theme_7_impact_1.png';
   import Halo8Impact1 from '$lib/assets/halo_theme_8_impact_1.png';
   import Halo8Impact3 from '$lib/assets/halo_theme_8_impact_3.png';
@@ -41,7 +42,7 @@
   import { stories } from '$lib/data/stories.js';
   import { themes, getThemeIds } from '$lib/data/themes.js';
 
-  let { width = 0, height = 0 } = $props();
+  let { width = 0, height = 0, activeThemes = new Set(), onAnimationComplete = null } = $props();
 
   const MONTHS = [
     'Jan',
@@ -216,9 +217,8 @@
 
   let defaultLayerRefs = [];
   let themeLayerRefs = atoms.map(() => []);
-  let legendItemRefs = [];
 
-  // Reactive active theme state
+  // Reactive active theme state (for animation label)
   let activeThemeId = $state(null);
   let activeThemeStories = $derived(byTheme.get(activeThemeId)?.length ?? 0);
   let activeThemePct = $derived(Math.round((activeThemeStories / atoms.length) * 100));
@@ -238,8 +238,10 @@
     url: '',
   });
   let clickedIndex = $state(-1);
-  let selectedThemeId = $state(null);
   let animationReady = $state(false);
+  let interactionEnabled = $state(false);
+  let cyclingTimelines = [];
+  let initialActivation = true;
 
   function tooltipPos(idx) {
     return { x: positions[idx].x, y: positions[idx].y };
@@ -309,6 +311,7 @@
       observer.disconnect();
       document.removeEventListener('click', closeIfFocused);
       ctx?.revert();
+      cyclingTimelines.forEach((tl) => tl.kill());
     };
   });
 
@@ -318,7 +321,12 @@
     const FADE_DUR = 0.6;
 
     ctx = gsap.context(() => {
-      const tl = gsap.timeline({ onComplete: startCycling });
+      const tl = gsap.timeline({
+        onComplete: () => {
+          interactionEnabled = true;
+          onAnimationComplete?.();
+        },
+      });
       const currentLayer = atoms.map(() => -1); // -1 = default layer
 
       // Month labels fade in
@@ -347,14 +355,6 @@
 
       themes.forEach((theme, themeIdx) => {
         const t = THEME_DELAY + themeIdx * THEME_INTERVAL;
-
-        // Legend item fades in
-        tl.fromTo(
-          legendItemRefs[themeIdx],
-          { opacity: 0, y: 6 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-          t,
-        );
 
         // Fade out label before switching (skip for first theme)
         if (themeIdx > 0) {
@@ -403,26 +403,38 @@
       });
 
       // Fade out and clear active theme label
-      tl.to(labelEl, { opacity: 0, y: -4, duration: 0.6, ease: 'power2.in' }, THEME_DELAY + themes.length * THEME_INTERVAL + 0.6);
-      tl.call(() => { activeThemeId = null; }, [], THEME_DELAY + themes.length * THEME_INTERVAL + 1.2);
+      tl.to(
+        labelEl,
+        { opacity: 0, y: -4, duration: 0.6, ease: 'power2.in' },
+        THEME_DELAY + themes.length * THEME_INTERVAL + 0.6,
+      );
+      tl.call(
+        () => {
+          activeThemeId = null;
+        },
+        [],
+        THEME_DELAY + themes.length * THEME_INTERVAL + 1.2,
+      );
     });
     animationReady = true;
   }
 
-  function startCycling() {
+  function startCyclingForActive(active) {
     const holdDur = 4;
     const transitionDur = 0.8;
 
     atoms.forEach((atom, atomIdx) => {
       const tids = atomThemeIds[atomIdx];
-      if (tids.length < 2) return;
+      const activeTids = tids.filter((tid) => active.has(tid));
+      if (activeTids.length < 2) return;
 
       const orderedLayers = themes
-        .filter((t) => tids.includes(t.id))
+        .filter((t) => activeTids.includes(t.id))
         .map((t) => themeLayerRefs[atomIdx][tids.indexOf(t.id)]);
 
       const n = orderedLayers.length;
       const cycleTl = gsap.timeline({ repeat: -1, delay: Math.random() * holdDur });
+      cyclingTimelines.push(cycleTl);
 
       for (let i = 0; i < n; i++) {
         const fromLayer = orderedLayers[(n - 1 + i) % n];
@@ -442,29 +454,46 @@
     });
   }
 
-  function selectTheme(themeId) {
-    if (selectedThemeId === themeId) {
-      selectedThemeId = null;
-      gsap.to(imgEls, { opacity: 0.6, duration: 0.4, overwrite: 'auto' });
-      gsap.to(legendItemRefs, { opacity: 1, duration: 0.4, overwrite: 'auto' });
-    } else {
-      selectedThemeId = themeId;
-      atoms.forEach((_, idx) => {
-        gsap.to(imgEls[idx], {
-          opacity: atomThemeIds[idx].includes(themeId) ? 0.8 : 0.15,
-          duration: 0.4,
-          overwrite: 'auto',
-        });
-      });
-      themes.forEach((theme, themeIdx) => {
-        gsap.to(legendItemRefs[themeIdx], {
-          opacity: theme.id === themeId ? 1 : 0.15,
-          duration: 0.4,
-          overwrite: 'auto',
-        });
+  $effect(() => {
+    const active = activeThemes;
+    if (!interactionEnabled) return;
+
+    cyclingTimelines.forEach((tl) => tl.kill());
+    cyclingTimelines = [];
+
+    const FADE_DUR = 0.45;
+
+    if (!initialActivation) {
+      atoms.forEach((_, atomIdx) => {
+        const tids = atomThemeIds[atomIdx];
+        const activeTids = tids.filter((tid) => active.has(tid));
+
+        if (activeTids.length === 0) {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
+          tids.forEach((_, t) => {
+            gsap.to(themeLayerRefs[atomIdx][t], {
+              opacity: 0,
+              duration: FADE_DUR,
+              overwrite: 'auto',
+            });
+          });
+        } else {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          const firstActiveTid = themes.find((t) => activeTids.includes(t.id))?.id;
+          tids.forEach((tid, t) => {
+            gsap.to(themeLayerRefs[atomIdx][t], {
+              opacity: tid === firstActiveTid ? 1 : 0,
+              duration: FADE_DUR,
+              overwrite: 'auto',
+            });
+          });
+        }
       });
     }
-  }
+
+    initialActivation = false;
+    startCyclingForActive(active);
+  });
 
   // ── Spread-on-hover ───────────────────────────────────────────────────
   const SPREAD_RADIUS = 80;
