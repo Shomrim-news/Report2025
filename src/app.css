@@ -28,8 +28,11 @@
   --color-text: #0d1624;
   --color-grey-800: #334154;
   --color-grey-400: #475569;
+  --color-grey-300: #818895;
+  --color-grey-200: #7e8692;
   --color-beige-600: #a49989;
   --color-beige-400: #acaa94;
+  --color-beige-300: #e7e7df;
   --color-beige-200: #ebeae2;
   --color-beige-100: #f7f6f5;
 }
@@ -110,17 +113,27 @@
   }
 
   .quote {
-    max-width: 1130px;
-    margin: 60px 0 24px;
+    margin: 28px 0;
+    padding: 17px 20px;
     font-family: var(--font-title);
     font-size: var(--text-md);
     line-height: var(--leading-md);
+    background-color: color-mix(in srgb, var(--color-beige-300) 32%, transparent);
+    border-radius: 4px;
   }
 
   .quote-author {
     font-family: var(--font-body);
     font-style: italic;
     color: var(--color-grey-400);
+  }
+
+  .legend-description {
+    font-size: 1rem;
+    line-height: 1.625rem;
+    font-style: italic;
+    letter-spacing: 2.4%;
+    color: var(--color-grey-800);
   }
 
   .container {
@@ -162,7 +175,7 @@
 
     .quote {
       font-size: var(--text-lg);
-      line-height: 36px;
+      line-height: 34px;
     }
   }
 }

@@ -121,22 +121,22 @@
   });
 
   function runAnimation() {
-    const STAGGER_AMOUNT = 2.5;
+    const STAGGER_AMOUNT = 8;
 
     ctx = gsap.context(() => {
       const tl = gsap.timeline({ onComplete: breathe });
 
       // JAN: appears just before the first atom
-      tl.fromTo(janEl, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'power2.out' }, 0);
+      tl.fromTo(janEl, { opacity: 0 }, { opacity: 1, duration: 1.5, ease: 'power2.out' }, 0);
 
       // Atoms: left to right, chronological order, starting 0.2s after JAN
       tl.fromTo(
         imgEls,
-        { opacity: 0, y: 10 },
+        { opacity: 0, y: 8 },
         {
           opacity: 0.6,
           y: 0,
-          duration: 0.5,
+          duration: 1.2,
           ease: 'power2.out',
           stagger: { amount: STAGGER_AMOUNT, from: 'start' },
         },
@@ -147,7 +147,7 @@
       tl.fromTo(
         decEl,
         { opacity: 0 },
-        { opacity: 1, duration: 1, ease: 'power2.out' },
+        { opacity: 1, duration: 1.5, ease: 'power2.out' },
         0.2 + STAGGER_AMOUNT,
       );
     });

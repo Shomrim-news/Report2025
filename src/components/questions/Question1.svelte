@@ -1,6 +1,7 @@
 <script>
   import Canvas from '$lib/assets/canvas.jpg';
   import Question1Viz from './Question1Viz.svelte';
+  import Question1Legend from './Question1Legend.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
@@ -11,7 +12,7 @@
 
 <div class="mb-35">
   <div class="inner-container">
-    <h2>This is how accountability journalism held power to account in Israel in 2025</h2>
+    <h2>This is Shomrim’s newsroom in 2025</h2>
   </div>
   <div
     class="mt-10.5 relative"
@@ -23,7 +24,17 @@
       <Question1Viz width={vizWidth} height={vizHeight} />
     </div>
   </div>
+  <div class="mt-16.5 mb-13">
+    <Question1Legend />
+  </div>
   <div class="inner-container">
+    <p>
+      In 2025, Israel's institutions were tested by war, by political crisis, by the slow erosion of
+      norms that usually go unnoticed until they're gone. Each mark on this canvas is a story
+      Shomrim published this year. One that required a journalist, multiple sources, a document that
+      someone maybe didn't want found, vigorous work of verifying and confirming and finally the
+      decision to publish. There are 175 of them. 97 generated measurable impact.
+    </p>
     <div class="quote">
       “When every mechanism meant to check government power is under siege — whether in culture,
       law, or media - journalism becomes the last line of defense. Shomrim stands firm, ensuring
@@ -31,28 +42,5 @@
         >Daniel Dolev, Investigative Reporter</span
       >
     </div>
-    <p>
-      In 2025, Israel's institutions were tested by war, by political crisis, by the slow erosion of
-      norms that usually go unnoticed until they're gone. Each mark on this canvas is a story
-      Shomrim published this year. Not a data point, but a story. One that required a journalist, a
-      source, a document that someone didn't want found, and the decision to publish anyway. There
-      are 175 of them. 97 generated measurable impact.
-    </p>
-
-    <p>
-      Some moved quietly. Others moved mountains. <a href="https://www.shomrim.news/hebrew/hind-rajab" target="_blank">An investigation into an organization tracking
-      Israeli soldiers abroad for potential arrest</a> saw
-      it removed from a European conference within nine days. <a href="https://www.shomrim.news/hebrew/stray-dogs-western-negev" target="_blank">A story about stray dogs threatening
-      border communities</a>, families
-      already living under the shadow of war, moved the Ministry of Agriculture to launch a 15
-      million shekel program. <a href="https://www.shomrim.news/hebrew/pfas-in-the-water" target="_blank">A nationwide investigation into toxic chemicals in Israel's drinking
-      water</a> pushed the Ministry of Environmental
-      Protection to open regulatory proceedings on PFAS chemicals within two weeks.
-    </p>
-
-    <p>
-      Three stories. Three different systems of power. All held to account. This is not a record of
-      a year. It's proof of a system that worked. But not every story lands the same way.
-    </p>
   </div>
 </div>

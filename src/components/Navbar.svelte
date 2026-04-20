@@ -11,9 +11,9 @@
   ];
 
   const questionTitles = [
-    'This is how accountability journalism held power to account in Israel in 2025',
-    'Where did reporting remain in public space, and where did it trigger response?',
-    "Which themes shaped Shomrim's investigations in 2025?",
+    'This is Shomrim’s newsroom in 2025',
+    'Different layers of impact: Where did reporting remain in the public space, and where did it trigger response?',
+    'Which themes shaped Shomrim’s investigations in 2025?',
     'What kinds of journalism did this year require?',
     "How did Shomrim's reporting travel beyond its newsroom?",
     'Which investigations demanded persistence over time, and why?',
