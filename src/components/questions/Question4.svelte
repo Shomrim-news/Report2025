@@ -1,15 +1,31 @@
 <script>
+  import { onMount } from 'svelte';
   import Canvas from '$lib/assets/canvas.jpg';
-  import Question4Viz from './Question4Viz.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
+  let VizComponent = $state(null);
+  let sectionEl;
 
   let vizWidth = $derived(containerWidth);
   let vizHeight = $derived(containerHeight);
+
+  onMount(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          import('./Question4Viz.svelte').then((m) => (VizComponent = m.default));
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' },
+    );
+    observer.observe(sectionEl);
+    return () => observer.disconnect();
+  });
 </script>
 
-<div class="mb-35">
+<div bind:this={sectionEl} class="mb-35">
   <div class="inner-container">
     <h2>What kinds of journalism did this year require?</h2>
   </div>
@@ -21,7 +37,9 @@
     <img src={Canvas} alt="Canvas background" />
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <Question4Viz width={vizWidth} height={vizHeight} />
+      {#if VizComponent}
+        <VizComponent width={vizWidth} height={vizHeight} />
+      {/if}
     </div>
   </div>
   <div class="inner-container">
