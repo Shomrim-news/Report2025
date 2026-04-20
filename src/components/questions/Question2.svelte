@@ -1,6 +1,7 @@
 <script>
   import Canvas from '$lib/assets/canvas.jpg';
   import Question2Viz from './Question2Viz.svelte';
+  import Question2Legend from './Question2Legend.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
@@ -26,7 +27,41 @@
       <Question2Viz width={vizWidth} height={vizHeight} />
     </div>
   </div>
+  <div class="mt-3 mb-13">
+    <Question2Legend />
+  </div>
   <div class="inner-container">
+    <p>Not every story lands the same way. But every story lands.</p>
+    <p>
+      It has been a complex year for Shomrim’s reporting. Yet Shomrim continues to demand
+      accountability and systematically track the impact of its work beyond publication, recognizing
+      that a story’s life often begins, rather than ends, when it is published. Some stories only
+      Shomrim can bring to light; even without immediate or visible outcomes, placing them in the
+      public domain holds inherent value.
+    </p>
+    <p>
+      In 2025, 78 stories reached the level of public exposure. For example, a February
+      investigation showed that <a
+        href="figma.com/exit?url=https%3A%2F%2Fwww.shomrim.news%2Fhebrew%2Fpolice-under-warning"
+        target="_blank"
+        >political corruption in Israel had not disappeared — rather, police investigations into it
+        had</a
+      >. While no formal response followed, the reporting placed the issue firmly on the public
+      agenda. Other stories gained wider media reach:
+      <a href="https://www.shomrim.news/hebrew/american-base-gaza-border" target="_blank"
+        >Shomrim’s reporting on U.S. plans for a military base near Gaza</a
+      >
+      was followed up by Bloomberg and published in Yedioth Ahronoth and Calcalist. At the highest level,
+      some investigations led to concrete outcomes, showing Accountability in Action.
+      <a href="https://www.shomrim.news/hebrew/ari-arms-cancelled" target="_blank"
+        >A conflict-of-interest exposé in a Defense Ministry procurement</a
+      >
+      process resulted in the cancellation of a tender, while reporting on
+      <a href="https://www.shomrim.news/hebrew/periphery-collapse" target="_blank"
+        >hospital wards and medical residents in Israel’s periphery</a
+      > prompted the Ministry of Health to establish a working group to reform the residency system.
+    </p>
+
     <div class="quote">
       “Impact is vital for investigative journalism, turning revelations into real-world change. It
       drives accountability, influences policy, and builds trust, ensuring the work remains relevant
@@ -34,38 +69,5 @@
         >Doron Sela, COO</span
       >
     </div>
-    <p>Not every mark lands the same way. But every mark lands.</p>
-
-    <p>
-      <a href="https://www.shomrim.news/hebrew/police-under-warning" target="_blank"
-        >In February, an investigation revealed that political corruption in Israel hadn't
-        disappeared — the police investigations had.</a
-      > No committee convened, no formal response came. And yet the story is here, in the center band
-      of Public Exposure, carrying its weight quietly, part of the permanent record that a functioning
-      democracy draws from. Some marks now glow with one halo, two, three, or carry them in combination,
-      each one a measure of how far a story traveled, from media amplification to stakeholder reaction,
-      to real-world change.
-    </p>
-
-    <p>
-      78 marks hold that center. Not because they fell short, but because presence is its own form
-      of power. Below them, Media Reach: <a
-        href="https://www.shomrim.news/hebrew/american-base-gaza-border"
-        target="_blank">when Shomrim revealed US plans for a military base on the Gaza border</a
-      >, the story landed in Bloomberg, Yedioth Ahronoth, and Calcalist, a domestic scoop that
-      became an international conversation. And rising above, Accountability in Action:
-      <a href="https://www.shomrim.news/hebrew/ari-arms-cancelled" target="_blank"
-        >a conflict-of-interest exposé inside a Defense Ministry procurement process</a
-      >
-      ended with the Ministry canceling the award and the entire tender, while
-      <a href="https://www.shomrim.news/hebrew/periphery-collapse" target="_blank"
-        >an investigation into hospital wards and medical residents in Israel's periphery</a
-      > moved the Ministry of Health to establish a working team to overhaul the residency framework.
-    </p>
-
-    <p>
-      This is a living system, constantly in motion, each mark connected to the next. But impact is
-      only one dimension of the story.
-    </p>
   </div>
 </div>

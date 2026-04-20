@@ -20,12 +20,13 @@
   --leading-sm: 2rem; /* 32px */
   --leading-md: 1.75rem; /* 28px */
   --leading-lg: 1.125rem; /* 34px */
-  --leading-xl: 4.125rem; /* 66px */
+  --leading-xl: 3.375rem; /* 54px */
   --leading-2xl: 4.125rem; /* 66px */
 
   /* Colors */
   --color-white: #fff;
   --color-text: #0d1624;
+  --color-grey-900: #324155;
   --color-grey-800: #334154;
   --color-grey-400: #475569;
   --color-grey-300: #818895;
@@ -63,10 +64,12 @@
 
   a {
     text-decoration: underline;
+    text-decoration-thickness: 1.4px;
+    text-underline-offset: 4px;
     transition: color 250ms ease;
   }
   a:hover {
-    color: #64748b;
+    color: #7e8692;
   }
   .tooltip {
     text-decoration: none;
@@ -156,7 +159,7 @@
     }
 
     h2 {
-      margin: 114px 0 26px;
+      margin: 116px 0 46px;
       font-size: var(--text-xl);
       line-height: var(--leading-xl);
     }

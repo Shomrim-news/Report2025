@@ -24,7 +24,7 @@
       <Question1Viz width={vizWidth} height={vizHeight} />
     </div>
   </div>
-  <div class="mt-16.5 mb-13">
+  <div class="mt-3 mb-13">
     <Question1Legend />
   </div>
   <div class="inner-container">
