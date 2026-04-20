@@ -79,7 +79,8 @@
     font-family: var(--font-title);
   }
 
-  h1 {
+  h1,
+  .as-h1 {
     font-size: var(--text-xl);
     line-height: var(--leading-xl);
     color: var(--color-grey-800);
@@ -135,7 +136,8 @@
   }
 
   @media (min-width: 768px) {
-    h1 {
+    h1,
+    .as-h1 {
       font-size: var(--text-2xl);
       line-height: var(--leading-2xl);
     }
