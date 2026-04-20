@@ -28,11 +28,11 @@
             <img src={logo} alt="Home" class="w-40 md:w-64 h-auto" />
           </a>
         </li>
-        <li><a href="#questions" onclick={onclose}>2025 in Review</a></li>
-        <li><a href="#our-work" onclick={onclose}>Our Work</a></li>
-        <li><a href="#team" onclick={onclose}>Our Team</a></li>
-        <li><a href="#finances" onclick={onclose}>Financial overview</a></li>
-        <li><a href="#partners" onclick={onclose}>Our Partners</a></li>
+        <li><a href="#questions" onclick={onclose}>Our Work in 2025</a></li>
+        <li><a href="#key-events" onclick={onclose}>Key Events in 2025</a></li>
+        <li><a href="#looking-ahead" onclick={onclose}>Looking Ahead</a></li>
+        <li><a href="#team" onclick={onclose}>Team and Partners</a></li>
+        <li><a href="#finances" onclick={onclose}>Financial Overview</a></li>
       </ul>
     </nav>
   </div>

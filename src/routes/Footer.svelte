@@ -2,7 +2,7 @@
   import LogoFooter from '$lib/assets/logo_footer.png';
 </script>
 
-<footer class="container mt-15 mb-1">
+<footer class="container mt-30 mb-1">
   <div class="inner-container">
     <div
       class="flex flex-col items-center text-center gap-4 md:flex-row md:justify-between text-sm"

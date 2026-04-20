@@ -11,13 +11,13 @@
 </script>
 
 <section id="questions">
-  <Question1 />
-  <Question2 />
-  <Question3 />
-  <Question4 />
-  <Question5 />
-  <Question6 />
-  <Question7 />
-  <Question8 />
-  <Question9 />
+  <div id="question-1"><Question1 /></div>
+  <div id="question-2"><Question2 /></div>
+  <div id="question-3"><Question3 /></div>
+  <div id="question-4"><Question4 /></div>
+  <div id="question-5"><Question5 /></div>
+  <div id="question-6"><Question6 /></div>
+  <div id="question-7"><Question7 /></div>
+  <div id="question-8"><Question8 /></div>
+  <div id="question-9"><Question9 /></div>
 </section>
