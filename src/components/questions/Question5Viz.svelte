@@ -101,35 +101,83 @@
     i24News: 'OtherGlobal',
   };
 
-  // Slots define the label text and outlet key for each side, in display order.
-  // Outlets appearing on multiple sides (Calcalist, TheMarker, etc.) will produce
-  // multiple target positions — atoms cycle between them.
-  const TOP_SLOTS = [
-    { key: 'Calcalist', label: 'Calcalist' },
-    { key: 'N12_Mako', label: 'N12/Mako' },
-    { key: 'Haaretz', label: 'Haaretz/\nHaaretz ENG' },
-    { key: 'TheMarker', label: 'The Marker' },
+  const GLOBAL_OUTLET_KEYS = new Set([
+    'AlMonitor',
+    'OtherGlobal',
+    'TheJapanTimes',
+    'SkyNewsArabic',
+    'Profil',
+    'LeMonde',
+    'LaRepubblica',
+    'ICIJ',
+    'DerSpiegel',
+    'CorriereDellaSera',
+    'Bloomberg',
+    'BBCArabic',
+  ]);
+  const LOCAL_OUTLET_KEYS = new Set([
+    'Calcalist',
+    'Ynet',
+    'N12_Mako',
+    'TheMarker',
+    'Haaretz',
+    'OtherLocal',
+  ]);
+
+  // ── Label grids ───────────────────────────────────────────────────────
+  // Global (18): 8 cols, pattern [3,2,2,2,2,2,2,3], top-aligned
+  const GLOBAL_LABELS = [
+    'Al-Monitor',
+    'Kurdistan24',
+    'arabi21',
+    'Turkish Daily',
+    'The New Arab',
+    'The Japan Times',
+    'Sky News Arabic',
+    'Profil',
+    'Le Monde',
+    'Bokra',
+    'ICIJ',
+    'Annahar',
+    'Der Spiegel',
+    'Corriere della Sera',
+    'La Repubblica',
+    'Bloomberg',
+    'BBC Arabic',
+    'i24News',
   ];
-  const BOTTOM_SLOTS = [
-    { key: 'LaRepubblica', label: 'La Repubblica' },
-    { key: 'LeMonde', label: 'Le Monde' },
-    { key: 'Bloomberg', label: 'Bloomberg' },
-    { key: 'DerSpiegel', label: 'Der Spiegel' },
-    { key: 'Profil', label: 'Profil' },
-    { key: 'AlMonitor', label: 'Al-Monitor' },
-    { key: 'BBCArabic', label: 'BBC Arabic' },
-    { key: 'SkyNewsArabic', label: 'Sky News Arabic' },
+  const GLOBAL_COL_PATTERN = [3, 2, 2, 2, 2, 2, 2, 3];
+
+  // Local (26): 8 cols, pattern [4,3,3,3,3,3,3,4], bottom-aligned
+  const LOCAL_LABELS = [
+    'Calcalist',
+    'Ynet',
+    'Times of Israel',
+    'Mako',
+    'N12',
+    'The Marker',
+    'Yedioth Ahronoth',
+    'Haaretz (ENG)',
+    'Under the Radar',
+    'Ynet ENG',
+    'Galatz',
+    'Reka Radio',
+    'Haaretz',
+    'KAN 11',
+    'Maariv',
+    'DoctorsOnly',
+    'Channel 10',
+    'Radio Tzafon',
+    'Hottest Place in Hell',
+    'KAN Arabic',
+    'TimeOut',
+    'Haredim 10',
+    'Walla',
+    'Channel 7',
+    'Channel Knesset',
+    "B'Hadrei Haredim",
   ];
-  const LEFT_SLOTS = [
-    { key: 'Ynet', label: 'Ynet/Yedioth\nAhronoth' },
-    { key: 'CorriereDellaSera', label: 'Corriere\ndella Sera' },
-    { key: 'TheJapanTimes', label: 'The Japan\nTimes' },
-  ];
-  const RIGHT_SLOTS = [
-    { key: 'OtherLocal', label: 'Other Local\nOutlets' },
-    { key: 'OtherGlobal', label: 'Other Global\nOutlets' },
-    { key: 'ICIJ', label: 'ICIJ' },
-  ];
+  const LOCAL_COL_PATTERN = [4, 3, 3, 3, 3, 3, 3, 4];
 
   function parseOutletKeys(story) {
     const keys = new Set();
@@ -146,18 +194,15 @@
 
   const atoms = storiesToUse.map((story) => ({ story, outletKeys: parseOutletKeys(story) }));
 
-  // Count stories per outlet key (for label display)
-  const storyCounts = {};
-  atoms.forEach((atom) => {
-    atom.outletKeys.forEach((key) => {
-      storyCounts[key] = (storyCounts[key] || 0) + 1;
-    });
+  // Classify each atom into a display zone
+  const atomZones = atoms.map((atom) => {
+    const hasGlobal = atom.outletKeys.some((k) => GLOBAL_OUTLET_KEYS.has(k));
+    const hasLocal = atom.outletKeys.some((k) => LOCAL_OUTLET_KEYS.has(k));
+    if (hasGlobal && !hasLocal) return 'global';
+    if (!hasGlobal && hasLocal) return 'local';
+    if (hasGlobal && hasLocal) return 'both';
+    return 'none';
   });
-
-  function slotLabel(slot) {
-    const n = storyCounts[slot.key] || 0;
-    return n > 1 ? `${slot.label} (${n})` : slot.label;
-  }
 
   function hasImpact(story, level) {
     return (story['Impact level'] || '')
@@ -168,8 +213,6 @@
 
   // ── Layout constants ─────────────────────────────────────────────────
   const ASPECT = 88 / 56;
-  const LABEL_MARGIN = 80; // labels live within 80px of each edge
-  const CLUSTER_DEPTH = LABEL_MARGIN + 30; // cluster center is LABEL_MARGIN + CLUSTER_DEPTH from edge
   const COLS = 25;
   const OVERLAP = 24;
 
@@ -183,19 +226,12 @@
   let halo3W = $derived(162 * scale);
   let halo3H = $derived(180 * scale);
 
-  // ── Position state ──────────────────────────────────────────────────
-  // positions[idx] = primary CSS position (first outlet slot, or center for no-outlet atoms)
+  // ── Position state ────────────────────────────────────────────────────
   let positions = $state(atoms.map(() => ({ x: 0, y: 0 })));
-  // allTargetPositions[idx] = all outlet slot positions for this atom (incl. primary at [0])
-  let allTargetPositions = atoms.map(() => []);
-  // centerOffsets[idx] = GSAP x/y offset to place atom at center visually
   let centerOffsets = atoms.map(() => ({ dx: 0, dy: 0 }));
 
-  // Slot label positions (for rendering)
-  let topSlotPos = $state(TOP_SLOTS.map(() => ({ lx: 0, ly: 0 })));
-  let bottomSlotPos = $state(BOTTOM_SLOTS.map(() => ({ lx: 0, ly: 0 })));
-  let leftSlotPos = $state(LEFT_SLOTS.map(() => ({ lx: 0, ly: 0 })));
-  let rightSlotPos = $state(RIGHT_SLOTS.map(() => ({ lx: 0, ly: 0 })));
+  let globalLabelPositions = $state(GLOBAL_LABELS.map(() => ({ x: 0, y: 0, col: 0 })));
+  let localLabelPositions = $state(LOCAL_LABELS.map(() => ({ x: 0, y: 0, col: 0 })));
 
   let lastW = 0;
   let lastH = 0;
@@ -208,157 +244,112 @@
     lastW = w;
     lastH = h;
 
-    const iW = w - 2 * LABEL_MARGIN;
-    const iH = h - 6 * LABEL_MARGIN;
+    const LABEL_PAD_X = 40;
+    const ROW_H = 46;
+    const GLOBAL_TOP_Y = 36;
+    const LOCAL_BOTTOM_Y = h - 36;
+    const colStep = (w - 2 * LABEL_PAD_X) / 7;
 
-    // Compute slot positions (label center + cluster center)
-    function slotPos(side, idx, total) {
-      const frac = total === 1 ? 0.5 : idx / (total - 1);
-      if (side === 'top') {
-        return {
-          lx: LABEL_MARGIN + frac * iW,
-          ly: LABEL_MARGIN,
-          cx: LABEL_MARGIN + frac * iW,
-          cy: LABEL_MARGIN + CLUSTER_DEPTH,
-        };
+    // Global label positions: top-aligned
+    const newGlobalPos = [];
+    let gi = 0;
+    GLOBAL_COL_PATTERN.forEach((rows, col) => {
+      const x = LABEL_PAD_X + col * colStep;
+      for (let row = 0; row < rows; row++) {
+        newGlobalPos[gi++] = { x, y: GLOBAL_TOP_Y + row * ROW_H, col };
       }
-      if (side === 'bottom') {
-        return {
-          lx: LABEL_MARGIN + frac * iW,
-          ly: h - LABEL_MARGIN,
-          cx: LABEL_MARGIN + frac * iW,
-          cy: h - LABEL_MARGIN - CLUSTER_DEPTH + 30,
-        };
+    });
+    globalLabelPositions = newGlobalPos;
+
+    // Local label positions: bottom-aligned (all columns share the same bottom y)
+    const newLocalPos = [];
+    let li = 0;
+    LOCAL_COL_PATTERN.forEach((rows, col) => {
+      const x = LABEL_PAD_X + col * colStep;
+      const topY = LOCAL_BOTTOM_Y - (rows - 1) * ROW_H;
+      for (let row = 0; row < rows; row++) {
+        newLocalPos[li++] = { x, y: topY + row * ROW_H, col };
       }
-      if (side === 'left') {
-        return {
-          lx: 4 * LABEL_MARGIN,
-          ly: 4 * LABEL_MARGIN + frac * iH,
-          cx: LABEL_MARGIN + CLUSTER_DEPTH,
-          cy: 4 * LABEL_MARGIN + frac * iH,
-        };
-      }
-      // right
-      return {
-        lx: w - 2 * LABEL_MARGIN,
-        ly: 4 * LABEL_MARGIN + frac * iH,
-        cx: w - LABEL_MARGIN - CLUSTER_DEPTH,
-        cy: 4 * LABEL_MARGIN + frac * iH,
-      };
-    }
-
-    const topDefs = TOP_SLOTS.map((s, i) => ({
-      ...s,
-      side: 'top',
-      ...slotPos('top', i, TOP_SLOTS.length),
-    }));
-    const botDefs = BOTTOM_SLOTS.map((s, i) => ({
-      ...s,
-      side: 'bottom',
-      ...slotPos('bottom', i, BOTTOM_SLOTS.length),
-    }));
-    const FIRST_SIDE_OFFSET = 100;
-    const sideTopCy = 4 * LABEL_MARGIN + FIRST_SIDE_OFFSET; // Ynet / OtherLocal
-    const calcalistCy = LABEL_MARGIN + CLUSTER_DEPTH; // top-left anchor
-    const gapTop = sideTopCy - calcalistCy; // Calcalist → Ynet gap
-    const corriereCy = sideTopCy + gapTop; // same gap below Ynet
-    const laRepubblicaLy = h - LABEL_MARGIN; // bottom label position
-    const smallGap = (laRepubblicaLy - corriereCy) / 2;
-    const japanTimesCy = corriereCy + smallGap; // midpoint Corriere → LaRepubblica
-
-    const sideCys = [sideTopCy, corriereCy, japanTimesCy];
-
-    const leftDefs = LEFT_SLOTS.map((s, i) => {
-      const pos = slotPos('left', i, LEFT_SLOTS.length);
-      pos.cy = sideCys[i];
-      pos.ly = sideCys[i];
-      return { ...s, side: 'left', ...pos };
     });
-    const rightDefs = RIGHT_SLOTS.map((s, i) => {
-      const pos = slotPos('right', i, RIGHT_SLOTS.length);
-      pos.cy = sideCys[i];
-      pos.ly = sideCys[i];
-      return { ...s, side: 'right', ...pos };
-    });
+    localLabelPositions = newLocalPos;
 
-    topSlotPos = topDefs.map(({ lx, ly }) => ({ lx, ly }));
-    bottomSlotPos = botDefs.map(({ lx, ly }) => ({ lx, ly }));
-    leftSlotPos = leftDefs.map(({ lx, ly }) => ({ lx, ly }));
-    rightSlotPos = rightDefs.map(({ lx, ly }) => ({ lx, ly }));
-
-    const allSlotDefs = [...topDefs, ...botDefs, ...leftDefs, ...rightDefs];
-
-    // d3-force simulation per slot
-    const slotPosMap = new Map(); // `${side}-${key}` → Map(atomIdx → {x, y})
-    allSlotDefs.forEach((slot) => {
-      const id = `${slot.side}-${slot.key}`;
-      const slotIdxs = atoms
-        .map((a, i) => (a.outletKeys.includes(slot.key) ? i : -1))
-        .filter((i) => i >= 0);
-      if (slotIdxs.length === 0) return;
-      const nodes = slotIdxs.map(() => ({
-        x: slot.cx + (Math.random() - 0.5) * 30,
-        y: slot.cy + (Math.random() - 0.5) * 30,
-      }));
-      const PAD = 30;
-      forceSimulation(nodes)
-        .force('x', forceX(slot.cx).strength(0.8))
-        .force('y', forceY(slot.cy).strength(0.8))
-        .force('collide', forceCollide(26))
-        .force('bound', () => {
-          for (const node of nodes) {
-            node.x = Math.max(PAD, Math.min(w - PAD, node.x));
-            node.y = Math.max(PAD, Math.min(h - PAD, node.y));
-          }
-        })
-        .stop()
-        .tick(200);
-      const m = new Map();
-      slotIdxs.forEach((atomIdx, ni) => m.set(atomIdx, { x: nodes[ni].x, y: nodes[ni].y }));
-      slotPosMap.set(id, m);
-    });
-
-    // Center cluster for all atoms (migration starting point)
+    // ── Zone-based atom placement via force simulation ─────────────────
+    // Derive free canvas region between the two label zones
+    const globalMaxRows = Math.max(...GLOBAL_COL_PATTERN); // 3
+    const localMaxRows = Math.max(...LOCAL_COL_PATTERN); // 4
+    const freeMinY = GLOBAL_TOP_Y + (globalMaxRows - 1) * ROW_H + 32;
+    const freeMaxY = LOCAL_BOTTOM_Y - (localMaxRows - 1) * ROW_H - 32;
+    const freeH = freeMaxY - freeMinY;
     const cx = w / 2;
-    const cy = h / 2;
-    const centerNodes = atoms.map(() => ({
+    const atomPad = 36; // distance from canvas left/right edges
+
+    // Zone drift targets: symmetric around canvas midline
+    const globalZoneCY = h / 2 - 150 - freeH * 0.22;
+    const localZoneCY = h / 2 - 150 + freeH * 0.22;
+    const bothZoneCY = h / 2 - 150;
+
+    // Expose for drift animation
+    driftBounds = { minX: atomPad, maxX: w - atomPad, minY: freeMinY, maxY: freeMaxY };
+    atomZoneTargetY = atoms.map((_, idx) =>
+      atomZones[idx] === 'global'
+        ? globalZoneCY
+        : atomZones[idx] === 'local'
+          ? localZoneCY
+          : bothZoneCY,
+    );
+
+    const allNodes = atoms.map((_, idx) => {
+      const targetY = atomZoneTargetY[idx];
+      return {
+        x: cx + (Math.random() - 0.5) * (w * 0.8),
+        y: targetY + (Math.random() - 0.5) * freeH * 0.5,
+        targetY,
+      };
+    });
+
+    forceSimulation(allNodes)
+      .force('x', forceX(cx).strength(0.01))
+      .force('y', forceY((d) => d.targetY).strength(0.05))
+      .force('collide', forceCollide(44))
+      .force('bound', () => {
+        for (const node of allNodes) {
+          node.x = Math.max(atomPad, Math.min(w - atomPad, node.x));
+          node.y = Math.max(freeMinY, Math.min(freeMaxY, node.y));
+        }
+      })
+      .stop()
+      .tick(300);
+
+    // Center cluster for animation entry
+    const freeCY = (freeMinY + freeMaxY) / 2;
+    const allCenterNodes = atoms.map(() => ({
       x: cx + (Math.random() - 0.5) * 20,
-      y: cy + (Math.random() - 0.5) * 20,
+      y: freeCY + (Math.random() - 0.5) * 20,
     }));
-    forceSimulation(centerNodes)
+    forceSimulation(allCenterNodes)
       .force('x', forceX(cx).strength(0.4))
-      .force('y', forceY(cy).strength(0.4))
+      .force('y', forceY(freeCY).strength(0.4))
       .force('collide', forceCollide(26))
       .stop()
       .tick(300);
 
-    // Build per-atom arrays
     const newPositions = [];
-    const newAllTargets = [];
     const newCenterOffsets = [];
 
-    atoms.forEach((atom, idx) => {
-      const targets = [];
-      allSlotDefs.forEach((slot) => {
-        const pos = slotPosMap.get(`${slot.side}-${slot.key}`)?.get(idx);
-        if (pos) targets.push({ x: pos.x, y: pos.y });
-      });
-      const primary =
-        targets.length > 0 ? targets[0] : { x: centerNodes[idx].x, y: centerNodes[idx].y };
-      newPositions.push(primary);
-      newAllTargets.push(targets);
+    atoms.forEach((_, idx) => {
+      const pos = { x: allNodes[idx].x, y: allNodes[idx].y };
+      newPositions.push(pos);
       newCenterOffsets.push({
-        dx: centerNodes[idx].x - primary.x,
-        dy: centerNodes[idx].y - primary.y,
+        dx: allCenterNodes[idx].x - pos.x,
+        dy: allCenterNodes[idx].y - pos.y,
       });
     });
 
     positions = newPositions;
-    allTargetPositions = newAllTargets;
     centerOffsets = newCenterOffsets;
   });
 
-  // ── Theme data ───────────────────────────────────────────────────────
+  // ── Theme data ────────────────────────────────────────────────────────
   const ATOM_IMGS = [null, Atom1, Atom2, Atom3, Atom4, Atom5, Atom6, Atom7, Atom8];
   const HALO_IMGS = [
     null,
@@ -378,23 +369,20 @@
     tids.forEach((tid, layerIdx) => byTheme.get(tid)?.push({ atomIdx, layerIdx }));
   });
 
-  // ── GSAP refs ────────────────────────────────────────────────────────
+  // ── GSAP refs ─────────────────────────────────────────────────────────
   let container;
   let imgEls = $state([]);
-  let topLabelEls = [];
-  let bottomLabelEls = [];
-  let leftLabelEls = [];
-  let rightLabelEls = [];
+  let globalLabelEls = [];
+  let localLabelEls = [];
   let defaultLayerRefs = [];
   let themeLayerRefs = atoms.map(() => []);
   let ctx;
-  let outletCycleTls = [];
   let themeCycleTls = [];
 
   let animationReady = $state(false);
   let wasThemesActive = false;
 
-  // ── Tooltip ──────────────────────────────────────────────────────────
+  // ── Tooltip ───────────────────────────────────────────────────────────
   let tooltip = $state({
     visible: false,
     text: '',
@@ -463,7 +451,7 @@
     };
   }
 
-  // ── Lifecycle ────────────────────────────────────────────────────────
+  // ── Lifecycle ─────────────────────────────────────────────────────────
   onMount(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -480,27 +468,22 @@
       observer.disconnect();
       document.removeEventListener('click', closeIfFocused);
       ctx?.revert();
-      outletCycleTls.forEach((tl) => tl.kill());
       themeCycleTls.forEach((tl) => tl.kill());
     };
   });
 
-  // ── Animation ────────────────────────────────────────────────────────
+  // ── Animation ─────────────────────────────────────────────────────────
   function runAnimation() {
-    // Place all atoms at center visually via GSAP x/y offset
     atoms.forEach((_, idx) => {
       gsap.set(imgEls[idx], { x: centerOffsets[idx].dx, y: centerOffsets[idx].dy, opacity: 0 });
     });
 
-    const allLabelEls = [...topLabelEls, ...bottomLabelEls, ...leftLabelEls, ...rightLabelEls];
+    const allLabelEls = [...globalLabelEls, ...localLabelEls].filter(Boolean);
 
     ctx = gsap.context(() => {
       const tl = gsap.timeline({ onComplete: afterMigration });
-      // Labels fade in
       tl.fromTo(allLabelEls, { opacity: 0 }, { opacity: 1, duration: 0.8, stagger: 0.04 }, 0);
-      // Atoms appear at center
       tl.to(imgEls, { opacity: 0.6, duration: 0.8, ease: 'power2.out', stagger: 0.01 }, 0.6);
-      // Migrate to outlet positions (x/y → 0 = CSS left/top position)
       tl.to(imgEls, { x: 0, y: 0, duration: 2.5, ease: 'power2.inOut', stagger: 0.008 }, 2);
     });
   }
@@ -508,7 +491,7 @@
   function afterMigration() {
     animationReady = true;
     breathe();
-    startOutletCycling();
+    startDrift();
   }
 
   function breathe() {
@@ -523,30 +506,36 @@
     });
   }
 
-  function startOutletCycling() {
-    const HOLD = 4;
-    const TRANSITION = 2;
+  function stopDrift() {
     atoms.forEach((_, idx) => {
-      const targets = allTargetPositions[idx];
-      if (!targets || targets.length < 2) return;
-      const primary = positions[idx];
-      // Express all targets as GSAP x/y offsets from the primary CSS position
-      const offsets = targets.map((t) => ({ x: t.x - primary.x, y: t.y - primary.y }));
-      const n = offsets.length;
-      const cycleTl = gsap.timeline({ repeat: -1, delay: Math.random() * HOLD });
-      outletCycleTls.push(cycleTl);
-      for (let i = 0; i < n; i++) {
-        const next = offsets[(i + 1) % n];
-        cycleTl.to(
-          imgEls[idx],
-          { x: next.x, y: next.y, duration: TRANSITION, ease: 'sine.inOut' },
-          i * (HOLD + TRANSITION) + HOLD,
-        );
-      }
+      if (imgEls[idx]) gsap.killTweensOf(imgEls[idx], 'x,y');
     });
   }
 
-  // ── Theme layer control ───────────────────────────────────────────────
+  function startDrift() {
+    stopDrift();
+    atoms.forEach((_, idx) => scheduleDrift(idx, Math.random() * 4));
+  }
+
+  function scheduleDrift(idx, delay = 0) {
+    const { minX, maxX, minY, maxY } = driftBounds;
+    if (minX === maxX) return; // not yet initialised
+    const tY = atomZoneTargetY[idx];
+    const range = maxY - minY;
+    const newX = minX + Math.random() * (maxX - minX);
+    const newY = Math.max(minY, Math.min(maxY, tY + (Math.random() - 0.5) * range * 0.65));
+    gsap.to(imgEls[idx], {
+      x: newX - positions[idx].x,
+      y: newY - positions[idx].y,
+      duration: 35 + Math.random() * 25,
+      delay,
+      ease: 'sine.inOut',
+      overwrite: 'auto',
+      onComplete: () => scheduleDrift(idx),
+    });
+  }
+
+  // ── Theme layer control ────────────────────────────────────────────────
   function startCyclingForActive(active) {
     const holdDur = 4;
     const transitionDur = 0.8;
@@ -564,8 +553,16 @@
         const fromLayer = orderedLayers[(n - 1 + i) % n];
         const toLayer = orderedLayers[i % n];
         const stepStart = i * (holdDur + transitionDur);
-        cycleTl.to(fromLayer, { opacity: 0, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
-        cycleTl.to(toLayer, { opacity: 1, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
+        cycleTl.to(
+          fromLayer,
+          { opacity: 0, duration: transitionDur, ease: 'sine.inOut' },
+          stepStart + holdDur,
+        );
+        cycleTl.to(
+          toLayer,
+          { opacity: 1, duration: transitionDur, ease: 'sine.inOut' },
+          stepStart + holdDur,
+        );
       }
     });
   }
@@ -598,7 +595,11 @@
         if (activeTids.length === 0) {
           gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
           tids.forEach((_, t) => {
-            gsap.to(themeLayerRefs[atomIdx][t], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+            gsap.to(themeLayerRefs[atomIdx][t], {
+              opacity: 0,
+              duration: FADE_DUR,
+              overwrite: 'auto',
+            });
           });
         } else {
           gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
@@ -616,12 +617,14 @@
     }
   });
 
-  // ── Spread-on-hover ───────────────────────────────────────────────────
+  // ── Spread-on-hover ────────────────────────────────────────────────────
   const SPREAD_RADIUS = 80;
   const SPREAD_MAX = 38;
   const HOVER_ZONE = 40;
 
   let spreading = false;
+  let driftBounds = { minX: 0, maxX: 0, minY: 0, maxY: 0 };
+  let atomZoneTargetY = atoms.map(() => 0);
 
   function handleContainerMouseEnter() {
     if (!animationReady) return;
@@ -676,10 +679,8 @@
       overwrite: true,
       onComplete: () => {
         if (!spreading) {
-          outletCycleTls.forEach((tl) => tl.kill());
-          outletCycleTls = [];
           breathe();
-          startOutletCycling();
+          startDrift();
         }
       },
     });
@@ -813,71 +814,35 @@
     </button>
   {/each}
 
-  <!-- Top outlet labels -->
-  {#each TOP_SLOTS as slot, i}
-    {@const isFirst = i === 0}
-    {@const isLast = i === TOP_SLOTS.length - 1}
+  <!-- Global outlet labels (top) -->
+  {#each GLOBAL_LABELS as label, i}
+    {@const isRight = globalLabelPositions[i].col >= 4}
     <div
-      bind:this={topLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
-      class:text-left={isFirst}
-      class:text-right={isLast}
-      class:text-center={!isFirst && !isLast}
-      style:left={isLast ? null : `${isFirst ? LABEL_MARGIN : topSlotPos[i].lx}px`}
-      style:right={isLast ? `${LABEL_MARGIN}px` : null}
-      style:top="{topSlotPos[i].ly}px"
-      style="transform: {isFirst || isLast
-        ? 'translateY(-50%)'
-        : 'translate(-50%, -50%)'}; opacity: 0;"
+      bind:this={globalLabelEls[i]}
+      class="absolute text-[16px] leading-5.25 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none"
+      class:text-left={!isRight}
+      class:text-right={isRight}
+      style:left="{globalLabelPositions[i].x}px"
+      style:top="{globalLabelPositions[i].y}px"
+      style="transform: translate({isRight ? '-100%' : '0%'}, -50%); opacity: 0;"
     >
-      {slotLabel(slot)}
+      {label}
     </div>
   {/each}
 
-  <!-- Bottom outlet labels -->
-  {#each BOTTOM_SLOTS as slot, i}
-    {@const isFirst = i === 0}
-    {@const isLast = i === BOTTOM_SLOTS.length - 1}
+  <!-- Local outlet labels (bottom) -->
+  {#each LOCAL_LABELS as label, i}
+    {@const isRight = localLabelPositions[i].col >= 4}
     <div
-      bind:this={bottomLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
-      class:text-left={isFirst}
-      class:text-right={isLast}
-      class:text-center={!isFirst && !isLast}
-      style:left={isLast ? null : `${isFirst ? LABEL_MARGIN : bottomSlotPos[i].lx}px`}
-      style:right={isLast ? `${LABEL_MARGIN}px` : null}
-      style:top="{bottomSlotPos[i].ly}px"
-      style="transform: {isFirst || isLast
-        ? 'translateY(-50%)'
-        : 'translate(-50%, -50%)'}; opacity: 0;"
+      bind:this={localLabelEls[i]}
+      class="absolute text-[16px] leading-5.25 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none"
+      class:text-left={!isRight}
+      class:text-right={isRight}
+      style:left="{localLabelPositions[i].x}px"
+      style:top="{localLabelPositions[i].y}px"
+      style="transform: translate({isRight ? '-100%' : '0%'}, -50%); opacity: 0;"
     >
-      {slotLabel(slot)}
-    </div>
-  {/each}
-
-  <!-- Left outlet labels -->
-  {#each LEFT_SLOTS as slot, i}
-    <div
-      bind:this={leftLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-left text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
-      style:left="{LABEL_MARGIN}px"
-      style:top="{leftSlotPos[i].ly}px"
-      style="transform: translateY(-50%); opacity: 0;"
-    >
-      {slotLabel(slot)}
-    </div>
-  {/each}
-
-  <!-- Right outlet labels -->
-  {#each RIGHT_SLOTS as slot, i}
-    <div
-      bind:this={rightLabelEls[i]}
-      class="absolute text-[16px] leading-5 font-medium text-right text-grey-800 whitespace-pre-line tracking-[3%] pointer-events-none"
-      style:right="{LABEL_MARGIN}px"
-      style:top="{rightSlotPos[i].ly}px"
-      style="transform: translateY(-50%); opacity: 0;"
-    >
-      {slotLabel(slot)}
+      {label}
     </div>
   {/each}
 
