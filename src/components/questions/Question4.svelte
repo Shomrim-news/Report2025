@@ -54,6 +54,43 @@
     </div>
   </div>
   <div class="inner-container mt-13 md:mt-0">
+    <p>Accountability journalism is not a single method and this year underscored that reality.</p>
+    <p>
+      Some stories demand speed; others require time measured in months of source-building, document
+      gathering, and carefully constructed evidence. Some call for both. Some require proximity-
+      spending time with people to understand lived realities, while others demand analytical
+      clarity to explain not only what happened - but why it was allowed to happen.
+    </p>
+    <p>
+      The largest category, 60 short-term investigations, reflects a year that moved quickly and
+      required constant vigilance and responsiveness.
+    </p>
+    <p>
+      A <a
+        href="https://www.shomrim.news/hebrew/the-black-market-of-dangerous-drugs"
+        target="_blank">long-form investigation into a black market for dangerous drugs</a
+      >
+      - required sustained, meticulous reporting. A fast-moving investigation into a
+      <a href="https://www.shomrim.news/hebrew/water-pollution" target="_blank"
+        >pollution threat to a major water reservoir</a
+      > led to a Knesset committee discussion within weeks, while still requiring ongoing follow-up.
+    </p>
+    <p>
+      A feature on <a
+        href="https://www.shomrim.news/hebrew/nova-survivors-struggling"
+        target="_blank">Nova Festival survivors</a
+      >
+      demanded time and close engagement to document their ongoing struggles.
+      <a href="https://www.shomrim.news/hebrew/ktzaa-mevaker-report" target="_blank"
+        >A follow-up on safety failures in the Eilat-Ashkelon pipeline</a
+      >
+      required persistence in revisiting an issue the system might have preferred to overlook, until
+      it reached parliamentary attention. And an explanatory piece on the
+      <a href="https://www.shomrim.news/hebrew/shabak-conflict" target="_blank"
+        >systematic weakening of Israel’s gatekeeping institutions</a
+      > provided the broader context that helped make sense of many of the year’s investigations.
+    </p>
+
     <div class="quote">
       "There is a famous saying, ‘When the cannons are rumbling the muses fall silent’. In Israel,
       the canons never stop firing, resulting in many losing their voices. Shomrim makes sure that

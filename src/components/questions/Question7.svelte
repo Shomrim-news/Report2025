@@ -54,6 +54,36 @@
     </div>
   </div>
   <div class="inner-container mt-13 md:mt-0">
+    <p>Some stories don’t change institutions - they change how people see reality</p>
+    <p>
+      Not every story that matters leads to an immediate institutional response. Some investigations
+      drive policy change - but others create a different kind of impact by moving people.
+    </p>
+    <p>
+      To better understand this dimension, we introduced an additional lens: human proximity. We
+      mapped 76 selected stories along a spectrum - from policy and power at one end, to lived human
+      experience at the other. In between are the stories where institutional decisions directly
+      shape people’s lives. Each story was assessed not only for what it exposed, but for how
+      closely it captured the human reality behind it.
+    </p>
+    <p>
+      At one end are deeply personal accounts: <a href="https://www.shomrim.news/eng/majdal-shams-disaster" target="_blank">families of the Majdal Shams victims</a> expressing grief that has gone
+      unacknowledged by institutions, or <a href="https://www.shomrim.news/eng/silent-scars" target="_blank">children in Haredi
+      schools</a> carrying the silent consequences of
+      violence. At the center are stories where systems and lives intersect: a government decision
+      to withhold funding from a drug harm-reduction program became a community left without support
+      - until public attention led to a Knesset intervention and the restoration of funds.
+      Similarly, reporting on wounded soldiers revealed a second, less visible struggle - with
+      opioid dependency emerging during rehabilitation.
+    </p>
+    <p>
+      Empathy does not always produce immediate policy outcomes. But it creates presence. It brings
+      people into focus and makes their reality visible in ways that cannot be ignored. Some of the
+      most powerful journalism in this body of work did not trigger formal decisions - it did
+      something just as essential: it ensured that those affected were seen, heard, and accounted
+      for.
+    </p>
+
     <div class="quote">
       "The true power of journalism lies beyond the headlines — it’s in the stories that would
       otherwise remain invisible. When people feel unheard, Shomrim ensures their voices rise,

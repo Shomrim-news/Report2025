@@ -54,6 +54,32 @@
     </div>
   </div>
   <div class="inner-container mt-13 md:mt-0">
+    <p>By refusing to treat a story as a one-time event.</p>
+    <p>
+      The issues Shomrim covers cannot be reduced to a single publication; they require depth,
+      context, and sustained attention to fully understand and address. Shomrim’s approach is to
+      uncover the layers of a story and stay with it—returning again and again to deepen the
+      reporting, add new perspectives, and push toward real-world outcomes.
+    </p>
+    <p>
+      In a fast-paced media environment like Israel’s, where attention quickly shifts and breaking
+      news dominates, this kind of persistence is rare. But it is essential. Accountability is not
+      achieved through exposure alone -it requires follow-up, pressure, and continuity over time.
+    </p>
+    <p>
+      In practice, this means tracking issues long after publication. In 2025, for example, Shomrim
+      continued to follow the growing use of opioids in Israel, examining how the war in Gaza
+      <a href="https://www.shomrim.news/eng/opioid-soldiers" target="_blank">introduced new risks through the treatment of injured
+      soldiers</a>. In another case, Shomrim <a href="https://www.shomrim.news/eng/rug-harm-reduction-program-could-be-closed" target="_blank">revealed</a> that the Ministry of
+      National Security had withheld funding from a drug addiction treatment program, putting it at
+      risk of closure. The investigation led to a Knesset discussion, and through continued
+      follow-up, the funding was ultimately approved and released.
+    </p>
+    <p>
+      This is how reporting becomes accountability: through persistence, continuity, and a
+      commitment to see stories through until change begins to take shape.
+    </p>
+
     <div class="quote">
       "Investigative journalism is not just a profession; it’s a pillar of democracy. As the media
       landscape erodes and scrutiny weakens, Shomrim not only keeps the fire burning — it leads the

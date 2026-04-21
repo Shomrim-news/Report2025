@@ -53,6 +53,28 @@
     </div>
   </div>
   <div class="inner-container">
+    <p>
+      In 2025, 38 of Shomrim’s investigations, approximately one in five, focused on marginalized
+      and underrepresented communities. These are stories that do not surface on their own; they
+      require deliberate effort to uncover. They include women trafficked into Israel for
+      prostitution; Belarusian exiles targeted by Lukashenko’s security services; and elderly
+      populations left vulnerable during wartime - these are communities largely overlooked.
+    </p>
+    <p>
+      Three recurring patterns emerge. Arab and Palestinian communities appear frequently, in
+      stories about blocked land registration, diverted funding and Bedouin villages lacking basic
+      protections such as bomb shelters. Haredi communities are examined both as subjects and as
+      concern, with reporting on concealed abuse, opaque school networks, and weakened health
+      infrastructure. A third cluster focuses on individuals and groups affected by state failures,
+      insufficiently addressed.
+    </p>
+    <p>
+      This focus is also reflected within Shomrim’s newsroom itself. Through a dedicated diversity
+      program, Shomrim trains and mentors young journalists from underrepresented communities,
+      integrating them into the newsroom and enabling them to report on issues that are often
+      inaccessible to mainstream media.
+    </p>
+
     <div class="quote">
       “Being a Druze journalist is not easy, and working as an investigative reporter is even more
       challenging. Shomrim provides me with the tools and support I need to pursue this work despite
