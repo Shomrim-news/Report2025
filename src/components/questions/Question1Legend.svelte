@@ -43,7 +43,7 @@
               ></div>
             </div>
           </div>
-          <div class="text-sm leading-lg italic tracking-[2%] max-w-30 md:max-w-35 mt-6 flex-1">
+          <div class="text-sm leading-lg italic tracking-[3%] max-w-30 md:max-w-35 mt-6 flex-1">
             One ink mark is one published story
           </div>
         </div>
