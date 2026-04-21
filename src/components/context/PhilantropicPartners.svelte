@@ -1,5 +1,7 @@
-<h2 id="partners">Philanthropic Partners</h2>
-<div>We wish to thank all our partners; their invaluable support makes our mission possible.</div>
+<h2 id="partners" class="as-h1">Philanthropic Partners</h2>
+<div class="text-[22px] leading-8.5 tracking-[-1%]">
+  We wish to thank all our partners; their invaluable support makes our mission possible.
+</div>
 
 <div>
   <h3>Founders</h3>
@@ -9,7 +11,7 @@
 <div class="flex gap-26.5 partners-container">
   <div class="flex-1 max-w-115">
     <div>
-      <h3 class="mt-19.75 mb-1.25">Leaders</h3>
+      <h3 class="mt-19.75 mb-2.5">Leaders</h3>
       <ul class="w-full">
         <li>The Moriah Fund, New York, NY</li>
         <li>The Charles H. Revson Foundation, New York, NY</li>
@@ -20,7 +22,7 @@
     </div>
 
     <div>
-      <h3 class="mt-24.25 mb-1.25">Friends</h3>
+      <h3 class="mt-24.25 mb-2.5">Friends</h3>
       <ul class="w-full">
         <li>Doris Arkin</li>
         <li>Karen Falk and Michael Goldman</li>
@@ -30,7 +32,7 @@
   </div>
 
   <div class="flex-1 max-w-115">
-    <h3 class="mt-19.75 mb-1.25">Guardians</h3>
+    <h3 class="mt-19.75 mb-2.5">Guardians</h3>
     <ul class="w-full">
       <li>Gerson Bakar Foundation, San Francisco, CA</li>
       <li>Dan David Foundation, Vaduz, Liechtenstein</li>

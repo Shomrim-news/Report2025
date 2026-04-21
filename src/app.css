@@ -164,8 +164,12 @@
       line-height: var(--leading-xl);
     }
 
+    .as-h1 {
+      margin: 116px 0 32px;
+    }
+
     h3 {
-      margin: 42px 0 26px;
+      margin: 42px 0 30px;
       font-size: var(--text-lg);
       line-height: var(--leading-lg);
     }

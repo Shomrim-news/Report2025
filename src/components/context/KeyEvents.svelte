@@ -1,4 +1,4 @@
-<h2 id="key-events">Key Events in 2025</h2>
+<h2 id="key-events" class="as-h1">Key Events in 2025</h2>
 <h3>International Journalism Festival in Perugia</h3>
 <p>
   In April, Shomrim journalist Milan Czerny participated in the International Journalism Festival in

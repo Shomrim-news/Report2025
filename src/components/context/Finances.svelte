@@ -1,11 +1,11 @@
-<h2 id="finances">Financial overview</h2>
+<h2 id="finances" class="as-h1">Financial overview</h2>
 <div>
   In 2025, Shomrim operated with a total budget of <span class="font-medium">$2,694,500</span>,
   supporting its investigative reporting operations and editorial work.
 </div>
 <div class="flex flex-col sm:flex-row sm:gap-x-20.25">
   <div>
-    <h3>Income</h3>
+    <h3 style="margin-bottom: 32px;">Income</h3>
     <div class="w-115">
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
         <div class="leading-6.5 relative -top-3">
@@ -19,7 +19,7 @@
         <div>955,000</div>
       </div>
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
-        <div>Reserves and funds raised for next year**</div>
+        <div>Reserves and funds raised for next year **</div>
         <div>488,000</div>
       </div>
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
@@ -42,7 +42,7 @@
   </div>
 
   <div>
-    <h3>Expenses</h3>
+    <h3 style="margin-bottom: 32px;">Expenses</h3>
     <div class="w-115">
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
         <div>

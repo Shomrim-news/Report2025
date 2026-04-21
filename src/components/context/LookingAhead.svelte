@@ -1,4 +1,4 @@
-<h2 id="looking-ahead">Looking Ahead</h2>
+<h2 id="looking-ahead" class="as-h1">Looking Ahead</h2>
 <p>
   Shomrim’s model rests on three interconnected pillars: investigative journalism at scale, training
   and ecosystem-building for investigative journalism in Israel, and the integration of AI and
