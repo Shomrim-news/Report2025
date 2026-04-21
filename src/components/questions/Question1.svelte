@@ -9,8 +9,9 @@
   let containerWidth = $state(0);
   let containerHeight = $state(0);
   let VizComponent = $state(null);
-  let mounted = $state(false);
+  let canvasVisible = $state(false);
   let sectionEl;
+  let canvasEl;
 
   // Proportional frame border, capped at the original 170/160px for large screens
   let horizPad = $derived(Math.min(170, containerWidth * (170 / 1536)));
@@ -19,19 +20,32 @@
   let vizHeight = $derived(containerHeight - 2 * vertPad);
 
   onMount(() => {
-    mounted = true;
-
-    const observer = new IntersectionObserver(
+    const preloadObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           import('./Question1Viz.svelte').then((m) => (VizComponent = m.default));
-          observer.disconnect();
+          preloadObserver.disconnect();
         }
       },
       { rootMargin: '300px' },
     );
-    observer.observe(sectionEl);
-    return () => observer.disconnect();
+    preloadObserver.observe(sectionEl);
+
+    const hintsObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          canvasVisible = true;
+          hintsObserver.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    hintsObserver.observe(canvasEl);
+
+    return () => {
+      preloadObserver.disconnect();
+      hintsObserver.disconnect();
+    };
   });
 </script>
 
@@ -40,8 +54,9 @@
     <h2>This is Shomrim's newsroom in 2025</h2>
   </div>
   <div class="flex flex-col">
-    <div class="overflow-x-auto overflow-y-hidden">
+    <div class="overflow-x-auto -mt-10 pt-10">
       <div
+        bind:this={canvasEl}
         class="mt-10.5 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
@@ -53,9 +68,9 @@
           {/if}
         </div>
 
-        {#if mounted}
+        {#if canvasVisible}
           <div
-            in:fly={{ y: -6, duration: 2000, delay: 1000 }}
+            in:fly={{ y: -6, duration: 2000, delay: 0 }}
             class="absolute top-6 left-2 flex flex-col gap-2 md:hidden"
           >
             <div class="flex items-center gap-2">

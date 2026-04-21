@@ -153,7 +153,6 @@
   }
 
   @media (max-width: 767px) {
-    #questions .relative,
     #questions .mt-3.mb-13 {
       overflow-x: hidden;
     }

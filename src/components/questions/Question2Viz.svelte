@@ -141,13 +141,14 @@
       .force('bound', () => {
         for (const node of nodes) {
           node.y = Math.max(node.bandTop + halfH, Math.min(node.bandBottom - halfH, node.y));
+          node.x = Math.max(node.tx - colW / 2, Math.min(node.tx + colW / 2, node.x));
         }
       })
       .stop()
       .tick(300);
 
     positions = nodes.map(({ x, y, bandTop, bandBottom }, i) => ({
-      x: x + jitterX[i],
+      x: Math.max(PADDING_X, Math.min(width - PADDING_X, x + jitterX[i])),
       y: Math.max(bandTop + halfH, Math.min(bandBottom - halfH, y + jitterY[i])),
     }));
   });
@@ -368,6 +369,7 @@
   class="relative"
   style:width="{width}px"
   style:height="{height}px"
+  style:--band-label-width="{width}px"
   role="region"
   aria-label="Stories visualization"
   onmouseenter={handleContainerMouseEnter}
@@ -446,10 +448,8 @@
   {#each bandDefs as band, bandIdx}
     <div
       bind:this={bandLabelEls[bandIdx]}
-      class="absolute text-[16px] font-medium text-center text-grey-800 tracking-[3%]"
+      class="band-label absolute text-[16px] font-medium text-grey-800 tracking-[3%]"
       style:top="{bandIdx * (bandH + BAND_LABEL_H + BAND_GAP) + bandH}px"
-      style:left="0"
-      style:width="{width}px"
       style="opacity: 0;"
     >
       {band.label}
@@ -494,3 +494,18 @@
     </svelte:element>
   {/if}
 </div>
+
+<style>
+  .band-label {
+    left: 30px;
+    text-align: left;
+  }
+
+  @media (min-width: 768px) {
+    .band-label {
+      left: 0;
+      width: var(--band-label-width);
+      text-align: center;
+    }
+  }
+</style>

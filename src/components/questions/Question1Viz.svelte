@@ -46,7 +46,7 @@
   $effect(() => {
     if (intersected && width > 0 && height > 0 && !animationStarted) {
       animationStarted = true;
-      runAnimation();
+      setTimeout(() => runAnimation(), 1000);
     }
   });
 

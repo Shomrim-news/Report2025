@@ -11,7 +11,7 @@
   style="border-bottom: 0.5px solid;"
 >
   <div class="md:grid md:items-end" style="grid-template-columns: 1fr auto 1fr;">
-    <div class="flex items-start gap-12.5 w-full">
+    <div class="flex items-start md:items-end gap-12.5 w-full">
       <button class="flex items-center gap-3 cursor-pointer" onclick={() => (isOpen = !isOpen)}>
         <span class="h-7.5 rounded-[7px] bg-beige-200 flex items-center justify-center gap-1.5 w-8">
           <span
