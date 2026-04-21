@@ -25,15 +25,15 @@
   import Halo2Impact2 from '$lib/assets/halo_theme_2_impact_2.png';
   import Halo2Impact3 from '$lib/assets/halo_theme_2_impact_3.png';
   import Halo3Impact1 from '$lib/assets/halo_theme_3_impact_1.png';
-  import Halo3Impact2 from '$lib/assets/halo_theme_3_impact_2_temp.png';
+  import Halo3Impact2 from '$lib/assets/halo_theme_3_impact_2.png';
   import Halo4Impact1 from '$lib/assets/halo_theme_4_impact_1.png';
   import Halo4Impact2 from '$lib/assets/halo_theme_4_impact_2.png';
-  import Halo4Impact3 from '$lib/assets/halo_theme_4_impact_3_temp.png';
+  import Halo4Impact3 from '$lib/assets/halo_theme_4_impact_3.png';
   import Halo5Impact1 from '$lib/assets/halo_theme_5_impact_1.png';
   import Halo5Impact2 from '$lib/assets/halo_theme_5_impact_2.png';
   import Halo6Impact1 from '$lib/assets/halo_theme_6_impact_1.png';
-  import Halo6Impact2 from '$lib/assets/halo_theme_6_impact_2_temp.png';
-  import Halo6Impact3 from '$lib/assets/halo_theme_6_impact_3_temp.png';
+  import Halo6Impact2 from '$lib/assets/halo_theme_6_impact_2.png';
+  import Halo6Impact3 from '$lib/assets/halo_theme_6_impact_3.png';
   import Halo7Impact1 from '$lib/assets/halo_theme_7_impact_1.png';
   import Halo8Impact1 from '$lib/assets/halo_theme_8_impact_1.png';
   import Halo8Impact3 from '$lib/assets/halo_theme_8_impact_3.png';
@@ -375,8 +375,16 @@
         const fromLayer = orderedLayers[(n - 1 + i) % n];
         const toLayer = orderedLayers[i % n];
         const stepStart = i * (holdDur + transitionDur);
-        cycleTl.to(fromLayer, { opacity: 0, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
-        cycleTl.to(toLayer, { opacity: 1, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
+        cycleTl.to(
+          fromLayer,
+          { opacity: 0, duration: transitionDur, ease: 'sine.inOut' },
+          stepStart + holdDur,
+        );
+        cycleTl.to(
+          toLayer,
+          { opacity: 1, duration: transitionDur, ease: 'sine.inOut' },
+          stepStart + holdDur,
+        );
       }
     });
   }
@@ -409,7 +417,11 @@
         if (activeTids.length === 0) {
           gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
           tids.forEach((_, t) => {
-            gsap.to(themeLayerRefs[atomIdx][t], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+            gsap.to(themeLayerRefs[atomIdx][t], {
+              opacity: 0,
+              duration: FADE_DUR,
+              overwrite: 'auto',
+            });
           });
         } else {
           gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
