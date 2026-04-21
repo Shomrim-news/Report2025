@@ -105,8 +105,7 @@
 
           <!-- Themes -->
           <div
-            class="-ml-8 pl-8 md:ml-0 md:pl-0 grid grid-cols-2 gap-y-6.25 pt-8 pb-5 border-t border-grey-200 md:border-t-0 md:pt-0 mg:pb-0 md:flex md:items-end md:gap-4"
-            style="border-top-width: 0.5px;"
+            class="-ml-8 pl-8 md:ml-0 md:pl-0 grid grid-cols-2 gap-y-6.25 pt-8 pb-5 border-t border-grey-200 md:border-t-0 md:pt-0 mg:pb-0 md:flex md:items-end md:gap-4 themes-border"
           >
             {#each themes as theme}
               <button
@@ -137,3 +136,14 @@
   </div>
 </div>
 <div class="inner-container legend-description mt-5">{text}</div>
+
+<style>
+  .themes-border {
+    border-top-width: 0.5px;
+  }
+  @media (min-width: 768px) {
+    .themes-border {
+      border-top-width: 0;
+    }
+  }
+</style>

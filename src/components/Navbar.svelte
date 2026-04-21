@@ -18,6 +18,7 @@
     "How did Shomrim's reporting travel beyond its newsroom?",
     'How do you turn reporting into accountability?',
     'Can empathy be another means of impact?',
+    'How Shomrim gave voice to those not heard in mainstream media?',
   ];
 
   let scrolled = $state(false);

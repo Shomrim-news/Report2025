@@ -42,7 +42,7 @@
   import { stories } from '$lib/data/stories.js';
   import { themes, getThemeIds } from '$lib/data/themes.js';
 
-  let { width = 0, height = 0 } = $props();
+  let { width = 0, height = 0, activeThemes = new Set() } = $props();
 
   const MONTHS = [
     'Jan',
@@ -234,6 +234,7 @@
   let animationReady = $state(false);
   let themesActivated = $state(false);
   let selectedThemeId = $state(null);
+  let wasThemesActive = false;
 
   // ── Tooltip ───────────────────────────────────────────────────────────
   let tooltip = $state({
@@ -498,6 +499,76 @@
       });
     }
   }
+
+  // ── External activeThemes prop ────────────────────────────────────────
+  function startCyclingForActive(active) {
+    const holdDur = 4;
+    const transitionDur = 0.8;
+    atoms.forEach(({ story }, atomIdx) => {
+      const tids = story.themeIds;
+      const activeTids = tids.filter((tid) => active.has(tid));
+      if (activeTids.length < 2) return;
+      const orderedLayers = themes
+        .filter((t) => activeTids.includes(t.id))
+        .map((t) => themeLayerRefs[atomIdx][tids.indexOf(t.id)]);
+      const n = orderedLayers.length;
+      const cycleTl = gsap.timeline({ repeat: -1, delay: Math.random() * holdDur });
+      themeCycleTls.push(cycleTl);
+      for (let i = 0; i < n; i++) {
+        const fromLayer = orderedLayers[(n - 1 + i) % n];
+        const toLayer = orderedLayers[i % n];
+        const stepStart = i * (holdDur + transitionDur);
+        cycleTl.to(fromLayer, { opacity: 0, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
+        cycleTl.to(toLayer, { opacity: 1, duration: transitionDur, ease: 'sine.inOut' }, stepStart + holdDur);
+      }
+    });
+  }
+
+  $effect(() => {
+    const active = activeThemes;
+    if (!animationReady) return;
+
+    const isActive = active.size > 0;
+    const FADE_DUR = 0.45;
+
+    themeCycleTls.forEach((tl) => tl.kill());
+    themeCycleTls = [];
+
+    if (!isActive) {
+      if (wasThemesActive) {
+        atoms.forEach((_, atomIdx) => {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
+          themeLayerRefs[atomIdx].forEach((el) => {
+            if (el) gsap.to(el, { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          });
+        });
+      }
+      wasThemesActive = false;
+    } else {
+      wasThemesActive = true;
+      atoms.forEach(({ story }, atomIdx) => {
+        const tids = story.themeIds;
+        const activeTids = tids.filter((tid) => active.has(tid));
+        if (activeTids.length === 0) {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 1, duration: FADE_DUR, overwrite: 'auto' });
+          tids.forEach((_, t) => {
+            gsap.to(themeLayerRefs[atomIdx][t], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          });
+        } else {
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          const firstActiveTid = themes.find((t) => activeTids.includes(t.id))?.id;
+          tids.forEach((tid, t) => {
+            gsap.to(themeLayerRefs[atomIdx][t], {
+              opacity: tid === firstActiveTid ? 1 : 0,
+              duration: FADE_DUR,
+              overwrite: 'auto',
+            });
+          });
+        }
+      });
+      startCyclingForActive(active);
+    }
+  });
 
   // ── Spread-on-hover ───────────────────────────────────────────────────
   const SPREAD_RADIUS = 80;
