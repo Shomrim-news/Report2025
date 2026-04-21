@@ -221,16 +221,12 @@
 </div>
 
 <style>
+  /* ── Base styles ── */
   .founders-grid {
     display: grid;
     grid-template-columns: repeat(2, 409px);
     column-gap: 25px;
     row-gap: 26px;
-  }
-  @media (max-width: 580px) {
-    .founders-grid {
-      grid-template-columns: 409px;
-    }
   }
   .team1-row {
     display: flex;
@@ -241,21 +237,6 @@
     display: grid;
     grid-template-columns: repeat(4, 273px);
     row-gap: 26px;
-  }
-  @media (max-width: 1200px) {
-    .grid {
-      grid-template-columns: repeat(3, 273px);
-    }
-  }
-  @media (max-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(2, 273px);
-    }
-  }
-  @media (max-width: 580px) {
-    .grid {
-      grid-template-columns: 273px;
-    }
   }
   .card {
     display: flex;
@@ -276,7 +257,7 @@
   }
   .team-info {
     width: 180px;
-    padding: 24px 8px 8px;
+    padding: 24px 0px 8px;
     text-align: center;
     background-color: color-mix(in srgb, var(--color-beige-300) 32%, transparent);
   }
@@ -309,5 +290,44 @@
     font-style: italic;
     letter-spacing: 2%;
     color: var(--color-grey-400);
+  }
+
+  /* ── Responsive overrides (must come after base styles) ── */
+  @media (max-width: 1200px) {
+    .grid {
+      grid-template-columns: repeat(3, 273px);
+    }
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 273px);
+    }
+  }
+  @media (max-width: 580px) {
+    .founders-grid {
+      grid-template-columns: 1fr;
+    }
+    .grid {
+      grid-template-columns: 273px;
+    }
+    .card-lg {
+      width: 100%;
+    }
+    .card-lg .team-info {
+      width: auto;
+      flex: 1;
+      min-width: 0;
+    }
+    .audit-row {
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 400px) {
+    .team-info,
+    .card-no-photo .team-info {
+      width: auto;
+      flex: 1;
+      min-width: 0;
+    }
   }
 </style>

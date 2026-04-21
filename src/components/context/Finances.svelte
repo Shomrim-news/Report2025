@@ -5,10 +5,10 @@
 </div>
 <div class="flex flex-col sm:flex-row sm:gap-x-20.25">
   <div>
-    <h3 style="margin-bottom: 32px;">Income</h3>
-    <div class="w-115">
+    <h3>Income</h3>
+    <div class="w-full max-w-115">
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
-        <div class="leading-6.5 relative -top-3">
+        <div class="leading-6.5 relative -top-2.5 md:-top-3">
           <div>Laura and Gary Lauder</div>
           <div>Family Venture Philanthropy Fund</div>
         </div>
@@ -20,7 +20,7 @@
       </div>
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
         <div>Reserves and funds raised for next year **</div>
-        <div>488,000</div>
+        <div class="ml-8">488,000</div>
       </div>
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
         <div>Previous Year Outstanding</div>
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div class="text-sm leading-xs text-grey-800 tracking-[2%] mt-8 md:mt-26.75">
+      <div class="hidden sm:block text-sm leading-xs text-grey-800 tracking-[2%] mt-8 md:mt-26.75">
         <div>USD Conversion Rate: 3.6</div>
         <div>* All figures as of January 2026, before financial audit</div>
         <div>** In 2025, reserves grew to include legal and operational reserves</div>
@@ -42,8 +42,8 @@
   </div>
 
   <div>
-    <h3 style="margin-bottom: 32px;">Expenses</h3>
-    <div class="w-115">
+    <h3 class="expenses">Expenses</h3>
+    <div class="w-full max-w-115">
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
         <div>
           <div></div>
@@ -85,8 +85,29 @@
   </div>
 </div>
 
+<div class="sm:hidden text-sm leading-xs text-grey-800 tracking-[2%] mt-8 note">
+  <div class="note">USD Conversion Rate: 3.6</div>
+  <div class="note">* All figures as of January 2026, before financial audit</div>
+  <div class="note">** In 2025, reserves grew to include legal and operational reserves</div>
+</div>
+
 <style>
-  h3 {
-    margin-bottom: 39px;
+  div:not(.note) {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+  h3.expenses {
+    margin-top: 48px;
+    margin-bottom: 4px;
+  }
+  @media (min-width: 640px) {
+    h3.expenses {
+      margin-top: 0;
+      margin-bottom: 32px;
+    }
+    div:not(.note) {
+      font-size: var(--text-md);
+      line-height: var(--leading-md);
+    }
   }
 </style>

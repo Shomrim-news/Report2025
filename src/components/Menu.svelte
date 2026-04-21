@@ -37,3 +37,9 @@
     </nav>
   </div>
 {/if}
+
+<style>
+  nav a {
+    text-decoration: none;
+  }
+</style>

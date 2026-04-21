@@ -8,30 +8,19 @@
   <div>Laura and Gary Lauder Family Venture Philanthropy Fund</div>
 </div>
 
-<div class="flex gap-26.5 partners-container">
-  <div class="flex-1 max-w-115">
-    <div>
-      <h3 class="mt-19.75 mb-2.5">Leaders</h3>
-      <ul class="w-full">
-        <li>The Moriah Fund, New York, NY</li>
-        <li>The Charles H. Revson Foundation, New York, NY</li>
-        <li>Anonymous</li>
-        <li>Anonymous</li>
-        <li>Anonymous</li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="mt-24.25 mb-2.5">Friends</h3>
-      <ul class="w-full">
-        <li>Doris Arkin</li>
-        <li>Karen Falk and Michael Goldman</li>
-        <li>Valerie Feigen and Steven Eisman</li>
-      </ul>
-    </div>
+<div class="partners-container">
+  <div class="leaders-section">
+    <h3 class="mt-19.75 mb-2.5">Leaders</h3>
+    <ul class="w-full">
+      <li>The Moriah Fund, New York, NY</li>
+      <li>The Charles H. Revson Foundation, New York, NY</li>
+      <li>Anonymous</li>
+      <li>Anonymous</li>
+      <li>Anonymous</li>
+    </ul>
   </div>
 
-  <div class="flex-1 max-w-115">
+  <div class="guardians-section">
     <h3 class="mt-19.75 mb-2.5">Guardians</h3>
     <ul class="w-full">
       <li>Gerson Bakar Foundation, San Francisco, CA</li>
@@ -45,15 +34,51 @@
       <li>Anonymous</li>
     </ul>
   </div>
+
+  <div class="friends-section">
+    <h3 class="mt-24.25 mb-2.5">Friends</h3>
+    <ul class="w-full">
+      <li>Doris Arkin</li>
+      <li>Karen Falk and Michael Goldman</li>
+      <li>Valerie Feigen and Steven Eisman</li>
+    </ul>
+  </div>
 </div>
 
 <style>
   li {
-    line-height: 4.25rem;
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    font-size: 1rem;
+    line-height: 1.4rem;
     border-bottom: 0.5px solid var(--color-beige-600);
   }
   .partners-container {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'leaders guardians'
+      'friends guardians';
+    column-gap: 106px;
+  }
+  .leaders-section {
+    grid-area: leaders;
+  }
+  .guardians-section {
+    grid-area: guardians;
+  }
+  .friends-section {
+    grid-area: friends;
+  }
+
+  @media (max-width: 767px) {
+    .partners-container {
+      display: flex;
+      flex-direction: column;
+    }
   }
   .partners-container::before {
     content: '';
@@ -65,5 +90,11 @@
     background-position: 308px 426px;
     opacity: 0.68;
     pointer-events: none;
+  }
+  @media (min-width: 640px) {
+    li {
+      font-size: var(--text-md);
+      line-height: 4.25rem;
+    }
   }
 </style>

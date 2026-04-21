@@ -122,7 +122,9 @@
       {#if scrolled}
         <span class="text-sm truncate flex-1 min-w-0 mr-4">{activeSectionLabel}</span>
       {/if}
-      <button class="cursor-pointer text-grey-800 shrink-0 ml-auto" onclick={onopen}>Menu</button>
+      <button class="cursor-pointer text-grey-800 shrink-0 ml-auto text-sm" onclick={onopen}
+        >Menu</button
+      >
     </div>
   </div>
 </div>

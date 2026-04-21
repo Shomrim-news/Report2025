@@ -31,26 +31,29 @@
   <div class="inner-container">
     <h2>Can empathy be another means of impact?</h2>
   </div>
-  <div
-    class="mt-10.5 relative"
-    bind:clientWidth={containerWidth}
-    bind:clientHeight={containerHeight}
-  >
-    <img src={Canvas} alt="Canvas background" />
+  <div class="flex flex-col">
+    <div
+      class="mt-10.5 relative"
+      bind:clientWidth={containerWidth}
+      bind:clientHeight={containerHeight}
+    >
+      <img src={Canvas} alt="Canvas background" />
 
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      {#if VizComponent}
-        <VizComponent width={vizWidth} height={vizHeight} {activeThemes} />
-      {/if}
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        {#if VizComponent}
+          <VizComponent width={vizWidth} height={vizHeight} {activeThemes} />
+        {/if}
+      </div>
+    </div>
+    <div class="mt-3 md:mb-13 order-first md:order-last">
+      <QuestionLegend
+        defaultOpen={false}
+        bind:activeThemes
+        text="Three groups, one spectrum — from policy and power on the left, to lived human experience on the right, with the stories where systems and lives collide in between. Watch each group emerge and fill with its stories. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+      />
     </div>
   </div>
-  <div class="mt-3 mb-13">
-    <QuestionLegend
-      bind:activeThemes
-      text="Three groups, one spectrum — from policy and power on the left, to lived human experience on the right, with the stories where systems and lives collide in between. Watch each group emerge and fill with its stories. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
-    />
-  </div>
-  <div class="inner-container">
+  <div class="inner-container mt-13 md:mt-0">
     <div class="quote">
       "The true power of journalism lies beyond the headlines — it’s in the stories that would
       otherwise remain invisible. When people feel unheard, Shomrim ensures their voices rise,

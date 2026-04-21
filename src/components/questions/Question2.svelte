@@ -33,22 +33,24 @@
       trigger response?
     </h2>
   </div>
-  <div
-    class="mt-10.5 relative"
-    bind:clientWidth={containerWidth}
-    bind:clientHeight={containerHeight}
-  >
-    <img src={Canvas} alt="Canvas background" />
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      {#if VizComponent}
-        <VizComponent width={vizWidth} height={vizHeight} />
-      {/if}
+  <div class="flex flex-col">
+    <div
+      class="mt-10.5 relative"
+      bind:clientWidth={containerWidth}
+      bind:clientHeight={containerHeight}
+    >
+      <img src={Canvas} alt="Canvas background" />
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        {#if VizComponent}
+          <VizComponent width={vizWidth} height={vizHeight} />
+        {/if}
+      </div>
+    </div>
+    <div class="mt-3 md:mb-13 order-first md:order-last">
+      <Question2Legend />
     </div>
   </div>
-  <div class="mt-3 mb-13">
-    <Question2Legend />
-  </div>
-  <div class="inner-container">
+  <div class="inner-container mt-13 md:mt-0">
     <p>Not every story lands the same way. But every story lands.</p>
     <p>
       It has been a complex year for Shomrim’s reporting. Yet Shomrim continues to demand
