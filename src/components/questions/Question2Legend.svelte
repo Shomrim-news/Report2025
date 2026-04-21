@@ -99,9 +99,9 @@
 {/if}
 
 <div class="inner-container legend-description mt-5">
-  In 2025 Shomrim published 175 investigations. Each mark on the canvas represents a story: equal in
-  presence, but each carrying its own weight, urgency, and outcome. Together, they trace a year of
-  reporting. By hovering on any mark, you can discover the story behind it. Click on it to explore
-  further. From here, the report opens up further layers of Shomrim’s work, like the impact these
-  stories generated, the themes that shaped our reporting, and the audiences they reached.
+  Watch the canvas fill band by band, bottom to top. Within each band, stories appear month by
+  month, January through December. The lower band holds stories Shomrim brought into the public
+  space, the middle those that reached other media, and the top those that triggered response. The
+  larger a story's halo, the wider its real-world resonance. Hover any mark to discover the story
+  behind it, click to explore it online.
 </div>

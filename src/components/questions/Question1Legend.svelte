@@ -69,9 +69,9 @@
 {/if}
 
 <div class="inner-container legend-description mt-5">
-  Watch five story types take shape, bottom to top — each one reflecting a different way of working.
-  From the speed of short-term investigations to the patience of explanatory journalism, every band
-  reflects what that story demanded. Within each band, stories appear month by month, January
-  through December. Click any theme spot in the legend to show or hide it. Hover any mark to
-  discover the story behind it, click to explore it online.
+  In 2025 Shomrim published 175 investigations. Each mark on the canvas represents a story: equal in
+  presence, but each carrying its own weight, urgency, and outcome. Together, they trace a year of
+  reporting. By hovering on any mark, you can discover the story behind it. Click on it to explore
+  further. From here, the report opens up further layers of Shomrim’s work, like the impact these
+  stories generated, the themes that shaped our reporting, and the audiences they reached
 </div>
