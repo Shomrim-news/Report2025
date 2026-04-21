@@ -58,6 +58,7 @@
     Mako: 'N12_Mako',
     Haaretz: 'Haaretz',
     'Haaretz (English edition)': 'Haaretz',
+    'Haaretz ENG': 'Haaretz',
     TheMarker: 'TheMarker',
     Ynet: 'Ynet',
     'Ynet ENG': 'OtherLocal',
@@ -78,7 +79,7 @@
     'B\u2019Hadrei Haredim': 'OtherLocal',
     'Channel Knesset': 'OtherLocal',
     'Galatz (Army Radio)': 'OtherLocal',
-    'Galatz': 'OtherLocal',
+    Galatz: 'OtherLocal',
     'KAN 11': 'OtherLocal',
     Maariv: 'OtherLocal',
     'Reka Radio (KAN)': 'OtherLocal',
@@ -297,7 +298,7 @@
     const globalZoneCY = TOP_Y + ((globalMaxRows - 1) * ROW_H) / 2;
     const localZoneCY = BOTTOM_Y - ((localMaxRows - 1) * ROW_H) / 2;
     const freeCY = (freeMinY + freeMaxY) / 2;
-    const bothZoneCY = freeCY;
+    const bothZoneCY = globalZoneCY + (freeCY - globalZoneCY) * 0.65;
 
     // Expose for drift animation
     driftBounds = { minX: atomPad, maxX: w - atomPad, minY: freeMinY, maxY: freeMaxY };
