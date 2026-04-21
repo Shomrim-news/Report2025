@@ -1,17 +1,26 @@
 <script>
   import { onMount } from 'svelte';
+  import { fly } from 'svelte/transition';
   import Canvas from '$lib/assets/canvas.jpg';
   import Question1Legend from './Question1Legend.svelte';
+  import ArrowRight from '../icons/ArrowRight.svelte';
+  import ArrowDown from '../icons/ArrowDown.svelte';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
   let VizComponent = $state(null);
+  let mounted = $state(false);
   let sectionEl;
 
-  let vizWidth = $derived(containerWidth - 2 * 170);
-  let vizHeight = $derived(containerHeight - 2 * 160);
+  // Proportional frame border, capped at the original 170/160px for large screens
+  let horizPad = $derived(Math.min(170, containerWidth * (170 / 1536)));
+  let vertPad = $derived(Math.min(160, containerHeight * (160 / 1024)));
+  let vizWidth = $derived(containerWidth - 2 * horizPad);
+  let vizHeight = $derived(containerHeight - 2 * vertPad);
 
   onMount(() => {
+    mounted = true;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -28,18 +37,36 @@
 
 <div bind:this={sectionEl} class="mb-35">
   <div class="inner-container">
-    <h2>This is Shomrim’s newsroom in 2025</h2>
+    <h2>This is Shomrim's newsroom in 2025</h2>
   </div>
   <div class="flex flex-col">
-    <div
-      class="mt-10.5 relative"
-      bind:clientWidth={containerWidth}
-      bind:clientHeight={containerHeight}
-    >
-      <img src={Canvas} alt="Canvas background" />
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        {#if VizComponent}
-          <VizComponent width={vizWidth} height={vizHeight} />
+    <div class="overflow-x-auto overflow-y-hidden">
+      <div
+        class="mt-10.5 relative min-w-225"
+        bind:clientWidth={containerWidth}
+        bind:clientHeight={containerHeight}
+      >
+        <img src={Canvas} alt="Canvas background" />
+        <div class="absolute inset-0 flex items-center justify-center z-10">
+          {#if VizComponent}
+            <VizComponent width={vizWidth} height={vizHeight} />
+          {/if}
+        </div>
+
+        {#if mounted}
+          <div
+            in:fly={{ y: -6, duration: 2000, delay: 1000 }}
+            class="absolute top-6 left-2 flex flex-col gap-2 md:hidden"
+          >
+            <div class="flex items-center gap-2">
+              <div>Swipe each canvas to explore</div>
+              <span class="arrow-nudge-right"><ArrowRight /></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div>Scroll down to continue</div>
+              <span class="arrow-nudge-down"><ArrowDown /></span>
+            </div>
+          </div>
         {/if}
       </div>
     </div>
@@ -56,11 +83,41 @@
       decision to publish. There are 175 of them. 97 generated measurable impact.
     </p>
     <div class="quote">
-      “When every mechanism meant to check government power is under siege — whether in culture,
+      "When every mechanism meant to check government power is under siege — whether in culture,
       law, or media - journalism becomes the last line of defense. Shomrim stands firm, ensuring
-      those in power remain accountable, no matter the cost.” <span class="quote-author"
+      those in power remain accountable, no matter the cost." <span class="quote-author"
         >Daniel Dolev, Investigative Reporter</span
       >
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes nudge-right {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+  @keyframes nudge-down {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+  }
+  .arrow-nudge-right {
+    display: inline-flex;
+    animation: nudge-right 2s ease-in-out infinite;
+  }
+  .arrow-nudge-down {
+    display: inline-flex;
+    animation: nudge-down 2s ease-in-out infinite;
+    animation-delay: 0.7s;
+  }
+</style>

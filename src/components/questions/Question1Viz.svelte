@@ -168,7 +168,7 @@
   }
 </script>
 
-<div bind:this={container} class="relative" style:width="{width}px" style:height="{height}px">
+<div bind:this={container} class="relative" style:width="{width}px" style:height="{height}px" style="overflow: visible;">
   {#each data as item, i}
     {@const col = i % COLS}
     {@const row = Math.floor(i / COLS)}
