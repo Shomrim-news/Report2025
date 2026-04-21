@@ -64,6 +64,7 @@
 
   a {
     text-decoration: underline;
+    text-decoration-color: #7e8692;
     text-decoration-thickness: 1.4px;
     text-underline-offset: 4px;
     transition: color 250ms ease;

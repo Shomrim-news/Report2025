@@ -23,8 +23,9 @@
         {#if isOpen}
           <span class="sr-only">Close legend</span>
         {:else}
-          <span class="italic text-sm leading-lg tracking-[3%]" in:fade={{ duration: 150 }}
-            >Open Legend</span
+          <span
+            class="italic text-sm leading-lg tracking-[3%] text-grey-200"
+            in:fade={{ duration: 150 }}>Open Legend</span
           >
         {/if}
       </button>

@@ -4,8 +4,10 @@
       class="flex flex-col items-center text-center gap-4 md:flex-row md:justify-between text-sm"
     >
       <div>Copyrights The Center for Media and Democracy in Israel LTD (CC)</div>
-      <a href="https://www.shomrim.news/english-back/eng-donate" target="_blank"
-        >To support Shomrim</a
+      <a
+        class="decoration-1"
+        href="https://www.shomrim.news/english-back/eng-donate"
+        target="_blank">To support Shomrim</a
       >
     </div>
   </div>

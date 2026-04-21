@@ -45,7 +45,7 @@
         {/if}
       </div>
     </div>
-    <div class="mt-3 md:mb-13 order-first md:order-last">
+    <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes
@@ -67,14 +67,18 @@
       closely it captured the human reality behind it.
     </p>
     <p>
-      At one end are deeply personal accounts: <a href="https://www.shomrim.news/eng/majdal-shams-disaster" target="_blank">families of the Majdal Shams victims</a> expressing grief that has gone
-      unacknowledged by institutions, or <a href="https://www.shomrim.news/eng/silent-scars" target="_blank">children in Haredi
-      schools</a> carrying the silent consequences of
-      violence. At the center are stories where systems and lives intersect: a government decision
-      to withhold funding from a drug harm-reduction program became a community left without support
-      - until public attention led to a Knesset intervention and the restoration of funds.
-      Similarly, reporting on wounded soldiers revealed a second, less visible struggle - with
-      opioid dependency emerging during rehabilitation.
+      At one end are deeply personal accounts: <a
+        href="https://www.shomrim.news/eng/majdal-shams-disaster"
+        target="_blank">families of the Majdal Shams victims</a
+      >
+      expressing grief that has gone unacknowledged by institutions, or
+      <a href="https://www.shomrim.news/eng/silent-scars" target="_blank"
+        >children in Haredi schools</a
+      > carrying the silent consequences of violence. At the center are stories where systems and lives
+      intersect: a government decision to withhold funding from a drug harm-reduction program became
+      a community left without support - until public attention led to a Knesset intervention and the
+      restoration of funds. Similarly, reporting on wounded soldiers revealed a second, less visible
+      struggle - with opioid dependency emerging during rehabilitation.
     </p>
     <p>
       Empathy does not always produce immediate policy outcomes. But it creates presence. It brings

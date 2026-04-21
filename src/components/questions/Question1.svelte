@@ -70,7 +70,7 @@
         {/if}
       </div>
     </div>
-    <div class="mt-3 md:mb-13 order-first md:order-last">
+    <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
       <Question1Legend />
     </div>
   </div>

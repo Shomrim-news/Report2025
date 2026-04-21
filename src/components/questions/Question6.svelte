@@ -45,7 +45,7 @@
         {/if}
       </div>
     </div>
-    <div class="mt-3 md:mb-13 order-first md:order-last">
+    <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes
@@ -69,10 +69,14 @@
     <p>
       In practice, this means tracking issues long after publication. In 2025, for example, Shomrim
       continued to follow the growing use of opioids in Israel, examining how the war in Gaza
-      <a href="https://www.shomrim.news/eng/opioid-soldiers" target="_blank">introduced new risks through the treatment of injured
-      soldiers</a>. In another case, Shomrim <a href="https://www.shomrim.news/eng/rug-harm-reduction-program-could-be-closed" target="_blank">revealed</a> that the Ministry of
-      National Security had withheld funding from a drug addiction treatment program, putting it at
-      risk of closure. The investigation led to a Knesset discussion, and through continued
+      <a href="https://www.shomrim.news/eng/opioid-soldiers" target="_blank"
+        >introduced new risks through the treatment of injured soldiers</a
+      >. In another case, Shomrim
+      <a
+        href="https://www.shomrim.news/eng/rug-harm-reduction-program-could-be-closed"
+        target="_blank">revealed</a
+      > that the Ministry of National Security had withheld funding from a drug addiction treatment program,
+      putting it at risk of closure. The investigation led to a Knesset discussion, and through continued
       follow-up, the funding was ultimately approved and released.
     </p>
     <p>

@@ -1,34 +1,70 @@
 <script>
   const advisory = [
-    { name: 'Richard (Rick) Altabef', title: 'Broadcast news lawyer', photo: '/photos/advisory/Richard_Altabef.jpg' },
-    { name: 'Ilana Dayan', title: 'Journalist, host of Channel 12 investigative TV show Uvda', photo: '/photos/advisory/Ilana_Dayan.jpg' },
+    {
+      name: 'Richard (Rick) Altabef',
+      title: 'Broadcast news lawyer',
+      photo: '/photos/advisory/Richard_Altabef.jpg',
+    },
+    {
+      name: 'Ilana Dayan',
+      title: 'Journalist, host of Channel 12 investigative TV show Uvda',
+      photo: '/photos/advisory/Ilana_Dayan.jpg',
+    },
     {
       name: 'Raviv Drucker',
       title: 'Journalist, Political Commentator; Host, investigative TV program HaMakor',
       photo: '/photos/advisory/Raviv_Druker.jpg',
     },
-    { name: 'Amos Harel', title: 'Journalist, Military Commentator for Haaretz', photo: '/photos/advisory/Amos_Harel.jpg' },
+    {
+      name: 'Amos Harel',
+      title: 'Journalist, Military Commentator for Haaretz',
+      photo: '/photos/advisory/Amos_Harel.jpg',
+    },
     {
       name: 'David Horovitz',
       title: 'Journalist, Founding Editor of Jerusalem-based news website The Times of Israel',
       photo: '/photos/advisory/David_Horovitz.jpg',
     },
-    { name: 'Isaac Lee', title: 'Journalist, Entrepreneur, and Film & Television Producer', photo: '/photos/advisory/Isaac_Lee.jpg' },
+    {
+      name: 'Isaac Lee',
+      title: 'Journalist, Entrepreneur, and Film & Television Producer',
+      photo: '/photos/advisory/Isaac_Lee.jpg',
+    },
     {
       name: 'Robert J. Rosenthal',
       title: 'Former Executive Director, The Center for Investigative Reporting',
       photo: '/photos/advisory/Robert_J_Rosenthal.jpg',
     },
-    { name: 'Vivian Schiller', title: 'VP & Executive Director, Aspen Institute', photo: '/photos/advisory/Vivian_Schiller.jpg' },
-    { name: 'Bret Stephens', title: 'Columnist at the New York Times', photo: '/photos/advisory/Bret_Stephens.jpg' },
-    { name: 'Dina Temple-Raston', title: 'Senior Correspondent for The Record', photo: '/photos/advisory/Dina_Temple_Raston.jpg' },
-    { name: 'Richard Tofel', title: 'Principal, Gallatin Advisory LLC', photo: '/photos/advisory/Richard_Tofel.jpg' },
+    {
+      name: 'Vivian Schiller',
+      title: 'VP & Executive Director, Aspen Institute',
+      photo: '/photos/advisory/Vivian_Schiller.jpg',
+    },
+    {
+      name: 'Bret Stephens',
+      title: 'Columnist at the New York Times',
+      photo: '/photos/advisory/Bret_Stephens.jpg',
+    },
+    {
+      name: 'Dina Temple-Raston',
+      title: 'Senior Correspondent for The Record',
+      photo: '/photos/advisory/Dina_Temple_Raston.jpg',
+    },
+    {
+      name: 'Richard Tofel',
+      title: 'Principal, Gallatin Advisory LLC',
+      photo: '/photos/advisory/Richard_Tofel.jpg',
+    },
     {
       name: 'Ellen Weiss',
       title: 'Chief of the Washington Bureau and Vice President of The E. W. Scripps Company',
       photo: '/photos/advisory/Ellen_Weiss.jpg',
     },
-    { name: 'Ghada Zoabi', title: 'Founder and CEO of Bokra.net', photo: '/photos/advisory/Ghada_Zoabi.jpg' },
+    {
+      name: 'Ghada Zoabi',
+      title: 'Founder and CEO of Bokra.net',
+      photo: '/photos/advisory/Ghada_Zoabi.jpg',
+    },
     {
       name: 'Guy Zohar',
       title: "Journalist, News Presenter, TV Show Host, Me'hatsad Hasheni on KAN 11 channel",
@@ -196,7 +232,7 @@
   {/each}
 </div>
 
-<div class="founders-grid" style="margin-top: 122px;">
+<div class="founders-grid" style="margin-top: 90px;">
   <div>
     <h3 style="margin-bottom: 60px;">Legal Counseling</h3>
     <div class="card card-no-photo">

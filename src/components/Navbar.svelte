@@ -111,7 +111,13 @@
           >
         {/if}
       {:else}
-        <span class="truncate flex-1 min-w-0">{activeSectionLabel}</span>
+        <span class="truncate flex-1 min-w-0">
+          {#if activeSection === 'questions'}
+            Our Work in 2025<em>{questionTitles[activeQuestionIndex]}</em>
+          {:else}
+            {activeSectionLabel}
+          {/if}
+        </span>
         <button class="cursor-pointer ml-4 shrink-0" onclick={() => (menuExpanded = true)}
           >Menu</button
         >
@@ -121,7 +127,13 @@
     <!-- Mobile nav (below md) -->
     <div class="flex md:hidden items-center w-full">
       {#if scrolled}
-        <span class="text-sm truncate flex-1 min-w-0 mr-4">{activeSectionLabel}</span>
+        <span class="text-sm truncate flex-1 min-w-0 mr-4">
+          {#if activeSection === 'questions'}
+            Our Work in 2025<em>{questionTitles[activeQuestionIndex]}</em>
+          {:else}
+            {activeSectionLabel}
+          {/if}
+        </span>
       {/if}
       <button class="cursor-pointer text-grey-800 shrink-0 ml-auto text-sm" onclick={onopen}
         >Menu</button
@@ -134,6 +146,7 @@
   .nav-link {
     position: relative;
     text-decoration: none;
+    color: var(--color-grey-800);
   }
 
   .nav-link::after {
@@ -149,5 +162,13 @@
 
   .nav-link:hover::after {
     width: 100%;
+  }
+
+  span em {
+    margin-left: 8px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 3%;
   }
 </style>

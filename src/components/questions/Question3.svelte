@@ -55,7 +55,7 @@
         {/if}
       </div>
     </div>
-    <div class="mt-3 md:mb-13 order-first md:order-last">
+    <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
       <QuestionLegend
         bind:activeThemes
         text="Watch each theme emerge and find its stories — eight themes, each in its own color. Stories shared between themes shift and cycle, reflecting the reality that no investigation lives in just one world. Click any theme to show or hide it. Hover any mark to discover the story behind it, click to explore it online."

@@ -40,8 +40,9 @@
         {#if isOpen}
           <span class="sr-only">Close legend</span>
         {:else}
-          <span class="italic text-sm leading-lg tracking-[3%]" in:fade={{ duration: 150 }}
-            >Open Legend</span
+          <span
+            class="italic text-sm leading-lg tracking-[3%] text-grey-200"
+            in:fade={{ duration: 150 }}>Open Legend</span
           >
         {/if}
       </button>
@@ -60,44 +61,44 @@
 
             <!-- Halos -->
             <div class="relative flex flex-col items-center shrink-0" style="overflow-x: visible;">
-              <img src={Halos} alt="Halos" class="w-34.5 h-38.5 shrink-0" />
+              <img src={Halos} alt="Halos" class="relative -top-1.5 w-34.5 h-38.5 shrink-0" />
               <div class="uppercase text-xs leading-lg tracking-[4%]">impact layers</div>
 
               <div class="absolute top-4 left-15.5 w-50 flex flex-col gap-3 leading-lg">
                 <!-- 3 -->
                 <div class="relative flex items-center gap-1.5">
                   <div class="w-3 text-center text-xs tracking-[3%]">3</div>
-                  <div class="relative opacity-62" style="overflow: visible;">
+                  <!-- <div class="relative opacity-62" style="overflow: visible;">
                     <div class="w-2 md:w-5.5 h-[0.5px] bg-grey-900"></div>
                     <div
                       class="absolute -top-0.5 -right-0.5 w-1 h-1 rounded-full bg-grey-900"
                     ></div>
                   </div>
-                  <div class="text-[11px] uppercase tracking-[3%] pl-0.5">Real-World Change</div>
+                  <div class="text-[11px] uppercase tracking-[3%] pl-0.5">Real-World Change</div> -->
                 </div>
 
                 <!-- 2 -->
                 <div class="relative flex items-center gap-1.5">
                   <div class="w-3 text-center text-xs tracking-[3%]">2</div>
-                  <div class="relative opacity-62" style="overflow: visible;">
+                  <!-- <div class="relative opacity-62" style="overflow: visible;">
                     <div class="w-2 md:w-5.5 h-[0.5px] bg-grey-900"></div>
                     <div
                       class="absolute -top-0.5 -right-0.5 w-1 h-1 rounded-full bg-grey-900"
                     ></div>
                   </div>
-                  <div class="text-[11px] uppercase tracking-[3%] pl-0.5">Stakeholder Reaction</div>
+                  <div class="text-[11px] uppercase tracking-[3%] pl-0.5">Stakeholder Reaction</div> -->
                 </div>
 
                 <!-- 1 -->
                 <div class="relative flex items-center gap-1.5">
                   <div class="w-3 text-center text-xs tracking-[3%]">1</div>
-                  <div class="relative opacity-62" style="overflow: visible;">
+                  <!-- <div class="relative opacity-62" style="overflow: visible;">
                     <div class="w-2 md:w-5.5 h-[0.5px] bg-grey-900"></div>
                     <div
                       class="absolute -top-0.5 -right-0.5 w-1 h-1 rounded-full bg-grey-900"
                     ></div>
                   </div>
-                  <div class="text-[11px] uppercase tracking-[3%] pl-0.5">Media Amplification</div>
+                  <div class="text-[11px] uppercase tracking-[3%] pl-0.5">Media Amplification</div> -->
                 </div>
               </div>
             </div>
@@ -114,7 +115,7 @@
                 style="transition: opacity 0.35s ease; opacity: {!anyActive ||
                 activeThemes.has(theme.id)
                   ? 1
-                  : 0.6};"
+                  : 0.3};"
                 onclick={() => toggleTheme(theme.id)}
               >
                 <div

@@ -24,8 +24,9 @@
         {#if isOpen}
           <span class="sr-only">Close legend</span>
         {:else}
-          <span class="italic text-sm leading-lg tracking-[3%]" in:fade={{ duration: 150 }}
-            >Open Legend</span
+          <span
+            class="italic text-sm leading-lg tracking-[3%] text-grey-200"
+            in:fade={{ duration: 150 }}>Open Legend</span
           >
         {/if}
       </button>
@@ -40,7 +41,7 @@
 
           <!-- Halos -->
           <div class="relative flex flex-col items-center shrink-0" style="overflow-x: visible;">
-            <img src={Halos} alt="Halos" class="w-34.5 h-38.5" />
+            <img src={Halos} alt="Halos" class="relative -top-1.5 w-34.5 h-38.5" />
             <div class="uppercase text-xs leading-lg tracking-[4%]">impact layers</div>
 
             <div class="absolute top-4 left-15.5 w-50 flex flex-col gap-3 leading-lg">
