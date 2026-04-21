@@ -78,6 +78,7 @@
     'B\u2019Hadrei Haredim': 'OtherLocal',
     'Channel Knesset': 'OtherLocal',
     'Galatz (Army Radio)': 'OtherLocal',
+    'Galatz': 'OtherLocal',
     'KAN 11': 'OtherLocal',
     Maariv: 'OtherLocal',
     'Reka Radio (KAN)': 'OtherLocal',
@@ -87,6 +88,7 @@
     'Annahar (Lebanon)': 'OtherGlobal',
     'Channel 10': 'OtherLocal',
     'Channel 7 (Arutz Sheva)': 'OtherLocal',
+    'Channel 7': 'OtherLocal',
     DoctorsOnly: 'OtherLocal',
     'Erem News': 'OtherGlobal',
     'Haredim 10': 'OtherLocal',
@@ -124,9 +126,8 @@
     'OtherLocal',
   ]);
 
-  // ── Label grids ───────────────────────────────────────────────────────
-  // Global (18): 8 cols, pattern [3,2,2,2,2,2,2,3], top-aligned
-  const GLOBAL_LABELS = [
+  // ── Label columns ─────────────────────────────────────────────────────
+  const GLOBAL_LEFT_LABELS = [
     'Al-Monitor',
     'Kurdistan24',
     'arabi21',
@@ -136,48 +137,50 @@
     'Sky News Arabic',
     'Profil',
     'Le Monde',
-    'Bokra',
+  ];
+  const GLOBAL_RIGHT_LABELS = [
+    'La Repubblica',
     'ICIJ',
     'Annahar',
     'Der Spiegel',
     'Corriere della Sera',
-    'La Repubblica',
+    'Bokra',
     'Bloomberg',
     'BBC Arabic',
     'i24News',
   ];
-  const GLOBAL_COL_PATTERN = [3, 2, 2, 2, 2, 2, 2, 3];
-
-  // Local (26): 8 cols, pattern [4,3,3,3,3,3,3,4], bottom-aligned
-  const LOCAL_LABELS = [
+  const LOCAL_LEFT_LABELS = [
     'Calcalist',
     'Ynet',
-    'Times of Israel',
+    'Haaretz',
+    'TheMarker',
+    'Galatz',
+    'Yedioth Ahronoth',
     'Mako',
     'N12',
-    'The Marker',
-    'Yedioth Ahronoth',
-    'Haaretz (ENG)',
-    'Under the Radar',
-    'Ynet ENG',
-    'Galatz',
-    'Reka Radio',
-    'Haaretz',
-    'KAN 11',
-    'Maariv',
-    'DoctorsOnly',
-    'Channel 10',
-    'Radio Tzafon',
-    'Hottest Place in Hell',
-    'KAN Arabic',
-    'TimeOut',
-    'Haredim 10',
-    'Walla',
-    'Channel 7',
-    'Channel Knesset',
-    "B'Hadrei Haredim",
+    'Haaretz ENG',
   ];
-  const LOCAL_COL_PATTERN = [4, 3, 3, 3, 3, 3, 3, 4];
+  const LOCAL_CENTER_LABELS = [
+    'KAN 11',
+    'Times of Israel',
+    'Under the Radar',
+    'Channel 10',
+    "B'Hadrei Haredim",
+    'Haredim 10',
+    'Channel 7',
+    'Hottest Place in Hell',
+  ];
+  const LOCAL_RIGHT_LABELS = [
+    'KAN Arabic',
+    'Maariv',
+    'Reka Radio',
+    'Radio Tzafon',
+    'Walla',
+    'DoctorsOnly',
+    'Channel Knesset',
+    'Ynet ENG',
+    'TimeOut',
+  ];
 
   function parseOutletKeys(story) {
     const keys = new Set();
@@ -230,8 +233,11 @@
   let positions = $state(atoms.map(() => ({ x: 0, y: 0 })));
   let centerOffsets = atoms.map(() => ({ dx: 0, dy: 0 }));
 
-  let globalLabelPositions = $state(GLOBAL_LABELS.map(() => ({ x: 0, y: 0, col: 0 })));
-  let localLabelPositions = $state(LOCAL_LABELS.map(() => ({ x: 0, y: 0, col: 0 })));
+  let globalLeftPositions = $state(GLOBAL_LEFT_LABELS.map(() => ({ x: 0, y: 0 })));
+  let globalRightPositions = $state(GLOBAL_RIGHT_LABELS.map(() => ({ x: 0, y: 0 })));
+  let localLeftPositions = $state(LOCAL_LEFT_LABELS.map(() => ({ x: 0, y: 0 })));
+  let localCenterPositions = $state(LOCAL_CENTER_LABELS.map(() => ({ x: 0, y: 0 })));
+  let localRightPositions = $state(LOCAL_RIGHT_LABELS.map(() => ({ x: 0, y: 0 })));
 
   let lastW = 0;
   let lastH = 0;
@@ -244,49 +250,54 @@
     lastW = w;
     lastH = h;
 
-    const LABEL_PAD_X = 40;
-    const ROW_H = 46;
-    const GLOBAL_TOP_Y = 36;
-    const LOCAL_BOTTOM_Y = h - 36;
-    const colStep = (w - 2 * LABEL_PAD_X) / 7;
+    const PAD_X = 40;
+    const ROW_H = 36;
+    const TOP_Y = 30;
+    const BOTTOM_Y = h - 30;
 
-    // Global label positions: top-aligned
-    const newGlobalPos = [];
-    let gi = 0;
-    GLOBAL_COL_PATTERN.forEach((rows, col) => {
-      const x = LABEL_PAD_X + col * colStep;
-      for (let row = 0; row < rows; row++) {
-        newGlobalPos[gi++] = { x, y: GLOBAL_TOP_Y + row * ROW_H, col };
-      }
-    });
-    globalLabelPositions = newGlobalPos;
+    // Global labels: top-aligned, left and right columns
+    globalLeftPositions = GLOBAL_LEFT_LABELS.map((_, i) => ({ x: PAD_X, y: TOP_Y + i * ROW_H }));
+    globalRightPositions = GLOBAL_RIGHT_LABELS.map((_, i) => ({
+      x: w - PAD_X,
+      y: TOP_Y + i * ROW_H,
+    }));
 
-    // Local label positions: bottom-aligned (all columns share the same bottom y)
-    const newLocalPos = [];
-    let li = 0;
-    LOCAL_COL_PATTERN.forEach((rows, col) => {
-      const x = LABEL_PAD_X + col * colStep;
-      const topY = LOCAL_BOTTOM_Y - (rows - 1) * ROW_H;
-      for (let row = 0; row < rows; row++) {
-        newLocalPos[li++] = { x, y: topY + row * ROW_H, col };
-      }
-    });
-    localLabelPositions = newLocalPos;
+    // Local labels: bottom-aligned, left, center, right columns
+    const localLeftN = LOCAL_LEFT_LABELS.length;
+    localLeftPositions = LOCAL_LEFT_LABELS.map((_, i) => ({
+      x: PAD_X,
+      y: BOTTOM_Y - (localLeftN - 1 - i) * ROW_H,
+    }));
+    const localCenterN = LOCAL_CENTER_LABELS.length;
+    localCenterPositions = LOCAL_CENTER_LABELS.map((_, i) => ({
+      x: w / 2,
+      y: BOTTOM_Y - (localCenterN - 1 - i) * ROW_H,
+    }));
+    const localRightN = LOCAL_RIGHT_LABELS.length;
+    localRightPositions = LOCAL_RIGHT_LABELS.map((_, i) => ({
+      x: w - PAD_X,
+      y: BOTTOM_Y - (localRightN - 1 - i) * ROW_H,
+    }));
 
     // ── Zone-based atom placement via force simulation ─────────────────
-    // Derive free canvas region between the two label zones
-    const globalMaxRows = Math.max(...GLOBAL_COL_PATTERN); // 3
-    const localMaxRows = Math.max(...LOCAL_COL_PATTERN); // 4
-    const freeMinY = GLOBAL_TOP_Y + (globalMaxRows - 1) * ROW_H + 32;
-    const freeMaxY = LOCAL_BOTTOM_Y - (localMaxRows - 1) * ROW_H - 32;
+    // Labels sit at the left/right edges, so atoms can span the full canvas height
+    const globalMaxRows = Math.max(GLOBAL_LEFT_LABELS.length, GLOBAL_RIGHT_LABELS.length);
+    const localMaxRows = Math.max(
+      LOCAL_LEFT_LABELS.length,
+      LOCAL_CENTER_LABELS.length,
+      LOCAL_RIGHT_LABELS.length,
+    );
+    const freeMinY = TOP_Y + 10;
+    const freeMaxY = BOTTOM_Y - 10;
     const freeH = freeMaxY - freeMinY;
     const cx = w / 2;
     const atomPad = 36; // distance from canvas left/right edges
 
-    // Zone drift targets: symmetric around canvas midline
-    const globalZoneCY = h / 2 - 150 - freeH * 0.22;
-    const localZoneCY = h / 2 - 150 + freeH * 0.22;
-    const bothZoneCY = h / 2 - 150;
+    // Zone targets: global at mid-height of global labels, local at mid-height of local labels
+    const globalZoneCY = TOP_Y + ((globalMaxRows - 1) * ROW_H) / 2;
+    const localZoneCY = BOTTOM_Y - ((localMaxRows - 1) * ROW_H) / 2;
+    const freeCY = (freeMinY + freeMaxY) / 2;
+    const bothZoneCY = freeCY;
 
     // Expose for drift animation
     driftBounds = { minX: atomPad, maxX: w - atomPad, minY: freeMinY, maxY: freeMaxY };
@@ -309,7 +320,7 @@
 
     forceSimulation(allNodes)
       .force('x', forceX(cx).strength(0.01))
-      .force('y', forceY((d) => d.targetY).strength(0.05))
+      .force('y', forceY((d) => d.targetY).strength(0.3))
       .force('collide', forceCollide(44))
       .force('bound', () => {
         for (const node of allNodes) {
@@ -320,15 +331,28 @@
       .stop()
       .tick(300);
 
-    // Center cluster for animation entry
-    const freeCY = (freeMinY + freeMaxY) / 2;
-    const allCenterNodes = atoms.map(() => ({
-      x: cx + (Math.random() - 0.5) * 20,
-      y: freeCY + (Math.random() - 0.5) * 20,
-    }));
+    // Two starting clusters: global atoms from globalZoneCY, local from localZoneCY
+    const allCenterNodes = atoms.map((_, idx) => {
+      const startY =
+        atomZones[idx] === 'global'
+          ? globalZoneCY
+          : atomZones[idx] === 'local'
+            ? localZoneCY
+            : freeCY;
+      return { x: cx + (Math.random() - 0.5) * 20, y: startY + (Math.random() - 0.5) * 20 };
+    });
     forceSimulation(allCenterNodes)
       .force('x', forceX(cx).strength(0.4))
-      .force('y', forceY(freeCY).strength(0.4))
+      .force(
+        'y',
+        forceY((_, i) =>
+          atomZones[i] === 'global'
+            ? globalZoneCY
+            : atomZones[i] === 'local'
+              ? localZoneCY
+              : freeCY,
+        ).strength(0.4),
+      )
       .force('collide', forceCollide(26))
       .stop()
       .tick(300);
@@ -372,8 +396,11 @@
   // ── GSAP refs ─────────────────────────────────────────────────────────
   let container;
   let imgEls = $state([]);
-  let globalLabelEls = [];
-  let localLabelEls = [];
+  let globalLeftLabelEls = [];
+  let globalRightLabelEls = [];
+  let localLeftLabelEls = [];
+  let localCenterLabelEls = [];
+  let localRightLabelEls = [];
   let defaultLayerRefs = [];
   let themeLayerRefs = atoms.map(() => []);
   let ctx;
@@ -478,7 +505,13 @@
       gsap.set(imgEls[idx], { x: centerOffsets[idx].dx, y: centerOffsets[idx].dy, opacity: 0 });
     });
 
-    const allLabelEls = [...globalLabelEls, ...localLabelEls].filter(Boolean);
+    const allLabelEls = [
+      ...globalLeftLabelEls,
+      ...globalRightLabelEls,
+      ...localLeftLabelEls,
+      ...localCenterLabelEls,
+      ...localRightLabelEls,
+    ].filter(Boolean);
 
     ctx = gsap.context(() => {
       const tl = gsap.timeline({ onComplete: afterMigration });
@@ -523,7 +556,7 @@
     const tY = atomZoneTargetY[idx];
     const range = maxY - minY;
     const newX = minX + Math.random() * (maxX - minX);
-    const newY = Math.max(minY, Math.min(maxY, tY + (Math.random() - 0.5) * range * 0.65));
+    const newY = Math.max(minY, Math.min(maxY, tY + (Math.random() - 0.5) * range * 0.18));
     gsap.to(imgEls[idx], {
       x: newX - positions[idx].x,
       y: newY - positions[idx].y,
@@ -814,33 +847,66 @@
     </button>
   {/each}
 
-  <!-- Global outlet labels (top) -->
-  {#each GLOBAL_LABELS as label, i}
-    {@const isRight = globalLabelPositions[i].col >= 4}
+  <!-- Global outlet labels: top-left -->
+  {#each GLOBAL_LEFT_LABELS as label, i}
     <div
-      bind:this={globalLabelEls[i]}
-      class="absolute text-[16px] leading-5.25 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none"
-      class:text-left={!isRight}
-      class:text-right={isRight}
-      style:left="{globalLabelPositions[i].x}px"
-      style:top="{globalLabelPositions[i].y}px"
-      style="transform: translate({isRight ? '-100%' : '0%'}, -50%); opacity: 0;"
+      bind:this={globalLeftLabelEls[i]}
+      class="absolute text-[16px] leading-9 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none text-left"
+      style:left="{globalLeftPositions[i].x}px"
+      style:top="{globalLeftPositions[i].y}px"
+      style="transform: translate(0%, -50%); opacity: 0;"
     >
       {label}
     </div>
   {/each}
 
-  <!-- Local outlet labels (bottom) -->
-  {#each LOCAL_LABELS as label, i}
-    {@const isRight = localLabelPositions[i].col >= 4}
+  <!-- Global outlet labels: top-right -->
+  {#each GLOBAL_RIGHT_LABELS as label, i}
     <div
-      bind:this={localLabelEls[i]}
-      class="absolute text-[16px] leading-5.25 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none"
-      class:text-left={!isRight}
-      class:text-right={isRight}
-      style:left="{localLabelPositions[i].x}px"
-      style:top="{localLabelPositions[i].y}px"
-      style="transform: translate({isRight ? '-100%' : '0%'}, -50%); opacity: 0;"
+      bind:this={globalRightLabelEls[i]}
+      class="absolute text-[16px] leading-9 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none text-right"
+      style:left="{globalRightPositions[i].x}px"
+      style:top="{globalRightPositions[i].y}px"
+      style="transform: translate(-100%, -50%); opacity: 0;"
+    >
+      {label}
+    </div>
+  {/each}
+
+  <!-- Local outlet labels: bottom-left -->
+  {#each LOCAL_LEFT_LABELS as label, i}
+    <div
+      bind:this={localLeftLabelEls[i]}
+      class="absolute text-[16px] leading-9 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none text-left"
+      style:left="{localLeftPositions[i].x}px"
+      style:top="{localLeftPositions[i].y}px"
+      style="transform: translate(0%, -50%); opacity: 0;"
+    >
+      {label}
+    </div>
+  {/each}
+
+  <!-- Local outlet labels: bottom-center -->
+  {#each LOCAL_CENTER_LABELS as label, i}
+    <div
+      bind:this={localCenterLabelEls[i]}
+      class="absolute text-[16px] leading-9 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none text-center"
+      style:left="{localCenterPositions[i].x}px"
+      style:top="{localCenterPositions[i].y}px"
+      style="transform: translate(-50%, -50%); opacity: 0;"
+    >
+      {label}
+    </div>
+  {/each}
+
+  <!-- Local outlet labels: bottom-right -->
+  {#each LOCAL_RIGHT_LABELS as label, i}
+    <div
+      bind:this={localRightLabelEls[i]}
+      class="absolute text-[16px] leading-9 font-medium text-grey-800 whitespace-nowrap tracking-[3%] pointer-events-none text-right"
+      style:left="{localRightPositions[i].x}px"
+      style:top="{localRightPositions[i].y}px"
+      style="transform: translate(-100%, -50%); opacity: 0;"
     >
       {label}
     </div>
