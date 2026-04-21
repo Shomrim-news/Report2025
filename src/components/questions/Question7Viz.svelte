@@ -62,7 +62,7 @@
       key: 'Bodies-oriented',
       title: 'Bodies',
       align: 'right',
-      desc: 'Lived-experience stories rooted in vulnerability, with hardly systems presence.',
+      desc: 'Lived-experience stories\nrooted in vulnerability, with\nhardly systems presence.',
     },
   ];
 
@@ -596,14 +596,14 @@
       style:bottom="{LABEL_MARGIN}px"
       style="transform: {orient.align === 'center' ? 'translateX(-50%)' : 'none'}; opacity: 0;"
     >
-      <div class="text-[16px] leading-5 font-semibold text-grey-800 tracking-[3%]">
+      <div class="text-[16px] leading-5 font-medium text-grey-800 tracking-[3%]">
         {orient.title}
       </div>
-      <div class="text-[14px] text-grey-600 mt-0.5">
+      <div class="text-[14px] text-grey-800 mt-0.75 tracking-[3%]">
         ({counts[i]}{counts[i] === 1 ? ' Story' : ' Stories'})
       </div>
       <div
-        class="text-[11px] text-grey-500 mt-1.5 italic leading-4 max-w-37.5 mx-auto tracking-[3%]"
+        class="text-[16px] text-grey-400 mt-3.5 italic leading-5.5 max-w-60 mx-auto tracking-[3%] whitespace-pre-line"
       >
         {orient.desc}
       </div>
