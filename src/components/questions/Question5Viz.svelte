@@ -252,7 +252,7 @@
     lastH = h;
 
     const PAD_X = 40;
-    const ROW_H = 36;
+    const ROW_H = window.innerWidth < 768 ? 28 : 36;
     const TOP_Y = 30;
     const BOTTOM_Y = h - 30;
 

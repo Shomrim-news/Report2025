@@ -32,17 +32,18 @@
     <h2>How do you turn reporting into accountability?</h2>
   </div>
   <div class="flex flex-col">
-    <div
-      class="mt-10.5 relative"
-      bind:clientWidth={containerWidth}
-      bind:clientHeight={containerHeight}
-    >
-      <img src={Canvas} alt="Canvas background" />
-
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        {#if VizComponent}
-          <VizComponent width={vizWidth} height={vizHeight} {activeThemes} />
-        {/if}
+    <div class="overflow-x-auto overflow-y-hidden">
+      <div
+        class="mt-10.5 relative min-w-225"
+        bind:clientWidth={containerWidth}
+        bind:clientHeight={containerHeight}
+      >
+        <img src={Canvas} alt="Canvas background" class="w-full" />
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {#if VizComponent}
+            <VizComponent width={vizWidth} height={vizHeight} {activeThemes} />
+          {/if}
+        </div>
       </div>
     </div>
     <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
