@@ -2,13 +2,14 @@
   import { onMount } from 'svelte';
   import Canvas from '$lib/assets/canvas.jpg';
   import QuestionLegend from './QuestionLegend.svelte';
+  import { themes } from '$lib/data/themes.js';
 
   let containerWidth = $state(0);
   let containerHeight = $state(0);
   let VizComponent = $state(null);
   let sectionEl;
 
-  let activeThemes = $state(new Set());
+  let activeThemes = $state(new Set(themes.map((t) => t.id)));
   let vizWidth = $derived(containerWidth);
   let vizHeight = $derived(containerHeight);
 

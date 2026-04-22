@@ -319,7 +319,7 @@
   function runAnimation() {
     const THEME_INTERVAL = 3;
     const THEME_DELAY = 3;
-    const FADE_DUR = 0.6;
+    const FADE_DUR = 1.5;
 
     ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -329,6 +329,14 @@
         },
       });
       const currentLayer = atoms.map(() => -1); // -1 = default layer
+
+      // Atoms fade in
+      tl.fromTo(
+        imgEls,
+        { opacity: 0 },
+        { opacity: 0.6, duration: 0.8, ease: 'power2.out', stagger: { amount: 1.5, from: 'random' } },
+        0,
+      );
 
       // Month labels fade in
       tl.fromTo(
@@ -464,7 +472,7 @@
 
     const FADE_DUR = 0.45;
 
-    if (!initialActivation) {
+    if (active.size > 0 || !initialActivation) {
       atoms.forEach((_, atomIdx) => {
         const tids = atomThemeIds[atomIdx];
         const activeTids = tids.filter((tid) => active.has(tid));
@@ -606,7 +614,7 @@
       style:top="{positions[idx].y + atomH / 2 - btnH}px"
       style:width="{btnW}px"
       style:height="{btnH}px"
-      style="opacity: 0.6;"
+      style="opacity: 0;"
       onmouseenter={() => {
         if (!animationReady) return;
         if (clickedIndex !== -1 && clickedIndex !== idx) return;

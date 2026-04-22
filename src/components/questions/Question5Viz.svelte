@@ -408,6 +408,7 @@
   let themeCycleTls = [];
 
   let animationReady = $state(false);
+  let initialRevealDone = false;
   let wasThemesActive = false;
 
   // ── Tooltip ───────────────────────────────────────────────────────────
@@ -606,7 +607,7 @@
     if (!animationReady) return;
 
     const isActive = active.size > 0;
-    const FADE_DUR = 0.45;
+    const FADE_DUR = !initialRevealDone ? 1.5 : 0.45;
 
     themeCycleTls.forEach((tl) => tl.kill());
     themeCycleTls = [];
@@ -623,6 +624,7 @@
       wasThemesActive = false;
     } else {
       wasThemesActive = true;
+      initialRevealDone = true;
       atoms.forEach((_, atomIdx) => {
         const tids = atomThemeIds[atomIdx];
         const activeTids = tids.filter((tid) => active.has(tid));

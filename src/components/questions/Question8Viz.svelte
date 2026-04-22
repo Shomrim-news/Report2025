@@ -231,6 +231,7 @@
   let themeCycleTls = [];
   let activateTl = null;
   let deactivateTl = null;
+  let autoColorTimer;
 
   let animationReady = $state(false);
   let themesActivated = $state(false);
@@ -311,6 +312,7 @@
     return () => {
       observer.disconnect();
       document.removeEventListener('click', closeIfFocused);
+      clearTimeout(autoColorTimer);
       ctx?.revert();
     };
   });
@@ -349,6 +351,7 @@
 
   function breathe() {
     animationReady = true;
+    autoColorTimer = setTimeout(() => activateThemes(true), 3000);
     gsap.killTweensOf(imgEls);
     gsap.to(imgEls, {
       y: '+=10',
@@ -362,15 +365,15 @@
   }
 
   // ── Theme activation ──────────────────────────────────────────────────
-  function activateThemes() {
+  function activateThemes(slow = false) {
     deactivateTl?.kill();
     deactivateTl = null;
     themesActivated = true;
     gsap.killTweensOf(imgEls);
     gsap.set(imgEls, { x: 0, y: 0, opacity: 0.6 });
 
-    const THEME_INTERVAL = 1;
-    const FADE_DUR = 0.6;
+    const THEME_INTERVAL = slow ? 2 : 1;
+    const FADE_DUR = slow ? 1.5 : 0.6;
     const currentLayer = atoms.map(() => -1);
     activateTl = gsap.timeline({ onComplete: startThemeCycling });
 
