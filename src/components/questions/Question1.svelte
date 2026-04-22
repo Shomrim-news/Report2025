@@ -14,8 +14,10 @@
   let canvasEl;
 
   // Proportional frame border, capped at the original 170/160px for large screens
-  let horizPad = $derived(Math.min(170, containerWidth * (170 / 1536)));
-  let vertPad = $derived(Math.min(160, containerHeight * (160 / 1024)));
+  // Use a smaller multiplier on mobile (canvas min-width is 900px, so containerWidth ~900 on mobile)
+  let mobileFactor = $derived(containerWidth < 1000 ? 0.65 : 1);
+  let horizPad = $derived(Math.min(170, containerWidth * (170 / 1536)) * mobileFactor);
+  let vertPad = $derived(Math.min(160, containerHeight * (160 / 1024)) * mobileFactor);
   let vizWidth = $derived(containerWidth - 2 * horizPad);
   let vizHeight = $derived(containerHeight - 2 * vertPad);
 
@@ -71,7 +73,7 @@
         {#if canvasVisible}
           <div
             in:fly={{ y: -6, duration: 2000, delay: 0 }}
-            class="absolute top-6 left-2 flex flex-col gap-2 min-[900px]:hidden"
+            class="absolute top-3 left-2 flex flex-col gap-0 min-[900px]:hidden"
           >
             <div class="flex items-center gap-2">
               <div>Swipe each canvas to explore</div>
