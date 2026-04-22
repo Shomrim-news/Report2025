@@ -64,7 +64,7 @@
     <p>
       In 2025, 78 stories reached the level of public exposure. For example, a February
       investigation showed that <a
-        href="figma.com/exit?url=https%3A%2F%2Fwww.shomrim.news%2Fhebrew%2Fpolice-under-warning"
+        href="https://www.shomrim.news/hebrew/police-under-warning"
         target="_blank"
         >political corruption in Israel had not disappeared — rather, police investigations into it
         had</a
