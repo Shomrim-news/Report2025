@@ -99,7 +99,7 @@
   </p>
 {/if}
 
-<div class="inner-container legend-description mt-5">
+<div class="inner-container legend-description mt-5 mb-5 lg:mb-0">
   Watch the canvas fill band by band, bottom to top. Within each band, stories appear month by
   month, January through December. The lower band holds stories Shomrim brought into the public
   space, the middle those that reached other media, and the top those that triggered response. The

@@ -69,7 +69,7 @@
   </p>
 {/if}
 
-<div class="inner-container legend-description mt-5">
+<div class="inner-container legend-description mt-5 mb-5 lg:mb-0">
   In 2025 Shomrim published 175 investigations. Each mark on the canvas represents a story: equal in
   presence, but each carrying its own weight, urgency, and outcome. Together, they trace a year of
   reporting. By hovering on any mark, you can discover the story behind it. Click on it to explore

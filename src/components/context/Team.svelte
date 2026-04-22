@@ -358,8 +358,8 @@
       width: auto;
       flex: 1;
       min-width: 0;
-      padding-left: 24px;
-      padding-right: 24px;
+      padding-left: 16px;
+      padding-right: 16px;
     }
     .audit-row {
       flex-direction: column;

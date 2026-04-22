@@ -136,7 +136,7 @@
     </div>
   </div>
 </div>
-<div class="inner-container legend-description mt-5">{text}</div>
+<div class="inner-container legend-description mt-5 mb-5 lg:mb-0">{text}</div>
 
 <style>
   .themes-border {
