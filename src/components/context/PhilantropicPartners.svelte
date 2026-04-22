@@ -74,7 +74,7 @@
     grid-area: friends;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1279px) {
     .partners-container {
       display: flex;
       flex-direction: column;

@@ -3,12 +3,12 @@
   In 2025, Shomrim operated with a total budget of <span class="font-medium">$2,694,500</span>,
   supporting its investigative reporting operations and editorial work.
 </div>
-<div class="flex flex-col sm:flex-row sm:gap-x-20.25">
+<div class="flex flex-col lg:flex-row lg:gap-x-20.25">
   <div>
     <h3>Income</h3>
     <div class="w-full max-w-115">
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
-        <div class="leading-6.5 relative -top-2.5 md:-top-3">
+        <div class="leading-6.5 relative -top-2.5 xl:-top-3">
           <div>Laura and Gary Lauder</div>
           <div>Family Venture Philanthropy Fund</div>
         </div>
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div class="hidden sm:block text-sm leading-xs text-grey-800 tracking-[2%] mt-8 md:mt-26.75">
+      <div class="hidden lg:block text-sm leading-xs text-grey-800 tracking-[2%] mt-8 lg:mt-26.75">
         <div>USD Conversion Rate: 3.6</div>
         <div>* All figures as of January 2026, before financial audit</div>
         <div>** In 2025, reserves grew to include legal and operational reserves</div>
@@ -85,7 +85,7 @@
   </div>
 </div>
 
-<div class="sm:hidden text-sm leading-xs text-grey-800 tracking-[2%] mt-8 note">
+<div class="lg:hidden text-sm leading-xs text-grey-800 tracking-[2%] mt-8 note">
   <div class="note">USD Conversion Rate: 3.6</div>
   <div class="note">* All figures as of January 2026, before financial audit</div>
   <div class="note">** In 2025, reserves grew to include legal and operational reserves</div>
@@ -100,9 +100,9 @@
     margin-top: 48px;
     margin-bottom: 4px;
   }
-  @media (min-width: 640px) {
+  @media (min-width: 1024px) {
     h3.expenses {
-      margin-top: 0;
+      margin-top: 39px;
       margin-bottom: 32px;
     }
     div:not(.note) {

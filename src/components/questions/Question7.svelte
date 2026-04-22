@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
+    <div class="mt-6 min-[900px]:mt-3 min-[900px]:mb-13 order-first min-[900px]:order-last">
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes

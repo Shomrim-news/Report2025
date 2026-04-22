@@ -340,23 +340,33 @@
       grid-template-columns: repeat(2, 273px);
     }
   }
-  @media (max-width: 580px) {
+  @media (max-width: 1279px) {
+    .grid {
+      grid-template-columns: repeat(2, 273px);
+    }
+  }
+  @media (max-width: 880px) {
     .founders-grid {
       grid-template-columns: 1fr;
     }
-    .grid {
-      grid-template-columns: 273px;
-    }
     .card-lg {
       width: 100%;
+      max-width: 409px;
     }
     .card-lg .team-info {
       width: auto;
       flex: 1;
       min-width: 0;
+      padding-left: 24px;
+      padding-right: 24px;
     }
     .audit-row {
       flex-direction: column;
+    }
+  }
+  @media (max-width: 580px) {
+    .grid {
+      grid-template-columns: 273px;
     }
   }
   @media (max-width: 400px) {

@@ -71,7 +71,7 @@
         {#if canvasVisible}
           <div
             in:fly={{ y: -6, duration: 2000, delay: 0 }}
-            class="absolute top-6 left-2 flex flex-col gap-2 md:hidden"
+            class="absolute top-6 left-2 flex flex-col gap-2 min-[900px]:hidden"
           >
             <div class="flex items-center gap-2">
               <div>Swipe each canvas to explore</div>
@@ -85,7 +85,7 @@
         {/if}
       </div>
     </div>
-    <div class="mt-6 md:mt-3 md:mb-13 order-first md:order-last">
+    <div class="mt-6 min-[900px]:mt-3 min-[900px]:mb-13 order-first min-[900px]:order-last">
       <Question1Legend />
     </div>
   </div>

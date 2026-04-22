@@ -24,11 +24,11 @@
 </script>
 
 <div
-  class="pb-3 border-grey-200 text-color-grey-800 {isOpen ? 'md:-mt-4' : 0}"
+  class="pb-3 border-grey-200 text-color-grey-800 {isOpen ? 'xl:-mt-4' : 0}"
   style="border-bottom: 0.5px solid;"
 >
   <div class="w-full">
-    <div class="flex items-start md:items-end md:items-end md:gap-12.5 w-full">
+    <div class="flex items-start xl:items-end xl:gap-12.5 w-full">
       <button class="flex items-center gap-3 cursor-pointer" onclick={() => (isOpen = !isOpen)}>
         <span class="h-7.5 rounded-[7px] bg-beige-200 flex items-center justify-center gap-1.5 w-8">
           <span
@@ -49,7 +49,7 @@
 
       {#if isOpen}
         <div
-          class="flex flex-col md:flex-row md:items-end md:justify-between flex-1 min-w-0 gap-6.25 md:gap-0"
+          class="flex flex-col xl:flex-row xl:items-end xl:justify-between flex-1 min-w-0 gap-6.25 xl:gap-0"
           in:fade={{ duration: 300, delay: 50 }}
         >
           <div class="flex items-end gap-6.75 shrink-0">
@@ -106,7 +106,7 @@
 
           <!-- Themes -->
           <div
-            class="-ml-8 pl-8 md:ml-0 md:pl-0 grid grid-cols-2 gap-y-6.25 pt-8 pb-5 border-t border-grey-200 md:border-t-0 md:pt-0 mg:pb-0 md:flex md:items-end md:gap-4 themes-border"
+            class="-ml-8 pl-8 xl:ml-0 xl:pl-0 flex flex-wrap items-end gap-y-6.25 gap-x-6 pt-8 pb-5 border-t border-grey-200 xl:border-t-0 xl:pt-0 xl:pb-0 xl:gap-4 themes-border"
           >
             {#each themes as theme}
               <button
@@ -142,7 +142,7 @@
   .themes-border {
     border-top-width: 0.5px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 1280px) {
     .themes-border {
       border-top-width: 0;
     }

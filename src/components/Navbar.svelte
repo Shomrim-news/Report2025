@@ -89,7 +89,7 @@
   <div class="inner-container h-16 flex items-center">
     <!-- Desktop nav (md and up) -->
     <div
-      class="hidden md:flex items-center w-full font-medium text-[16px] leading-5 tracking-[2%] text-grey-800"
+      class="hidden xl:flex items-center w-full font-medium text-[16px] leading-5 tracking-[2%] text-grey-800"
     >
       {#if !scrolled || menuExpanded}
         <nav class="flex gap-16 items-center flex-1">
@@ -125,7 +125,7 @@
     </div>
 
     <!-- Mobile nav (below md) -->
-    <div class="flex md:hidden items-center w-full">
+    <div class="flex xl:hidden items-center w-full">
       {#if scrolled}
         <span class="text-sm truncate flex-1 min-w-0 mr-4">
           {#if activeSection === 'questions'}
