@@ -221,6 +221,7 @@
   let defaultLayerRefs = [];
   let themeLayerRefs = atoms.map(() => []);
   let cyclingTls = [];
+  let themeCycleTimer;
 
   let animationReady = $state(false);
   let initialRevealDone = false;
@@ -399,6 +400,7 @@
 
     cyclingTls.forEach((tl) => tl.kill());
     cyclingTls = [];
+    clearTimeout(themeCycleTimer);
 
     if (!isActive) {
       if (wasThemesActive) {
@@ -411,6 +413,7 @@
       }
       wasThemesActive = false;
     } else {
+      const THEME_DELAY = 2;
       wasThemesActive = true;
       initialRevealDone = true;
       atoms.forEach((_, atomIdx) => {
@@ -426,18 +429,19 @@
             });
           });
         } else {
-          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, delay: THEME_DELAY, overwrite: 'auto' });
           const firstActiveTid = themes.find((t) => activeTids.includes(t.id))?.id;
           tids.forEach((tid, t) => {
             gsap.to(themeLayerRefs[atomIdx][t], {
               opacity: tid === firstActiveTid ? 1 : 0,
               duration: FADE_DUR,
+              delay: THEME_DELAY,
               overwrite: 'auto',
             });
           });
         }
       });
-      startCyclingForActive(active);
+      themeCycleTimer = setTimeout(() => startCyclingForActive(active), THEME_DELAY * 1000);
     }
   });
 

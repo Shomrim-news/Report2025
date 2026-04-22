@@ -216,6 +216,7 @@
   let themeLayerRefs = atoms.map(() => []);
   let cyclingTls = [];
   let driftTls = [];
+  let themeCycleTimer;
 
   // Exception atoms: counted in one band but visually drift toward an adjacent band
   const exceptionAtomIndices = [
@@ -428,9 +429,11 @@
 
     const isActive = active.size > 0;
     const FADE_DUR = !initialRevealDone ? 1.5 : 0.45;
+    const THEME_DELAY = 2;
 
     cyclingTls.forEach((tl) => tl.kill());
     cyclingTls = [];
+    clearTimeout(themeCycleTimer);
 
     if (!isActive) {
       if (wasThemesActive) {
@@ -461,19 +464,20 @@
             });
           });
         } else {
-          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, overwrite: 'auto' });
+          gsap.to(defaultLayerRefs[atomIdx], { opacity: 0, duration: FADE_DUR, delay: THEME_DELAY, overwrite: 'auto' });
           const firstActiveTid = themes.find((t) => activeTids.includes(t.id))?.id;
           tids.forEach((tid, t) => {
             gsap.to(themeLayerRefs[atomIdx][t], {
               opacity: tid === firstActiveTid ? 1 : 0,
               duration: FADE_DUR,
+              delay: THEME_DELAY,
               overwrite: 'auto',
             });
           });
         }
       });
 
-      startCyclingForActive(active);
+      themeCycleTimer = setTimeout(() => startCyclingForActive(active), THEME_DELAY * 1000);
     }
   });
 
