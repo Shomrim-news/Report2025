@@ -106,7 +106,7 @@
 
           <!-- Themes -->
           <div
-            class="-ml-8 pl-8 xl:ml-0 xl:pl-0 flex flex-wrap items-end gap-y-6.25 gap-x-6 pt-8 pb-5 border-t border-grey-200 xl:border-t-0 xl:pt-0 xl:pb-0 xl:gap-4 themes-border"
+            class="-ml-8 pl-8 xl:ml-24 xl:pl-0 flex flex-wrap items-end gap-y-6.25 gap-x-6 pt-8 pb-5 border-t border-grey-200 xl:border-t-0 xl:pt-0 xl:pb-0 xl:gap-4 themes-border"
           >
             {#each themes as theme}
               <button
