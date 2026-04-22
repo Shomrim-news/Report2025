@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="w-full max-w-115">
     <h3 class="expenses">Expenses</h3>
     <div class="w-full max-w-115">
       <div class="pr-6.5 flex justify-between border-b-[0.5px] border-beige-600 h-17 items-center">
