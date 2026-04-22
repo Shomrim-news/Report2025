@@ -49,7 +49,7 @@
   });
 </script>
 
-<div bind:this={sectionEl} class="mb-35">
+<div bind:this={sectionEl}>
   <div class="inner-container">
     <h2>This is Shomrim's newsroom in 2025</h2>
   </div>
@@ -57,7 +57,7 @@
     <div class="overflow-x-auto -mt-10 pt-10">
       <div
         bind:this={canvasEl}
-        class="mt-10.5 relative min-w-225"
+        class="mt-2 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
       >

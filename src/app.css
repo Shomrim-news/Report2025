@@ -98,7 +98,7 @@
   h2 {
     margin: 55px 0 12px;
     font-size: var(--text-lg);
-    line-height: 2.4rem;
+    line-height: 1.45;
     color: var(--color-grey-800);
     letter-spacing: -1%;
   }
@@ -118,7 +118,7 @@
   }
 
   .quote {
-    margin: 28px 0;
+    margin: 28px 0 0;
     padding: 17px 20px;
     font-family: var(--font-title);
     font-size: var(--text-md);
@@ -169,7 +169,6 @@
     h2 {
       margin: 116px 0 46px;
       font-size: var(--text-xl);
-      line-height: var(--leading-xl);
     }
 
     .as-h1 {

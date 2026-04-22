@@ -582,10 +582,10 @@
         style:background-color={themes.find((theme) => theme.id === activeThemeId)?.color}
       ></div>
       <div class="flex flex-col -mb-1 text-[16px]">
-        <div class="font-semibold leading-8.5">
+        <div class="font-medium text-[16px] leading-8.5 text-grey-800 tracking-[3%]">
           {activeThemeName}
         </div>
-        <div class="text-grey-800 leading-5">
+        <div class="text-grey-800 leading-5 tracking-[3%]">
           {activeThemeStories} stories · {activeThemePct}% of total stories
         </div>
       </div>

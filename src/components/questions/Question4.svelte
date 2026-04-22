@@ -27,14 +27,14 @@
   });
 </script>
 
-<div bind:this={sectionEl} class="mb-35">
+<div bind:this={sectionEl}>
   <div class="inner-container">
     <h2>What kinds of journalism did this year require?</h2>
   </div>
   <div class="flex flex-col">
     <div class="overflow-x-auto overflow-y-hidden">
       <div
-        class="mt-10.5 relative min-w-225"
+        class="mt-2 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
       >
@@ -50,7 +50,7 @@
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes
-        text="Watch five story types take shape, bottom to top — each one reflecting a different way of working. From the speed of short-term investigations to the patience of explanatory journalism, every band reflects what that story demanded. Within each band, stories appear month by month, January through December. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+        text="Watch five story types take shape, bottom to top — each one reflecting a different way of working. From the speed of short-term investigations to the patience of explanatory journalism, every band reflects what that story demanded. Within each band, stories appear month by month, January through December. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it further."
       />
     </div>
   </div>

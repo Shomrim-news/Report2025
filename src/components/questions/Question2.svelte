@@ -26,7 +26,7 @@
   });
 </script>
 
-<div bind:this={sectionEl} class="mb-35">
+<div bind:this={sectionEl}>
   <div class="inner-container">
     <h2>
       Different layers of impact: Where did reporting remain in the public space, and where did it
@@ -36,7 +36,7 @@
   <div class="flex flex-col">
     <div class="overflow-x-auto overflow-y-hidden">
       <div
-        class="mt-10.5 relative min-w-225"
+        class="mt-2 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
       >

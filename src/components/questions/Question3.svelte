@@ -32,14 +32,14 @@
   });
 </script>
 
-<div bind:this={sectionEl} class="mb-35">
+<div bind:this={sectionEl}>
   <div class="inner-container">
     <h2>Which themes shaped Shomrim's investigations in 2025?</h2>
   </div>
   <div class="flex flex-col">
     <div class="overflow-x-auto overflow-y-hidden">
       <div
-        class="mt-10.5 relative min-w-225"
+        class="mt-2 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
       >
@@ -59,7 +59,7 @@
     <div class="mt-6 min-[900px]:mt-3 min-[900px]:mb-13 order-first min-[900px]:order-last">
       <QuestionLegend
         bind:activeThemes
-        text="Watch each theme emerge and find its stories — eight themes, each in its own color. Stories shared between themes shift and cycle, reflecting the reality that no investigation lives in just one world. Click any theme to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+        text="In 2025, eight key themes emerged in Shomrim’s reporting — each represented by its own color. Many stories span more than one theme, reflecting the reality that no investigation exists in isolation. Click any theme in the legend to show or hide it. Hover any mark to discover the story behind it, click on it to explore further."
       />
     </div>
   </div>

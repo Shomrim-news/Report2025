@@ -27,14 +27,14 @@
   });
 </script>
 
-<div bind:this={sectionEl} class="mb-35">
+<div bind:this={sectionEl}>
   <div class="inner-container">
     <h2>Can empathy be another means of impact?</h2>
   </div>
   <div class="flex flex-col">
     <div class="overflow-x-auto overflow-y-hidden min-[900px]:overflow-visible">
       <div
-        class="mt-10.5 relative min-w-225"
+        class="mt-2 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
       >
@@ -50,7 +50,7 @@
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes
-        text="Three groups, one spectrum — from policy and power on the left, to lived human experience on the right, with the stories where systems and lives collide in between. Watch each group emerge and fill with its stories. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+        text="Three groups, one spectrum — from policy and power on the left, to lived human experience on the right, with the stories where systems and lives collide in between. Watch each group emerge and fill with its stories. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it further."
       />
     </div>
   </div>

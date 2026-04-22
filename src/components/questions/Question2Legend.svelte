@@ -82,7 +82,7 @@
 
     {#if isOpen}
       <div
-        class="hidden xl:block legend-description max-w-135 self-start mt-20"
+        class="hidden xl:block legend-description max-w-138 self-start mt-20"
         in:fade={{ duration: 300, delay: 50 }}
       >
         A story's halo reflects its impact — from media attention to real-world change. Some stories
@@ -104,5 +104,5 @@
   month, January through December. The lower band holds stories Shomrim brought into the public
   space, the middle those that reached other media, and the top those that triggered response. The
   larger a story's halo, the wider its real-world resonance. Hover any mark to discover the story
-  behind it, click to explore it online.
+  behind it, click to explore it further.
 </div>

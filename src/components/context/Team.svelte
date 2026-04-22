@@ -7,12 +7,12 @@
     },
     {
       name: 'Ilana Dayan',
-      title: 'Journalist, host of Channel 12 investigative TV show Uvda',
+      title: 'Journalist, host of Channel 12\ninvestigative TV show Uvda',
       photo: '/photos/advisory/Ilana_Dayan.jpg',
     },
     {
       name: 'Raviv Drucker',
-      title: 'Journalist, Political Commentator; Host, investigative TV program HaMakor',
+      title: 'Journalist, Political Commentator;\nHost, TV program HaMakor',
       photo: '/photos/advisory/Raviv_Druker.jpg',
     },
     {
@@ -22,12 +22,12 @@
     },
     {
       name: 'David Horovitz',
-      title: 'Journalist, Founding Editor of Jerusalem-based news website The Times of Israel',
+      title: 'Journalist & Founding Editor,\nThe Times of Israel',
       photo: '/photos/advisory/David_Horovitz.jpg',
     },
     {
       name: 'Isaac Lee',
-      title: 'Journalist, Entrepreneur, and Film & Television Producer',
+      title: 'Journalist, Entrepreneur,\nFilm & Television Producer',
       photo: '/photos/advisory/Isaac_Lee.jpg',
     },
     {
@@ -57,7 +57,7 @@
     },
     {
       name: 'Ellen Weiss',
-      title: 'Chief of the Washington Bureau and Vice President of The E. W. Scripps Company',
+      title: 'Chief of the Washington Bureau,\nVP, The E. W. Scripps Company',
       photo: '/photos/advisory/Ellen_Weiss.jpg',
     },
     {
@@ -67,7 +67,7 @@
     },
     {
       name: 'Guy Zohar',
-      title: "Journalist, News Presenter, TV Show Host, Me'hatsad Hasheni on KAN 11 channel",
+      title: 'Journalist, News Presenter,\nTV Host, Me’hatsad Hasheni, KAN 11',
       photo: '/photos/advisory/Guy_Zohar.jpg',
     },
   ];
@@ -85,7 +85,7 @@
     },
     {
       name: 'Yoel Esteron',
-      title: 'Founder & Publisher, Calcalist; Chairman, Center for Media and Democracy',
+      title: 'Founder & Publisher, Calcalist; Chair,\nCenter for Media and Democracy',
       photo: '/photos/founders_board/Yoel_Esteron.jpg',
     },
     {
@@ -110,7 +110,7 @@
     },
     {
       name: 'Prof. Moshe Zviran',
-      title: 'Coller School of Management at Tel Aviv University',
+      title: 'Coller School of Management\nat Tel Aviv University',
       photo: '/photos/founders_board/Prof_Moshe_Zviran.jpg',
     },
   ];
@@ -135,7 +135,7 @@
     },
     {
       name: 'Dita Kohl-Roman',
-      title: 'Resource Development Senior Advisor',
+      title: 'Resource Development\nSenior Advisor',
       photo: '/photos/team/Dita_Kohl_Roman.jpg',
     },
     {
@@ -146,13 +146,13 @@
     { name: 'Haim Rivlin', title: 'Investigative Reporter', photo: '/photos/team/Haim_Rivlin.jpg' },
     {
       name: 'Mayan Rodeh',
-      title: 'Editor and Content Growth Manager',
+      title: 'Editor and Content\nGrowth Manager',
       photo: '/photos/team/Mayan_Rodeh.jpg',
     },
     { name: 'Shuki Sadeh', title: 'Investigative Reporter', photo: '/photos/team/Shuki_Sadeh.jpg' },
     {
       name: 'Ron Schwartz',
-      title: 'Deputy Editor and Head of Digital',
+      title: 'Deputy Editor and\nHead of Digital',
       photo: '/photos/team/Ron_Schwartz.jpg',
     },
     { name: 'Doron Sela', title: 'COO', photo: '/photos/team/Doron_Sela.jpg' },
@@ -327,6 +327,7 @@
     font-style: italic;
     letter-spacing: 2%;
     color: var(--color-grey-400);
+    white-space: pre-line;
   }
 
   /* ── Responsive overrides (must come after base styles) ── */

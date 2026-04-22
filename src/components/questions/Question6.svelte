@@ -27,14 +27,14 @@
   });
 </script>
 
-<div bind:this={sectionEl} class="mb-35">
+<div bind:this={sectionEl}>
   <div class="inner-container">
     <h2>How do you turn reporting into accountability?</h2>
   </div>
   <div class="flex flex-col">
     <div class="overflow-x-auto overflow-y-hidden">
       <div
-        class="mt-10.5 relative min-w-225"
+        class="mt-2 relative min-w-225"
         bind:clientWidth={containerWidth}
         bind:clientHeight={containerHeight}
       >
@@ -50,7 +50,7 @@
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes
-        text="Watch the canvas fill band by band, bottom to top — this time, only the 25 stories Shomrim returned to after first publication. Within each band, stories appear month by month, January through December. The lower band holds follow-ups that kept an issue in the public space, the middle those that reached other media, and the top those that triggered real response. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it online."
+        text="Watch the canvas fill band by band, bottom to top — this time, only the 25 stories Shomrim returned to after first publication. Within each band, stories appear month by month, January through December. The lower band holds follow-ups that kept an issue in the public space, the middle those that reached other media, and the top those that triggered real response. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it further."
       />
     </div>
   </div>
