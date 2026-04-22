@@ -52,6 +52,7 @@
     color: var(--color-text);
     font-size: var(--text-md);
     line-height: var(--leading-md);
+    overflow-x: hidden;
   }
 
   [id] {

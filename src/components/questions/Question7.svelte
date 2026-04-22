@@ -32,7 +32,7 @@
     <h2>Can empathy be another means of impact?</h2>
   </div>
   <div class="flex flex-col">
-    <div class="overflow-x-auto overflow-y-hidden">
+    <div class="overflow-x-auto overflow-y-hidden min-[900px]:overflow-visible">
       <div
         class="mt-10.5 relative min-w-225"
         bind:clientWidth={containerWidth}

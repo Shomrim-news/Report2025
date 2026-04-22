@@ -87,7 +87,7 @@
     background-image: url('../../lib/assets/logo_2.svg');
     background-repeat: no-repeat;
     background-size: 260px auto;
-    background-position: 308px 426px;
+    background-position: 340px 444px;
     opacity: 0.68;
     pointer-events: none;
   }
