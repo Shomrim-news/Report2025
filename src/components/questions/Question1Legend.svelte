@@ -7,11 +7,11 @@
 </script>
 
 <div
-  class="pb-3 border-grey-200 text-color-grey-800 {isOpen ? 'xl:pt-13.5' : ''}"
+  class="pb-3 border-grey-200 text-color-grey-800 {isOpen ? '2xl:pt-13.5' : ''}"
   style="border-bottom: 0.5px solid;"
 >
-  <div class="xl:grid xl:items-end" style="grid-template-columns: 1fr auto 1fr;">
-    <div class="flex items-start xl:items-end gap-12.5 w-full">
+  <div class="2xl:grid 2xl:items-end" style="grid-template-columns: 1fr auto 1fr;">
+    <div class="flex items-start 2xl:items-end gap-12.5 w-full">
       <button class="flex items-center gap-3 cursor-pointer" onclick={() => (isOpen = !isOpen)}>
         <span class="h-7.5 rounded-[7px] bg-beige-200 flex items-center justify-center gap-1.5 w-8">
           <span
@@ -31,19 +31,19 @@
       </button>
 
       {#if isOpen}
-        <div class="flex flex-1 min-w-0 gap-8 xl:gap-17" in:fade={{ duration: 300, delay: 50 }}>
+        <div class="flex flex-1 min-w-0 gap-8 2xl:gap-17" in:fade={{ duration: 300, delay: 50 }}>
           <div class="relative flex flex-col items-center shrink-0" style="overflow: visible;">
             <img src={Atom} alt="Atom icon" class="w-14.5 h-22.5 opacity-68" />
             <div class="uppercase text-xs leading-lg tracking-[4%]">story</div>
 
             <div class="absolute top-10.75 left-7.75">
-              <div class="w-10 xl:w-19.5 h-[0.5px] bg-grey-200"></div>
+              <div class="w-10 2xl:w-19.5 h-[0.5px] bg-grey-200"></div>
               <div
                 class="absolute top-[-2.5px] right-[-2.5px] w-1.25 h-1.25 bg-grey-300 rounded-full"
               ></div>
             </div>
           </div>
-          <div class="text-sm leading-lg italic tracking-[3%] max-w-30 xl:max-w-35 mt-6 flex-1">
+          <div class="text-sm leading-lg italic tracking-[3%] max-w-30 2xl:max-w-35 mt-6 flex-1">
             One ink mark is one published story
           </div>
         </div>
@@ -52,7 +52,7 @@
 
     {#if isOpen}
       <div
-        class="hidden xl:block legend-description max-w-135 self-start mt-4.5"
+        class="hidden 2xl:block legend-description max-w-135 self-start mt-4.5"
         in:fade={{ duration: 300, delay: 50 }}
       >
         This legend explains every visual element you'll encounter. It evolves as you move through
@@ -63,7 +63,7 @@
 </div>
 
 {#if isOpen}
-  <p class="xl:hidden legend-description mt-5">
+  <p class="2xl:hidden inner-container legend-description mt-5">
     This legend explains every visual element you'll encounter. It evolves as you move through the
     report. Below, a short guide walks you through each canvas.
   </p>
