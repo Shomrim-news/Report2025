@@ -51,7 +51,7 @@
       <QuestionLegend
         defaultOpen={false}
         bind:activeThemes
-        text="Watch five story types take shape, bottom to top — each one reflecting a different way of working. From the speed of short-term investigations to the patience of explanatory journalism, every band reflects what that story demanded. Within each band, stories appear month by month, January through December. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it further."
+        text="Watch five story types take shape, bottom to top — each one reflecting a different way of working. From the speed of short-term investigations to the patience of explanatory journalism, every band reflects what that story demanded. Within each band, stories appear month by month, January through December. Some stories move between bands, showing the versatility of Shomrim's work. Click any theme spot in the legend to show or hide it. Hover any mark to discover the story behind it, click to explore it further."
       />
     </div>
   </div>
