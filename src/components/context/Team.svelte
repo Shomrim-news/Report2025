@@ -206,7 +206,7 @@
   {/each}
 </div>
 
-<h3 style="margin: 122px 0 60px;">Founders and Board Staff Members</h3>
+<h3 style="margin: 122px 0 60px;">Founders and Board Members</h3>
 <div class="founders-grid">
   {#each founders as member}
     <div class="card card-lg">

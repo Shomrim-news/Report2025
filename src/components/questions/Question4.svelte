@@ -73,7 +73,7 @@
         target="_blank">long-form investigation into a black market for dangerous drugs</a
       >
       - required sustained, meticulous reporting. A fast-moving investigation into a
-      <a href="https://www.shomrim.news/hebrew/water-pollution" target="_blank"
+      <a href="https://www.shomrim.news/eng/a-reservoir-in-peril" target="_blank"
         >pollution threat to a major water reservoir</a
       > led to a Knesset committee discussion within weeks, while still requiring ongoing follow-up.
     </p>
@@ -83,7 +83,7 @@
         target="_blank">Nova Festival survivors</a
       >
       demanded time and close engagement to document their ongoing struggles.
-      <a href="https://www.shomrim.news/hebrew/ktzaa-mevaker-report" target="_blank"
+      <a href="https://www.shomrim.news/eng/nova-survivors-struggles" target="_blank"
         >A follow-up on safety failures in the Eilat-Ashkelon pipeline</a
       >
       required persistence in revisiting an issue the system might have preferred to overlook, until

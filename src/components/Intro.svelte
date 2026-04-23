@@ -38,8 +38,11 @@
             <p>
               At the core of Shomrim’s founding model is the ambition to drive meaningful change by
               making reliable, in-depth information accessible to the public, enabling citizens to
-              demand accountability from those in power. To achieve this goal, Shomrim operates under
-              a model that is unique within the Israeli media landscape.
+              demand accountability from those in power. To achieve this goal, Shomrim operates
+              under a model that is unique within the Israeli media landscape. It is Israel’s only
+              nonprofit newsroom, and its investigations are published through partnerships with
+              other media outlets, allowing the stories to reach wide audiences and significantly
+              amplify their impact.
             </p>
             <h3>Beyond publication</h3>
             <p>
@@ -47,8 +50,12 @@
               midpoint of the investigative process. With the goal of driving meaningful, real-world
               change, Shomrim actively follows each investigation beyond the initial report, working
               to ensure that findings reach centers of power - decision-makers, regulators and
-              influential actors in civil society - who are positioned to advance reform, correction,
-              and accountability.
+              influential actors in civil society - who are positioned to advance reform,
+              correction, and accountability. To support this work, Shomrim has developed a distinct
+              impact model within the Israeli media landscape. This model systematically tracks the
+              consequences of our reporting after publication, identifies opportunities for
+              follow-up, and sustains pressure where needed - recognizing that accountability is
+              often achieved not through a single story, but through continued engagement over time.
             </p>
           </div>
         {/if}

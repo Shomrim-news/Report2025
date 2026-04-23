@@ -64,7 +64,7 @@
     <p>
       In 2025, 78 stories reached the level of public exposure. For example, a February
       investigation showed that <a
-        href="https://www.shomrim.news/hebrew/police-under-warning"
+        href="https://www.shomrim.news/eng/police-under-caution"
         target="_blank"
         >political corruption in Israel had not disappeared — rather, police investigations into it
         had</a
@@ -73,13 +73,18 @@
       <a href="https://www.shomrim.news/hebrew/american-base-gaza-border" target="_blank"
         >Shomrim’s reporting on U.S. plans for a military base near Gaza</a
       >
-      was followed up by Bloomberg and published in Yedioth Ahronoth and Calcalist. At the highest level,
-      some investigations led to concrete outcomes, showing Accountability in Action.
+      was followed up by Bloomberg and published in Yedioth Ahronoth,
+      <a
+        href="https://www.timesofisrael.com/liveblog_entry/us-said-planning-to-build-major-base-near-gaza-for-international-forces/"
+        target="_blank">The Times of Israel</a
+      >
+      and Calcalist. At the highest level, some investigations led to concrete outcomes, showing Accountability
+      in Action.
       <a href="https://www.shomrim.news/hebrew/ari-arms-cancelled" target="_blank"
         >A conflict-of-interest exposé in a Defense Ministry procurement</a
       >
       process resulted in the cancellation of a tender, while reporting on
-      <a href="https://www.shomrim.news/hebrew/periphery-collapse" target="_blank"
+      <a href="https://www.shomrim.news/eng/crashing-in-the-periphery" target="_blank"
         >hospital wards and medical residents in Israel’s periphery</a
       > prompted the Ministry of Health to establish a working group to reform the residency system.
     </p>

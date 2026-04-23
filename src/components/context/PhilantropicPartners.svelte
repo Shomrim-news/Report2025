@@ -30,7 +30,7 @@
       <li>Libitzky Family Foundation, San Francisco, CA</li>
       <li>LSE & Google News Initiative</li>
       <li>The Meyer and Deanne Sharlin Foundation, Bethesda, MD</li>
-      <li>March & Lauren Shenfield</li>
+      <li>Marc and Lauren Shenfield</li>
       <li>Anonymous</li>
     </ul>
   </div>
@@ -38,7 +38,7 @@
   <div class="friends-section">
     <h3 class="mt-24.25 mb-2.5">Friends</h3>
     <ul class="w-full">
-      <li>Doris Arkin</li>
+      <li>Arkin Family Foundation</li>
       <li>Karen Falk and Michael Goldman</li>
       <li>Valerie Feigen and Steven Eisman</li>
     </ul>
