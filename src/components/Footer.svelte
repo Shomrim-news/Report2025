@@ -13,8 +13,16 @@
       >
     </div>
     <div class="flex flex-col gap-2">
-      <div>Data Storytelling & Design: <a href="mailto:inbalrief@gmail.com">Inbal Rief</a></div>
-      <div>Development: <a href="mailto:hello@annemariedufour.com">Anne-Marie Dufour</a></div>
+      <div>
+        Data Storytelling & Design: <a class="decoration-1" href="mailto:inbalrief@gmail.com"
+          >Inbal Rief</a
+        >
+      </div>
+      <div>
+        Development: <a class="decoration-1" href="mailto:hello@annemariedufour.com"
+          >Anne-Marie Dufour</a
+        >
+      </div>
     </div>
   </div>
 </footer>
