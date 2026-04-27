@@ -4,7 +4,7 @@
   import Intro from '../components/Intro.svelte';
   import Questions from '../components/questions/Questions.svelte';
   import Context from '../components/context/Context.svelte';
-  import Footer from './Footer.svelte';
+  import Footer from '../components/Footer.svelte';
 
   let menuOpen = $state(false);
 </script>
