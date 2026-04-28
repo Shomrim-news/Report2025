@@ -21,7 +21,7 @@
 <h3>AI in the Newsroom - developing a unique tool to identify biases and missing information</h3>
 <p>
   In 2025, Shomrim also continued its work on developing AI tools for the newsroom. In addition to a
-  grant received from the London School of Economics (LSE) and the Google News Initiative, the David
+  grant received from the London School of Economics (LSE) and the Google News Initiative, the Dan
   David Foundation joined in supporting the development of an AI tool designed to assess the
   reliability of sources and journalistic writing. The tool aims to identify biases and logical gaps
   that journalists may overlook, thereby strengthening the credibility of journalistic texts and

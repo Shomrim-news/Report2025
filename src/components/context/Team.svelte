@@ -113,6 +113,11 @@
       title: 'Coller School of Management\nat Tel Aviv University',
       photo: '/photos/founders_board/Prof_Moshe_Zviran.jpg',
     },
+    {
+      name: 'Vivian Schiller',
+      title: 'VP & Executive Director, Aspen Institute',
+      photo: '/photos/advisory/Vivian_Schiller.jpg',
+    },
   ];
 
   const team2 = [
